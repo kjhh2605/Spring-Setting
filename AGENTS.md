@@ -9,6 +9,7 @@
 - 조사·검토·진단은 읽기와 검증으로 답하고, 수정 요청은 구현·검증까지 완료합니다. 관례로 정할 수 있는 세부사항은 진행하고, 결과를 크게 바꾸는 미결정 사항만 질문하되 독립적으로 가능한 작업은 먼저 마칩니다.
 - 완료 의무를 배포·게시·PR 생성/병합·데이터 삭제 권한으로 확대하지 않습니다. 막히면 완료한 준비와 필요한 결정을 알립니다. 지침이 원인이면 파일·해당 규칙·충돌을 밝히고 명시 요구와 해석을 구분합니다.
 - 위임은 허용된 경우에만 독립 작업·파일 소유권을 정해 사용합니다. 다른 작업자의 변경을 보존하고 주 에이전트가 결과를 검토합니다. 간단한 작업에 위임을 강제하지 않습니다.
+- 같은 문제의 재발이나 여러 해결 접근의 실패로 반복 조사한 경우, 작업 마무리 전에 [트러블슈팅 안내](docs/troubleshooting/README.md)에 따라 재사용 가능한 발견을 별도 요청 없이 기록·갱신합니다.
 
 ## 읽기 경로
 
@@ -25,6 +26,7 @@
 | OpenAPI 계약 | [OpenAPI](docs/conventions/openapi-conventions.md) |
 | 테스트 작성·실행, CI | [테스트](docs/conventions/testing.md); 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
 | 실행·환경 문제 | [README](README.md), [온보딩](docs/onboarding/README.md) |
+| 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
 | 작업 유형·이슈·라벨·PR 작성·리뷰와 양식 | [GitHub 작업 가이드](docs/conventions/github-workflow.md) |
 | 구조·정책 | [템플릿 아키텍처 결정](docs/adr/001-template-architecture.md) |
 

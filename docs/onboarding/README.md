@@ -60,6 +60,8 @@ curl http://localhost:9090/actuator/health
 
 ## 문제 해결
 
+반복 조사로 확인된 상세 사례는 [트러블슈팅 색인](../troubleshooting/README.md)을 확인합니다.
+
 - `All tests must run` 또는 컨테이너 테스트 건너뛰기: Docker daemon과 비활성화된 테스트를 확인합니다. 세부 [전체 실행 정책](../conventions/testing.md)을 우회하지 않습니다.
 - DB 연결 실패: `.env`의 포트와 `docker compose ps`를 비교합니다.
 - QueryDSL 타입 누락: `./gradlew compileJava` 후 IDE의 Gradle 모델을 다시 불러옵니다.
