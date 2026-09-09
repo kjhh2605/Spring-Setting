@@ -9,4 +9,4 @@
 
 ## 집중 검증
 
-계약·응답·보안·OpenAPI·비동기 변경은 [공통 검사 표](../../../../../../docs/conventions/testing.md#아키텍처와-집중-검사)의 해당 테스트를 실행합니다. 프로필 변경은 `com.example.shared.internal.config.ApplicationProfileConfigurationTest`도 포함합니다.
+계약·응답·보안·OpenAPI·비동기 변경은 [공통 검사 표](../../../../../../docs/conventions/testing.md)의 해당 테스트를 실행합니다. 프로필 변경은 `com.example.shared.internal.config.ApplicationProfileConfigurationTest`도 포함합니다.

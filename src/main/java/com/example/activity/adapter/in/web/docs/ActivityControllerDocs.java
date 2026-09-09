@@ -3,7 +3,7 @@ package com.example.activity.adapter.in.web.docs;
 import jakarta.validation.constraints.Positive;
 
 import com.example.activity.adapter.in.web.ActivityDescriptionResponse;
-import com.example.activity.application.ActivityErrorCode;
+import com.example.activity.application.error.ActivityErrorCode;
 import com.example.shared.error.CommonErrorCode;
 import com.example.shared.openapi.ApiErrorCodes;
 

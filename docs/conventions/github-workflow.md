@@ -81,13 +81,13 @@ PR의 대표 라벨은 제목 유형과 일치시킵니다. 예를 들어 `fix(u
 | `revert` | 대상 PR·커밋, 되돌리는 이유, 복구 상태와 데이터·설정 복구 제약, 복구 검증 |
 | `investigation` | 사용한 자료·실험, 근거 있는 결론과 미해결 질문 또는 후속 작업 |
 
-검증에는 실제 명령과 결과를 기록합니다. 성공·실패·건너뛰기·미실행을 구분하고 집중 테스트를 전체 테스트처럼 표현하지 않습니다. 필수 명령과 문서만 변경했을 때의 기준은 [검증과 완료](../../AGENTS.md#검증과-완료)를 참조합니다. 큰 diff에는 리뷰 순서나 핵심 파일을 알려주고, 영향이 없으면 선택 항목인 `영향과 리뷰 포인트`를 제거합니다. 호환성 파괴·데이터 변경에는 적용 순서와 복구 방법 또는 복구 제약을 적습니다.
+검증에는 실제 명령과 결과를 기록합니다. 성공·실패·건너뛰기·미실행을 구분하고 집중 테스트를 전체 테스트처럼 표현하지 않습니다. 필수 명령과 문서만 변경했을 때의 기준은 [검증과 완료](../../AGENTS.md)를 참조합니다. 큰 diff에는 리뷰 순서나 핵심 파일을 알려주고, 영향이 없으면 선택 항목인 `영향과 리뷰 포인트`를 제거합니다. 호환성 파괴·데이터 변경에는 적용 순서와 복구 방법 또는 복구 제약을 적습니다.
 
 이슈 완료 조건을 모두 해결하는 PR에만 `Closes #123`을 사용합니다. 부분 작업·참고는 `Refs #123`으로 연결합니다. 번호는 형식 예시이므로 실제 존재와 관계를 확인해 교체합니다. 자동 종료는 기본 브랜치를 대상으로 한 PR이 병합될 때 적용되므로 다른 대상 브랜치에서는 종료를 보장하지 않습니다. [이슈와 PR 연결](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
 
 ## AI 작성 절차
 
-1. 사용자 요청이 초안 작성인지 실제 게시까지 포함하는지 [작업 원칙](../../AGENTS.md#작업-원칙)에 따라 구분합니다. 이미 받은 권한을 다시 묻지 않으며, 양식 추가 요청을 실제 이슈·PR 게시 요청으로 확대하지 않습니다.
+1. 사용자 요청이 초안 작성인지 실제 게시까지 포함하는지 [작업 원칙](../../AGENTS.md)에 따라 구분합니다. 이미 받은 권한을 다시 묻지 않으며, 양식 추가 요청을 실제 이슈·PR 게시 요청으로 확대하지 않습니다.
 2. 요청한 범위의 코드·문서·이슈와 현재 Git 상태를 확인합니다. PR은 기준 브랜치와 제출할 최종 diff를 확인하고, 작업 트리에 함께 있는 변경을 PR에 포함된 변경으로 오인하지 않습니다.
 3. 작업 목적에서 유형을 정한 뒤 대응하는 양식을 읽습니다. 이슈 Form을 CLI/API로 대신 작성하면 각 입력 필드의 `label`을 Markdown 소제목으로 쓰고 필수 내용을 채웁니다. 공용 양식의 선택 유형과 `perf`·`revert`의 추가 입력도 포함합니다. `markdown` 안내와 비어 있는 선택 필드는 제외하고, 양식 기본 라벨과 정확한 유형 라벨 하나를 명시적으로 지정합니다. PR은 제목 유형·라벨·최종 diff의 목적을 일치시킵니다.
 4. 사실·가설·미확인을 구분하고 실제 검증 기록만 인용합니다. 실행 계획을 통과 결과로 쓰거나 이전 테스트 결과를 이번 검증으로 쓰지 않습니다. 이슈 번호·링크·담당자·일정·체크 항목을 추정으로 채우지 않습니다.
@@ -118,7 +118,7 @@ AI 리뷰는 아래 순서로 진행합니다. 리뷰 요청만 받은 경우 �
 
 1. `.github` 파일을 새 저장소에 포함하고 Issues 기능을 활성화합니다. 이슈·PR 양식은 기본 브랜치에 반영되어야 표시됩니다. [이슈 양식 설정](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository), [PR 양식 설정](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository)
 2. 아래 명령으로 라벨을 생성·갱신합니다. JSON 파일 자체는 GitHub가 자동으로 가져오지 않으며, Form의 자동 라벨은 해당 저장소에 라벨이 먼저 있어야 적용됩니다. [이슈 Form 라벨](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)
-3. 새 이슈 화면의 6개 양식과 PR 본문 자동 입력을 확인합니다. 공용 양식은 작업 유형 선택과 분류 시 라벨 지정을 확인합니다. [config.yml](../../.github/ISSUE_TEMPLATE/config.yml)은 일반 기여자의 빈 이슈 선택을 숨깁니다. 쓰기 권한 사용자의 빈 이슈나 CLI/API까지 차단하는 검증 장치는 아닙니다. [선택 화면 설정](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser)
+3. 새 이슈 화면의 6개 양식과 PR 본문 자동 입력을 확인합니다. 공용 양식은 작업 유형 선택과 분류 시 라벨 지정을 확인합니다. [config.yml](../../.github/ISSUE_TEMPLATE/config.yml)은 일반 기여자의 빈 이슈 선택을 숨깁니다. 쓰기 권한 사용자의 빈 이슈나 CLI/API까지 차단하는 검증 장치는 아닙니다. [선택 화면 설정](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
 
 저장소 루트에서 GitHub CLI 인증과 Python 3을 준비한 뒤 `OWNER/REPO`를 대상 저장소로 바꿔 실행합니다. 대상 저장소의 쓰기 권한이 필요합니다. 같은 이름의 색상·설명만 정의에 맞춰 갱신하고 다른 라벨은 삭제하지 않으므로 반복 적용할 수 있습니다. 실패하면 원인을 해결한 뒤 다시 실행합니다. [라벨 권한](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels), [gh label create](https://cli.github.com/manual/gh_label_create)
 

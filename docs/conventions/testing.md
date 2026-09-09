@@ -1,6 +1,6 @@
 # 테스트 설계와 실행
 
-테스트 작성·실행과 CI 변경에 적용합니다. 완료 명령·문서-only 예외는 [루트 지침](../../AGENTS.md#검증과-완료)이 원본입니다. 테스트 코드 수정 시 [테스트 지침](../../src/test/java/com/example/AGENTS.md)과 대상 모듈 지침을 함께 적용합니다.
+테스트 작성·실행과 CI 변경에 적용합니다. 완료 명령·문서-only 예외는 [루트 지침](../../AGENTS.md)이 원본입니다. 테스트 코드 수정 시 [테스트 지침](../../src/test/java/com/example/AGENTS.md)과 대상 모듈 지침을 함께 적용합니다.
 
 ## 설계
 
@@ -37,4 +37,4 @@
 - 최종 상태의 필수 검사 통과 후 추가 변경·실패·미해결 우려 없이 반복·확대하지 않습니다.
 - CI는 Docker를 먼저 확인하고 성공 여부와 관계없이 테스트·Checkstyle·JaCoCo 보고서를 `verification-reports` artifact로 14일간 보관합니다.
 
-선택 배경: [포맷과 검증 결정](../adr/001-template-architecture.md#포맷과-검증).
+선택 배경: [포맷과 검증 결정](../adr/001-template-architecture.md).

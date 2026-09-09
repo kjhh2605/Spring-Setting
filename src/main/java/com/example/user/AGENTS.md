@@ -11,4 +11,4 @@
 
 - 불변식·등록·조회: `com.example.user.domain.UserTest`, `com.example.user.application.RegisterUserServiceTest`, `com.example.user.application.UserLookupServiceTest` 중 관련 테스트.
 - 모듈 조립: `com.example.user.UserModuleTest`와 영향받는 activity 테스트.
-- 공개 계약·등록 이벤트·HTTP는 [공통 검사 표](../../../../../../docs/conventions/testing.md#아키텍처와-집중-검사)를 따릅니다. 발행자 mock만으로 커밋·롤백을 검증했다고 보지 않습니다.
+- 공개 계약·등록 이벤트·HTTP는 [공통 검사 표](../../../../../../docs/conventions/testing.md)를 따릅니다. 발행자 mock만으로 커밋·롤백을 검증했다고 보지 않습니다.

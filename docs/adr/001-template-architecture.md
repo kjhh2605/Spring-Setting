@@ -21,6 +21,8 @@
 - Domain, Application Port, Adapter를 분리합니다. Domain은 기술에 의존하지 않고, Application은 Port를 통해 외부 기술을 사용합니다. 입력 Adapter는 입력 Port에 위임합니다.
 - Domain 모델과 JPA Entity, Web DTO를 분리합니다. 변환 코드가 생기더라도 영속성과 외부 API 변경이 비즈니스 모델이나 다른 모듈로 전파되지 않도록 합니다.
 - HTTP 응답·오류 처리와 OpenAPI 래퍼 생성은 공통 인프라가 담당합니다. 각 모듈의 ControllerDocs는 실제 결과 타입과 오류 계약을 선언하여 런타임 응답과 문서의 중복 작성을 줄입니다.
+- 모듈 전용 오류는 `application.error`가 소유하고 `CommonErrorCode`에는 공통 오류만 둡니다. `BusinessException(BaseCode)`와 전역 처리 방식을 유지하며, 응답·OpenAPI 매핑 중복을 줄이기 위해 Application 오류에는 HTTP 상태를 허용합니다. Domain 불변식 오류에는 이 웹 지향 계약을 사용하지 않습니다.
+- 신규 오류 식별자는 HTTP 상태와 독립적인 모듈별 일련번호를 사용합니다. 상태 변경에도 클라이언트의 오류 식별을 안정적으로 유지하며, 기존 응답 코드는 호환성을 위해 보존합니다. 상세 규칙은 [아키텍처 규칙](../conventions/architecture.md)에 둡니다.
 
 세부 계약은 [Web API](../conventions/web-api.md)와 [OpenAPI](../conventions/openapi-conventions.md)를 따릅니다.
 
@@ -40,7 +42,7 @@
 - 모듈 간 경계는 ModularityTest, 내부 의존성과 JPA Entity 위치는 ArchitectureTest로 검증합니다. API·이벤트 통합 테스트는 실제 응답과 커밋·롤백·비동기 실행 경계를 확인합니다.
 - CI는 Docker와 필터 없는 전체 테스트를 요구하고 건너뛰기를 실패로 처리합니다. 로컬 집중 검사는 빠른 피드백에 사용하며 전체 검증을 대체하지 않습니다.
 
-포맷 규칙은 [포맷·명명](../conventions/code-style.md), 테스트 설계와 CI 정책은 [테스트](../conventions/testing.md), 완료 명령은 [AGENTS.md](../../AGENTS.md#검증과-완료)가 원본입니다.
+포맷 규칙은 [포맷·명명](../conventions/code-style.md), 테스트 설계와 CI 정책은 [테스트](../conventions/testing.md), 완료 명령은 [AGENTS.md](../../AGENTS.md)가 원본입니다.
 
 ## 문서와 작업 지침
 
@@ -49,4 +51,4 @@
 - 작업에 해당하는 주제와 모듈 문서만 읽습니다. 모델이나 플러그인에 종속된 실행 절차를 저장소의 필수 작업 방식으로 두지 않습니다.
 - 작업 유형은 변경 목적에 따라 라벨로 세분화하고, 이슈 Form은 필요한 입력이 같은 유형끼리 공유합니다. PR은 공통 양식과 유형을 표시한 제목을 사용합니다. 독립된 목적은 PR을 분리하고, 큰 변경의 AI 리뷰는 의미 단위로 나눈 뒤 전체 연결 관계를 확인합니다. 분류의 정확도를 유지하면서 양식과 사람·AI 작성·리뷰 규칙의 중복을 줄입니다. 상세 기준과 적용 방법은 [GitHub 작업 가이드](../conventions/github-workflow.md)에서 관리합니다.
 
-새 프로젝트 적용 순서는 [온보딩](../onboarding/README.md#새-프로젝트로-시작), 문서 탐색은 [컨벤션 목차](../conventions/backend-conventions.md)를 사용합니다.
+새 프로젝트 적용 순서는 [온보딩](../onboarding/README.md), 문서 탐색은 [컨벤션 목차](../conventions/backend-conventions.md)를 사용합니다.

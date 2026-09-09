@@ -19,7 +19,7 @@
 ```
 
 - Docs 인터페이스의 패키지는 `{module}.adapter.in.web.docs`로 통일합니다.
-- Request·Response 타입은 `{module}.adapter.in.web` 또는 [기능별 하위 패키지](web-api.md#web-dto-구성)에 둡니다.
+- Request·Response 타입은 `{module}.adapter.in.web` 또는 [기능별 하위 패키지](web-api.md)에 둡니다.
 - Request·Response는 `docs` 하위 패키지에서 참조할 수 있게 `public`으로 선언합니다. 모듈 루트가 아닌 하위 패키지이므로 Spring Modulith의 모듈 공개 계약에는 포함되지 않습니다.
 
 ## Operation과 성공 응답

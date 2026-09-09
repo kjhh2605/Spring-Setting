@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.example.activity.application.error.ActivityErrorCode;
 import com.example.shared.error.BusinessException;
 import com.example.user.UserLookup;
 import com.example.user.UserSummary;

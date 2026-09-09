@@ -3,6 +3,7 @@ package com.example.activity.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.activity.application.error.ActivityErrorCode;
 import com.example.activity.application.port.in.DescribeActivityUseCase;
 import com.example.activity.application.port.in.RecordUserRegistrationActivityUseCase;
 import com.example.shared.error.BusinessException;

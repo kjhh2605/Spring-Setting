@@ -104,7 +104,6 @@ public class OpenApiResponseCustomizer {
                         handlerMethod.getMethod().getParameterTypes());
                 annotations.addAll(findAnnotations(method));
             } catch (NoSuchMethodException ignored) {
-                // The interface does not declare this controller operation.
             }
         }
         return annotations;

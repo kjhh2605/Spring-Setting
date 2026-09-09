@@ -37,13 +37,22 @@ com.example
 - 소스 의존성은 Adapter에서 Application의 Port와 Domain으로 향합니다. Domain은 Application/Adapter 및 Spring·JPA·Web 기술에 의존하지 않습니다.
 - 입력 Adapter는 입력 Port를 호출하고 Application Service 구현·출력 Port·Persistence를 직접 호출하지 않습니다.
 - Application Service는 Domain과 Port에 의존하고 Adapter·영속 기술에 직접 의존하지 않습니다. 출력 Adapter는 출력 Port를 구현합니다.
-- `ModularityTest`는 모듈 간 계약, `ArchitectureTest`는 내부 의존성과 JPA Entity 위치를 검사합니다. 구체적 검사는 [테스트 규칙](testing.md#아키텍처와-집중-검사)에 있습니다.
+- `ModularityTest`는 모듈 간 계약, `ArchitectureTest`는 내부 의존성과 JPA Entity 위치를 검사합니다. 구체적 검사는 [테스트 규칙](testing.md)에 있습니다.
 
 ## Application과 Domain
 
 - Request는 Adapter에서 Command/Query로 변환합니다. Controller는 Repository/Persistence Adapter를 직접 호출하거나 JPA Entity를 반환하지 않습니다.
 - 식별자·값의 불변 조건은 Domain이 보장합니다. Domain에 Spring/JPA/Web annotation을 넣지 않습니다.
 - 트랜잭션·시간·Entity 규칙은 해당 코드를 변경할 때 [영속성·이벤트](persistence-events.md)를 적용합니다.
+
+## 오류 코드와 불변식
+
+- 모듈 전용 오류 코드는 `{module}.application.error`에서 관리합니다. 모듈 내부 타입으로 유지하며 루트 공개 계약이나 `CommonErrorCode`에 추가하지 않습니다.
+- `CommonErrorCode`에는 여러 모듈에 공통인 입력·인증·시스템 오류만 둡니다.
+- Application은 `BusinessException(BaseCode)`로 실패를 전달하고, 기존 전역 처리기가 HTTP 응답을 만듭니다. 응답과 OpenAPI가 같은 코드를 사용하도록 Application 오류의 `HttpStatus` 결합을 허용합니다.
+- Domain의 불변식 오류는 `BaseCode`, `BusinessException`, `HttpStatus`에 의존하지 않습니다. 필요한 API 오류 변환은 Application 또는 Web 경계에서 명시적으로 처리합니다.
+- 신규 오류 코드 문자열은 HTTP 상태와 독립적인 `{MODULE}-{일련번호}` 형식(예: `ACTIVITY-001`)을 사용합니다. 코드는 중복·재사용하지 않으며 HTTP 상태가 바뀌어도 식별자는 유지합니다.
+- 기존 `ACTIVITY-404`, `COMMON-400` 등의 응답 코드는 호환성을 위해 유지합니다. 신규 코드 명명 규칙을 기존 코드 변경 사유로 사용하지 않습니다.
 
 ## 어디를 수정할지
 
@@ -56,6 +65,7 @@ com.example
 | 유스케이스 계약 | `application/port/in` |
 | 외부 기술 계약 | `application/port/out` |
 | 트랜잭션 흐름 | `application` |
+| 모듈 전용 오류 코드 | `application/error` |
 | 비즈니스 불변식 | `domain` |
 | JPA·외부 연동 | `adapter/out` |
 | 모듈 간 계약 | 모듈 루트, shared의 책임별 named interface |

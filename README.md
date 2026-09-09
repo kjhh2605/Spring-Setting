@@ -61,11 +61,9 @@ docs/
 
 ## 검증
 
-[전체 검증 명령](AGENTS.md#검증과-완료)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. 집중 검사·CI 보고서 정책은 [테스트 문서](docs/conventions/testing.md)에 있습니다.
+[전체 검증 명령](AGENTS.md)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. 집중 검사·CI 보고서 정책은 [테스트 문서](docs/conventions/testing.md)에 있습니다.
 
 ## 문서 안내
-
-- 이 템플릿으로 새 프로젝트 시작: [적용 순서](docs/onboarding/README.md#새-프로젝트로-시작)
 - 실행 준비·문제 해결: [온보딩](docs/onboarding/README.md)
 - 작업별 규칙: [컨벤션 목차](docs/conventions/backend-conventions.md)
 - API 스키마: [OpenAPI](docs/conventions/openapi-conventions.md)

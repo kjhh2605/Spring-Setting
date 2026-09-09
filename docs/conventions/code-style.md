@@ -12,11 +12,11 @@ Java 코드 작성·포맷·명명 변경에 적용합니다.
 - Checkstyle의 줄 길이·명명·코드 규칙을 지키며 검사 전체를 끄거나 formatter 결과를 수동 복원하지 않습니다. 제외 대상은 `build/generated/querydsl`뿐이며 직접 작성한 `Q*` 클래스도 검사합니다.
 - IDE도 같은 Gradle Spotless 설정을 사용하고 저장 시 기본 formatter로 결과를 다시 바꾸지 않습니다.
 
-선택 배경: [템플릿 아키텍처 결정](../adr/001-template-architecture.md#포맷과-검증).
+선택 배경: [템플릿 아키텍처 결정](../adr/001-template-architecture.md).
 
 ## 이름 규칙
 
 - `get...`: 없으면 예외, `find...`: `Optional<T>`, `list...`: null이 아닌 목록, `exists...`: 존재 여부.
 - `from`: 하나의 원본 객체에서 생성합니다.
 - 최상위 Web 입력은 `Request`, Application 입력은 `Command`/`Query`, 결과는 `Info`, Web 출력은 `Response` 접미사를 사용합니다.
-- 중첩 부분 모델은 `Profile`처럼 문맥에 맞는 역할명을 사용합니다. 소유·재사용 기준은 DTO를 변경할 때 [Web DTO 규칙](web-api.md#web-dto-구성)을 확인합니다.
+- 중첩 부분 모델은 `Profile`처럼 문맥에 맞는 역할명을 사용합니다. 소유·재사용 기준은 DTO를 변경할 때 [Web DTO 규칙](web-api.md)을 확인합니다.

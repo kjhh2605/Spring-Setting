@@ -12,4 +12,4 @@
 - 조회·후속 처리: `com.example.activity.application.ActivityServiceTest`.
 - 리스너 위임: `com.example.activity.adapter.in.event.UserRegisteredListenerTest`.
 - 모듈 조립: `com.example.activity.ActivityModuleTest`.
-- 모듈 계약·이벤트 실행·HTTP는 [공통 검사 표](../../../../../../docs/conventions/testing.md#아키텍처와-집중-검사)를 따릅니다. 리스너 직접 호출은 비동기·트랜잭션 검증을 대체하지 않습니다.
+- 모듈 계약·이벤트 실행·HTTP는 [공통 검사 표](../../../../../../docs/conventions/testing.md)를 따릅니다. 리스너 직접 호출은 비동기·트랜잭션 검증을 대체하지 않습니다.

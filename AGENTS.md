@@ -28,7 +28,7 @@
 | 작업 유형·이슈·라벨·PR 작성·리뷰와 양식 | [GitHub 작업 가이드](docs/conventions/github-workflow.md) |
 | 구조·정책 | [템플릿 아키텍처 결정](docs/adr/001-template-architecture.md) |
 
-전체 안내는 [컨벤션 목차](docs/conventions/backend-conventions.md), 새 프로젝트 적용 순서는 [온보딩](docs/onboarding/README.md#새-프로젝트로-시작)을 사용합니다.
+전체 안내는 [컨벤션 목차](docs/conventions/backend-conventions.md), 새 프로젝트 적용 순서는 [온보딩](docs/onboarding/README.md)을 사용합니다.
 
 ## 핵심 경계
 

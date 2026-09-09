@@ -27,4 +27,4 @@ JPA·DB·프로필·트랜잭션·이벤트 흐름을 변경할 때 적용합니
 - 프로필 설정은 `application-{profile}.yml`로 분리하고 공통 설정을 중복하지 않습니다.
 - 현재 마이그레이션 도구는 없습니다. 운영 배포 전에 마이그레이션 전략을 ADR로 결정합니다.
 
-선택 배경: [영속성과 이벤트 결정](../adr/001-template-architecture.md#영속성과-이벤트).
+선택 배경: [영속성과 이벤트 결정](../adr/001-template-architecture.md).
