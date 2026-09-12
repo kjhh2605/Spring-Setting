@@ -4,6 +4,7 @@
 - 기준일: 2026-09-12
 - 관계: [ADR-001](001-template-architecture.md)의 작업 지침·검증 원칙을 보완합니다. 기존 결정의 대체는 없습니다.
 - 후속 보완: [ADR-005](005-work-loss-and-github-approvals.md)는 작업 손실·GitHub 승인 경계와 로컬 앱 DB 삭제의 적용을 명확히 합니다.
+- 후속 보완: [ADR-007](007-commit-checkpoints.md)은 구현 전 단위 분리와 다음 변경을 시작하기 전 검증·커밋 체크포인트를 구체화합니다.
 
 ## 배경
 
