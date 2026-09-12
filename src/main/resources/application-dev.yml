@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: "dev & !prod"
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+app:
+  auth:
+    dev:
+      master-secret: ${DEV_MASTER_SECRET}

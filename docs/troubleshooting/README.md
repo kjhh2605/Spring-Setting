@@ -11,4 +11,4 @@
 
 ## 사례
 
-아직 등록된 사례가 없습니다.
+- [Controller 검증 선언 충돌과 HV000151](controller-validation-inheritance.md)

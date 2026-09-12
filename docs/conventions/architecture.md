@@ -25,7 +25,7 @@ com.example
 - 비즈니스 모듈의 공개 계약은 모듈 루트, `shared`의 공개 계약은 명시적 `@NamedInterface`에 둡니다. 다른 모듈의 `domain`, `application`, `adapter` 직접 접근이나 모듈 간 JPA Entity 공유는 금지합니다.
 - `package-info.java`의 `allowedDependencies`는 실제 의존성만 선언합니다. `shared::error`처럼 한정하고 `shared::*`로 일괄 허용하지 않습니다.
 - 내부 타입을 공개해 검증을 우회하지 않습니다. 필요한 최소 계약을 설계합니다.
-- 즉시 응답은 공개 인터페이스, 완료 사실 전파는 공개 이벤트를 사용합니다. `auth`는 `user`의 공개 조회 계약과 이벤트만 사용합니다.
+- 즉시 응답은 공개 인터페이스, 완료 사실 전파는 공개 이벤트를 사용합니다. `auth`는 `user`의 공개 조회·소셜 등록 계약과 이벤트를 사용합니다.
 
 ## 소비 모듈의 모델과 외부 정보 변환
 
@@ -35,7 +35,7 @@ com.example
 - 단순 표시·조회만 필요하고 별도 의미나 도메인 규칙이 없으면 Application의 조회 결과 값으로 충분합니다. 필드 선택만을 위해 행동 없는 Domain 클래스를 강제하지 않습니다. 자체 도메인 규칙이 필요해지면 위 경계로 전환합니다.
 - 자체 모델을 만든다고 별도 테이블이나 원본 데이터의 소유권이 생기지는 않습니다. 원본 변경은 소유 모듈의 공개 계약으로 요청합니다. 로컬 조회 모델을 영속화할 필요가 있으면 동기화·최신성·실패 복구 정책을 별도로 정합니다.
 
-현재 `auth.domain.AuthSubject`는 사용자 식별자를 auth의 subject 형식으로 표현합니다. `UserSubjectAdapter`가 `UserLookup`의 공개 결과에서 식별자만 변환하고, 등록 이벤트는 `UserRegisteredListener`에서 auth 소유 Command로 변환합니다. auth는 별도 테이블을 소유하지 않으며 실제 인증·토큰 발급은 구현하지 않습니다.
+현재 `auth.domain.AuthSubject`는 사용자 식별자를 auth의 subject 형식으로 표현합니다. `UserSubjectAdapter`와 `SocialSubjectAdapter`가 user의 공개 결과를 변환하고, 등록 이벤트는 `UserRegisteredListener`에서 auth 소유 Command로 변환합니다. auth는 소셜 검증·JWT 발급·Redis 세션을 소유하며 별도 SQL 테이블은 소유하지 않습니다. [ADR-006](../adr/006-social-login-and-refresh-rotation.md)을 따릅니다.
 
 ## Shared 공개 계약
 

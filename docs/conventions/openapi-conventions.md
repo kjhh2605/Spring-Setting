@@ -7,6 +7,7 @@
 - `@Operation`, `@Tag`, Swagger `@ApiResponse`, `@Parameter`는 Docs 인터페이스에 작성합니다.
 - 실제 Spring MVC의 `@RequestMapping`, `@RequestBody`, `@PathVariable`은 Controller에 유지합니다.
 - Docs 인터페이스 메서드의 Path/Query 파라미터 제약은 Bean Validation 오버라이드 규칙에 따라 인터페이스에 한 번만 선언합니다. Request Body 필드 제약은 Request record에 둡니다.
+- `@Validated` Controller가 인터페이스의 파라미터 제약을 상속하면 Body의 `@Valid`도 인터페이스에만 선언합니다. Controller에는 `@RequestBody`를 유지하고 검증 선언을 중복하지 않습니다. [HV000151 사례](../troubleshooting/controller-validation-inheritance.md)를 참고합니다.
 
 ```text
 {module}/adapter/in/web

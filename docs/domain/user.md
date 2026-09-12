@@ -13,6 +13,9 @@
 - `UserLookup.findById(Long)`: 사용자의 `id`, `displayName` 요약 조회
 - `UserSummary`: 조회 결과 값
 - `UserRegistered`: `userId`, UTC `occurredAt`을 담은 완료 이벤트
+- `SocialUserRegistration.findOrRegister(provider, providerSubject, displayName)`: 서버에서 검증된 소셜 계정으로 사용자를 조회하거나 최초 등록하고 `UserSummary`를 반환합니다.
+
+소셜 계정은 `app_user.social_provider`, `social_subject`의 복합 유일 제약으로 연결합니다. 최초 동시 로그인은 PostgreSQL `INSERT ... ON CONFLICT DO NOTHING RETURNING id`와 별도 조회로 같은 사용자를 반환합니다. 기존 수동 등록 사용자는 두 값이 null입니다. 이메일이나 표시 이름으로 기존 사용자와 자동 병합하지 않습니다. 등록 이벤트는 실제 INSERT 성공 시에만 같은 트랜잭션에서 발행합니다.
 
 `UserSummary`는 전달용 조회 계약이며 소비 모듈의 공통 Domain 모델이 아닙니다. 소비 모듈별로 필요한 정보·의미·규칙이 다르면 각 모듈이 자체 모델로 변환합니다. 소비 모듈의 전용 상태·행동을 이 DTO나 user Domain에 누적하지 않으며, 추가 정보가 필요하면 user가 소유하는 데이터의 최소 공개 계약을 검토합니다.
 

@@ -5,6 +5,7 @@ JPA·DB·프로필·트랜잭션·이벤트 흐름을 변경할 때 적용합니
 ## 트랜잭션과 시간
 
 - 변경 UseCase는 `@Transactional`, 조회 UseCase는 `@Transactional(readOnly = true)`를 적용합니다.
+- SQL 변경 트랜잭션은 소유 모듈에 둡니다. 소셜 로그인은 외부 카카오 호출 → user의 등록 트랜잭션 커밋 → Redis 세션 생성 순서이며 전체를 JPA 트랜잭션으로 묶지 않습니다. Redis 실패 시 토큰은 응답하지 않고 사용자 등록은 유지하여 재로그인으로 복구합니다. RTR은 Redis Lua 원자 연산을 사용하며 JPA와 분산 트랜잭션을 구성하지 않습니다.
 - 날짜·시각은 UTC `Instant`, 테스트 가능한 시간은 주입받은 `Clock`을 사용합니다.
 - Entity에는 공개 `@Setter`를 두지 않고 의미 있는 도메인 메서드로 상태를 변경합니다.
 

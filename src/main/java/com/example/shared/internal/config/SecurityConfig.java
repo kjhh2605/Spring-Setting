@@ -6,6 +6,9 @@ import org.springframework.boot.health.actuate.endpoint.HealthEndpoint;
 import org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,28 +36,46 @@ public class SecurityConfig {
     private final ApiAccessDeniedHandler accessDeniedHandler;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, Environment environment) throws Exception {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(EndpointRequest.to(HealthEndpoint.class))
-                        .permitAll()
-                        .requestMatchers(
-                                "/api/v1/users/**",
-                                "/api/v1/auth/examples/**",
-                                "/docs",
-                                "/docs/**",
-                                "/docs-json",
-                                "/docs-json/**",
-                                "/swagger-ui/**",
-                                "/webjars/**",
-                                "/error")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                .authorizeHttpRequests(authorize -> {
+                    if (environment.acceptsProfiles(Profiles.of("dev & !prod"))) {
+                        authorize
+                                .requestMatchers(HttpMethod.POST, "/api/v1/auth/dev/tokens")
+                                .permitAll();
+                    }
+                    authorize
+                            .requestMatchers("/api/v1/auth/dev/**")
+                            .denyAll()
+                            .requestMatchers(
+                                    HttpMethod.POST,
+                                    "/api/v1/auth/social/*",
+                                    "/api/v1/auth/refresh",
+                                    "/api/v1/auth/logout")
+                            .permitAll()
+                            .requestMatchers(EndpointRequest.to(HealthEndpoint.class))
+                            .permitAll()
+                            .requestMatchers(
+                                    "/api/v1/users/**",
+                                    "/api/v1/auth/examples/**",
+                                    "/docs",
+                                    "/docs/**",
+                                    "/docs-json",
+                                    "/docs-json/**",
+                                    "/swagger-ui/**",
+                                    "/webjars/**",
+                                    "/error")
+                            .permitAll()
+                            .anyRequest()
+                            .authenticated();
+                })
+                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults())
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler));
