@@ -17,7 +17,7 @@ GET /api/v1/auth/examples/subjects/{userId}
   → AuthSubjectInfo → AuthSubjectResponse
 ```
 
-- 양수 식별자에 해당하는 사용자가 있으면 `subject: "user:{id}"`를 반환합니다. 표시 이름은 auth에 전달하지 않습니다.
+- 양수 식별자에 해당하는 사용자가 있으면 `subject: "user:{id}"`를 반환합니다. `UserSubjectAdapter`는 `UserSummary`에서 식별자만 선택하여 auth Domain/Application에 전달합니다.
 - `AuthSubject`는 양수 식별자와 `user:` subject 이름 규칙을 소유합니다. user의 Domain·DTO나 Spring/JPA에 의존하지 않습니다.
 - 없는 사용자는 `AuthErrorCode.USER_NOT_FOUND` (`AUTH-001`, HTTP 404), 양수가 아닌 경로 값은 공통 입력 오류 (`COMMON-400`, HTTP 400)를 반환합니다.
 - 공개 예제 경로는 `/api/v1/auth/examples/**`입니다. `/api/v1/auth/**` 전체를 공개하지 않습니다.

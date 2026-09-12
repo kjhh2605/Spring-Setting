@@ -12,6 +12,8 @@ Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/Postgr
 
 JDK 21과 Docker/Compose가 필요합니다. 별도 Gradle 설치 없이 Wrapper를 사용합니다.
 
+에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/github-workflow.md#승인-절차)를 따릅니다.
+
 ```bash
 cp .env.example .env
 docker compose --env-file .env up -d postgres
@@ -46,11 +48,15 @@ gradle/                     버전·의존성·품질·테스트 설정과 Wrapp
 config/checkstyle/          코드 검사 규칙
 docker/                    실행 JAR용 컨테이너 이미지
 .github/                   CI·이슈/PR 양식·라벨 정의·기여 안내
+.codex/agents/             선택형 모듈·검증 검토 역할
+.codex/rules/              신뢰한 프로젝트에서 로딩하는 명령 실행 규칙
 docs/
 ├── adr/                    템플릿 아키텍처 결정 이력
 ├── conventions/            주제별 개발 규칙
 ├── domain/                 모듈 책임과 공개 계약
-└── onboarding/             새 프로젝트 적용과 실행 안내
+├── onboarding/             새 프로젝트 적용과 실행·에이전트 탐색 안내
+├── planning/               제품 유즈케이스·미결정 정책 초안
+└── troubleshooting/        반복 조사에서 얻은 문제 해결 사례
 ```
 
 - `shared`: 오류·OpenAPI 공개 계약과 내부 인프라.
@@ -64,9 +70,12 @@ docs/
 [전체 검증 명령](AGENTS.md)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. 집중 검사·CI 보고서 정책은 [테스트 문서](docs/conventions/testing.md)에 있습니다.
 
 ## 문서 안내
+
 - 실행 준비·문제 해결: [온보딩](docs/onboarding/README.md)
-- 작업별 규칙: [컨벤션 목차](docs/conventions/backend-conventions.md)
+- 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/backend-conventions.md)
 - API 스키마: [OpenAPI](docs/conventions/openapi-conventions.md)
 - AI 작업 방식: [AGENTS.md](AGENTS.md)
-- 작업 유형·이슈·라벨·PR과 AI 작성·리뷰: [GitHub 작업 가이드](docs/conventions/github-workflow.md)
-- 구조 선택의 이유와 제약: [기본 결정](docs/adr/001-template-architecture.md), [Application 분류·auth 예제](docs/adr/002-application-contracts-and-auth-example.md)
+- Codex 협업 역할·설정: [협업 안내](docs/onboarding/README.md#codex-협업-설정)
+- 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/github-workflow.md)
+- 구조 선택의 이유와 제약: [현재 ADR 요약](docs/adr/README.md)에서 유효한 결정 확인
+- 제품 유즈케이스·미결정 정책: [기획 초안](docs/planning/use-cases.md); 현재 구현·확정 정책과 구분

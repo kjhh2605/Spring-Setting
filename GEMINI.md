@@ -1,3 +1,3 @@
 # Gemini Instructions
 
-이 저장소의 전체 AI 개발 규칙은 [AGENTS.md](AGENTS.md)를 따릅니다. 작업 대상 디렉터리에 더 가까운 `AGENTS.md`가 있으면 함께 읽으세요.
+이 저장소의 AI 개발 규칙은 [루트 AGENTS.md](AGENTS.md)가 원본입니다. 대상 경로의 추가 지침과 작업별 문서는 루트의 [읽기 경로](AGENTS.md#읽기-경로)에 따라 확인합니다.

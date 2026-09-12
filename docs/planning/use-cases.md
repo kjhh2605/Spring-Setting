@@ -178,18 +178,8 @@ flowchart LR
 3. **조회 확장**: 타임테이블, 작업 목록, 진행 보드, 팀 일정, 작업 이력으로 조회 목적을 확장한다.
 4. **후속 처리와 관리 기능 확장**: 알림·실시간 갱신, 관리자 강제 변경, 탈퇴 등 여러 모듈을 조정하는 기능을 완성한다.
 
-현재 저장소의 `user`·`activity`는 [도메인 지도](../domain/README.md)에 명시된 예제 모듈이다. 위의 5개 모듈과 유즈케이스는 아직 구현되지 않은 제안이다.
+현재 저장소의 `user`·`auth`는 [도메인 지도](../domain/README.md)에 명시된 예제 모듈이다. 위의 5개 모듈과 유즈케이스는 아직 구현되지 않은 제안이다.
 
-[아키텍처 규칙](../conventions/architecture.md)에 따라 구현 시 다음 위치를 사용한다.
+구현 위치는 [아키텍처의 수정 위치 표](../conventions/architecture.md#어디를-수정할지)를 따른다. 입력 계약의 command/query 분류와 서비스 배치는 [Application과 Domain](../conventions/architecture.md#application과-domain)이 원본이다.
 
-| 책임 | 위치 |
-| --- | --- |
-| 유즈케이스 입력 계약 | `{module}/application/port/in` |
-| 업무 흐름과 트랜잭션 조정 | `{module}/application` |
-| 비즈니스 불변식 | `{module}/domain` |
-| HTTP 입력·출력 변환 | `{module}/adapter/in/web` |
-| 외부 기술 계약 | `{module}/application/port/out` |
-| JPA·외부 연동 구현 | `{module}/adapter/out` |
-| 모듈 간 공개 계약 | 모듈 루트 |
-
-다른 모듈의 내부 타입이나 JPA Entity를 공유하지 않는다. 실제 모듈 구조를 변경할 때 [도메인 지도](../domain/README.md), 해당 모듈 문서와 [템플릿 ADR](../adr/001-template-architecture.md)을 함께 갱신한다.
+다른 모듈의 내부 타입이나 JPA Entity를 공유하지 않는다. 실제 모듈 구조를 변경할 때 [도메인 지도](../domain/README.md)와 해당 모듈 문서를 갱신하고, [ADR 작성 규칙](../adr/003-adr-lifecycle.md#작성과-변경-규칙)에 따라 새 ADR과 대체 이력을 기록한다.

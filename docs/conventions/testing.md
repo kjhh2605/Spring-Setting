@@ -16,6 +16,8 @@
 
 `./gradlew test --tests '<정확한 클래스명>'`으로 변경 범위를 먼저 검사합니다. 아래 공통 테스트와 모듈 `AGENTS.md`의 관련 테스트를 선택합니다.
 
+DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로 [실행 전 승인 절차](github-workflow.md#승인-절차)를 따릅니다. 전체 `test`뿐 아니라 `build`·`check` 등 간접 실행도 실제 task graph와 테스트 구성을 확인합니다. 클래스 이름·`--tests` 사용만으로 DB 삭제가 없는 검사라고 판단하지 않습니다. DB가 없는 집중 검사는 추가 승인 없이 수행합니다.
+
 | 변경 | 테스트 클래스 |
 | --- | --- |
 | 모듈 경계·공개 계약 | `com.example.ModularityTest` |
@@ -24,17 +26,29 @@
 | HTTP·응답·예외·보안 | `com.example.ApiWorkflowIntegrationTest` |
 | OpenAPI 계약 | `com.example.OpenApiDocumentationIntegrationTest` |
 
-- `ModularityTest`의 `ApplicationModules.verify()`는 순환·허용 의존성·내부 패키지 침범을 CI에서 차단합니다.
-- `ArchitectureTest`는 Domain의 Spring·Jakarta·Hibernate·QueryDSL 의존, Application의 Adapter·영속 기술 의존, 입력 Adapter의 출력 Port·Persistence·`@Service` 구현 의존 및 JPA Entity 위치를 검사합니다.
+- [ModularityTest](../../src/test/java/com/example/ModularityTest.java)의 `ApplicationModules.verify()`는 순환·허용 의존성·내부 패키지 침범을 CI에서 차단합니다.
+- [ArchitectureTest](../../src/test/java/com/example/ArchitectureTest.java)는 Domain의 Application·Adapter·Spring·Jakarta·Hibernate·QueryDSL 의존, Application의 Adapter·영속 기술 의존, 입력 Adapter의 출력 Port·Persistence·`@Service` 구현 의존 및 JPA Entity 위치를 검사합니다.
 - 새 아키텍처 규칙은 의도적인 위반이 실제로 실패하는지 확인한 뒤 위반 코드를 제거합니다.
 
 ## 전체 실행과 CI
 
-- 집중 테스트 후 코드·빌드·실행 설정 변경은 루트의 전체 검증을 수행합니다. `--tests` 필터는 완료 검증에 사용하지 않습니다.
+- 코드 변경의 중간 커밋은 관련 집중 검사 후 생성할 수 있으며, 코드·빌드·실행 설정 작업 완료 시 루트의 전체 검증을 수행합니다. `--tests` 필터는 완료 검증에 사용하지 않습니다.
 - 일반 로컬 `./gradlew test`는 Docker가 없으면 컨테이너 테스트를 건너뜁니다. 전체 실행은 `./gradlew test -PrequireAllTests=true`를 사용합니다.
-- `CI=true` 또는 `-PrequireAllTests=true`에서는 건너뛴 테스트가 있으면 실패합니다. `-PrequireAllTests=false`로 CI 정책을 해제할 수 없습니다.
+- `CI=true` 또는 `-PrequireAllTests=true`에서는 0건 실행 또는 건너뛴 테스트가 있으면 실패합니다. `-PrequireAllTests=false`로 CI 정책을 해제할 수 없습니다. 이 옵션이 `--tests` 필터 자체를 감지하지는 않으므로, 전체 실행 여부는 실제 명령도 확인합니다.
 - Docker를 사용할 수 없으면 가능한 검사부터 실행하고 나머지는 원인과 함께 미검증으로 보고합니다. 성공·실패·건너뛰기·필터 여부를 구분하며 이전 실행 결과를 이번 실행으로 보고하지 않습니다.
 - 최종 상태의 필수 검사 통과 후 추가 변경·실패·미해결 우려 없이 반복·확대하지 않습니다.
 - CI는 Docker를 먼저 확인하고 성공 여부와 관계없이 테스트·Checkstyle·JaCoCo 보고서를 `verification-reports` artifact로 14일간 보관합니다.
+- 위 승인 절차는 에이전트가 로컬에서 검사를 실행할 때 적용합니다. 기존 CI의 실행 조건·테스트 정리 동작은 변경하지 않습니다. 에이전트가 푸시 등으로 CI 실행을 유발할 경우 승인 요약에 CI의 DB 테스트·자원 정리도 포함합니다.
+
+## 자동 검사와 리뷰의 역할
+
+| 대상 | 기존 검사·설정 | 남는 판단 |
+| --- | --- | --- |
+| 포맷·import·명명 형태 | [Spotless](../../build.gradle.kts), [Checkstyle 설정](../../gradle/quality.gradle.kts)과 [규칙](../../config/checkstyle/checkstyle.xml) | `get`/`find`의 의미, DTO 소유권은 [컨벤션](code-style.md)과 리뷰로 확인 |
+| 모듈·계층 경계 | 위 `ModularityTest`, `ArchitectureTest` | 비즈니스 책임·공개 정보의 적절성, 새 규칙의 검사 필요성 |
+| HTTP·OpenAPI·이벤트 | 위 집중 검사 표의 통합 테스트 | 작성된 시나리오를 검증하며 새 API·정책까지 자동 보장하지 않음 |
+| 프로필 | [ApplicationProfileConfigurationTest](../../src/test/java/com/example/shared/internal/config/ApplicationProfileConfigurationTest.java) | 실제 배포 환경의 인증·접근·마이그레이션 정책 |
+| 전체 테스트·보고서 | [테스트 설정](../../gradle/testing.gradle.kts), [CI](../../.github/workflows/ci.yml) | 필터 없는 실행 여부; JaCoCo는 보고서 생성이며 최소 커버리지 게이트는 없음 |
+| Markdown·ADR·PR 작성 | [문서 검증 기준](../../AGENTS.md#검증과-완료), [ADR 규칙](../adr/003-adr-lifecycle.md#작성과-변경-규칙), [GitHub 가이드](github-workflow.md) | 현재 Markdown 링크·ADR 상태·PR 제목/라벨을 검사하는 저장소 CI는 없음 |
 
 선택 배경: [포맷과 검증 결정](../adr/001-template-architecture.md).

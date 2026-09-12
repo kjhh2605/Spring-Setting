@@ -4,6 +4,7 @@
 - 기준일: 2026-09-08
 - 상태 변경일: 2026-09-12
 - 후속 결정: [ADR-002](002-application-contracts-and-auth-example.md), [ADR-003](003-adr-lifecycle.md)
+- 보완 결정: [ADR-004](004-agent-commits-and-approvals.md) — 자동 커밋·실행 승인 경계.
 
 ## 목적과 범위
 
