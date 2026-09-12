@@ -90,4 +90,4 @@ com.example
 | 모듈 간 계약 | 모듈 루트, shared의 책임별 named interface |
 | 전역 설정·응답·보안 | `src/main/java/com/example/shared/internal` (저장소 루트 기준) |
 
-선택 배경과 제약: [기본 아키텍처 결정](../adr/001-template-architecture.md), [Application 분류와 예제 교체](../adr/002-application-contracts-and-auth-example.md).
+선택 배경과 제약: [백엔드 아키텍처](../adr/001-backend-architecture.md), [Application과 모델 분리](../adr/001-backend-architecture.md#application과-모델-분리), [예제 모듈](../adr/001-backend-architecture.md#예제-모듈).

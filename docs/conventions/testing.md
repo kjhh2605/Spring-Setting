@@ -50,6 +50,6 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 | HTTP·OpenAPI·이벤트 | 위 집중 검사 표의 통합 테스트 | 작성된 시나리오를 검증하며 새 API·정책까지 자동 보장하지 않음 |
 | 프로필 | [ApplicationProfileConfigurationTest](../../src/test/java/com/example/shared/internal/config/ApplicationProfileConfigurationTest.java) | 실제 배포 환경의 인증·접근·마이그레이션 정책 |
 | 전체 테스트·보고서 | [테스트 설정](../../gradle/testing.gradle.kts), [CI](../../.github/workflows/ci.yml) | 필터 없는 실행 여부; JaCoCo는 보고서 생성이며 최소 커버리지 게이트는 없음 |
-| Markdown·ADR·PR 작성 | [문서 검증 기준](../../AGENTS.md#검증과-완료), [ADR 규칙](../adr/003-adr-lifecycle.md#작성과-변경-규칙), [GitHub 가이드](github-workflow.md) | 현재 Markdown 링크·ADR 상태·PR 제목/라벨을 검사하는 저장소 CI는 없음 |
+| Markdown·ADR·PR 작성 | [문서 검증 기준](../../AGENTS.md#검증과-완료), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리), [GitHub 가이드](github-workflow.md) | 현재 Markdown 링크·ADR 상태·PR 제목/라벨을 검사하는 저장소 CI는 없음 |
 
-선택 배경: [포맷과 검증 결정](../adr/001-template-architecture.md).
+선택 배경: [포맷과 검증 결정](../adr/001-backend-architecture.md#포맷과-검증).

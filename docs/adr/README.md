@@ -1,14 +1,8 @@
-# 현재 아키텍처 결정
+# 현재 프로젝트 결정
 
-| 주제 | 현재 적용 사항 | 근거 |
-| --- | --- | --- |
-| 기본 구조 | 단일 JAR·Spring Modulith, 루트 공개 계약, 순수 Domain/JPA 분리 | [ADR-001](001-template-architecture.md) |
-| Application | 입력 Port의 command/query 분리, 소유 계약별 DTO, 기본 service 패키지 | [ADR-002](002-application-contracts-and-auth-example.md) |
-| 예제 모듈 | user 등록·조회·이벤트와 auth 경계 변환 예제 | [ADR-002](002-application-contracts-and-auth-example.md) |
-| ADR 관리 | 새 결정은 별도 기록, 대체된 원문에 취소선과 후속 ADR 링크 | [ADR-003](003-adr-lifecycle.md) |
-| 자동 커밋·실행 승인 | 작업 브랜치에서 집중 검사 후 단위별 새 커밋, 이력·DB 삭제·푸시·배포는 요약 후 확인 | [ADR-004](004-agent-commits-and-approvals.md) |
-| 작업 중 커밋 | 사전 단위 분리, 집중 검사·diff 검토·즉시 커밋 후 다음 단위 시작, 약 500줄 전 분리 점검 | [ADR-007](007-commit-checkpoints.md) |
-| 지침 조회·계약 검토 | 핵심 조건 재사용과 조건부 재조회, 단위별 계약 검토·알려진 수정 완료 후 전체 검증 | [ADR-008](008-guideline-reading-and-contract-review.md) |
-| 작업 손실·GitHub 승인 | 작업을 잃는 Git 명령·PR 병합/닫기/삭제·릴리스 게시는 추가 확인, 요청한 PR·이슈 생성/수정/댓글은 자동 | [ADR-005](005-work-loss-and-github-approvals.md) |
+| ADR | 주제와 범위 |
+| --- | --- |
+| [ADR-001: 백엔드 아키텍처](001-backend-architecture.md) | 배포·모듈 경계, Application·DTO, user·auth 예제, HTTP·오류, 영속성·이벤트, 포맷·검증 |
+| [ADR-002: 에이전틱 코딩 규칙](002-agentic-coding-rules.md) | 지침 조회, 변경 단위·커밋·검증, 승인·외부 작업, 협업·도구 설정, 문서·ADR 관리 |
 
-대체 이력은 각 ADR 원문에서 확인합니다. 상세 작성·상태·검증 규칙은 [ADR-003](003-adr-lifecycle.md#작성과-변경-규칙)을 따릅니다.
+각 ADR은 해당 주제의 현재 결정과 선택 이유를 유지하며, 이전 내용은 Git 이력에서 확인합니다. 보완·신규 주제의 구분과 갱신 기준은 [문서와 ADR 관리](002-agentic-coding-rules.md#문서와-adr-관리)를 따릅니다.

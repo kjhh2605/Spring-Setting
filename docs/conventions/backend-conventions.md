@@ -5,7 +5,7 @@
 | 작업 | 읽을 원본 | 확인할 내용 |
 | --- | --- | --- |
 | Java 포맷·이름 | [포맷·명명](code-style.md) | formatter에 맡길 배치와 의미에 따른 이름 |
-| 구조 결정·ADR 상태·대체 이력 | [현재 ADR 요약](../adr/README.md), [ADR 작성 규칙](../adr/003-adr-lifecycle.md#작성과-변경-규칙) | 현재 유효한 결정과 보존할 과거 근거 |
+| 구조·작업 규칙 결정과 ADR 관리 | [현재 ADR 요약](../adr/README.md), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리) | 주제별 현재 결정과 선택 이유, Git 이력의 과거 근거 |
 | 모듈·패키지·Domain/Application | [아키텍처](architecture.md), [도메인 지도](../domain/README.md)의 해당 모듈 | 의존 방향·수정 위치와 모듈별 책임·계약·추가 지침 |
 | JPA·스키마·프로필·트랜잭션·이벤트 | [영속성·이벤트](persistence-events.md) | 저장·발행·소비 경계와 운영 제약 |
 | HTTP·응답·Web DTO | [Web API](web-api.md) | 입력 검증·오류 변환·DTO 소유권 |

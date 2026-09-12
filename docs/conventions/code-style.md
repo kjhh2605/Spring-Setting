@@ -12,7 +12,7 @@ Java 코드 작성·포맷·명명 변경에 적용합니다.
 - Checkstyle의 줄 길이·명명·코드 규칙을 지키며 검사 전체를 끄거나 formatter 결과를 수동 복원하지 않습니다. 제외 대상은 `build/generated/querydsl`뿐이며 직접 작성한 `Q*` 클래스도 검사합니다.
 - IDE도 같은 Gradle Spotless 설정을 사용하고 저장 시 기본 formatter로 결과를 다시 바꾸지 않습니다.
 
-선택 배경: [템플릿 아키텍처 결정](../adr/001-template-architecture.md).
+선택 배경: [백엔드 포맷과 검증 결정](../adr/001-backend-architecture.md#포맷과-검증).
 
 ## 이름 규칙
 

@@ -24,7 +24,7 @@ JDK 21, Docker와 Docker Compose가 필요합니다. Gradle은 저장소 Wrapper
 | Modulith 시스템 이름 | 애플리케이션 클래스의 `@Modulithic(systemName)` |
 | 문자열로 지정한 패키지 | `ArchitectureTest`의 `importPackages`, 로깅 설정의 `com.example` |
 
-패키지 경로를 옮기면 모듈·테스트 `AGENTS.md`의 상대 링크와 문서의 코드·테스트 경로도 갱신합니다. 운영 적용 전에는 인증·인가, 스키마 마이그레이션과 이벤트 전달 보장 요구를 [템플릿 ADR](../adr/001-template-architecture.md)에 따라 결정합니다.
+패키지 경로를 옮기면 모듈·테스트 `AGENTS.md`의 상대 링크와 문서의 코드·테스트 경로도 갱신합니다. 운영 적용 전에는 인증·인가, 스키마 마이그레이션과 이벤트 전달 보장 요구를 [백엔드 ADR](../adr/001-backend-architecture.md)에 따라 결정합니다.
 
 ## 로컬 실행
 
@@ -46,7 +46,7 @@ curl http://localhost:9090/actuator/health
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web-api.md)와 [ControllerDocs](../conventions/openapi-conventions.md) 규칙을 따릅니다.
-5. 바뀐 책임·정책의 도메인 문서와 새 ADR을 해당 변경 단위에 포함합니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/github-workflow.md#작업-중-커밋-체크포인트)을 마치고, 모든 단위와 알려진 수정 사항을 완료한 뒤 전체 검증을 수행합니다.
+5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)에 따릅니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/github-workflow.md#작업-중-커밋-체크포인트)을 마치고, 모든 단위와 알려진 수정 사항을 완료한 뒤 전체 검증을 수행합니다.
 
 ## 자주 쓰는 명령
 
@@ -121,7 +121,7 @@ verification_reviewer에게 테스트·CI 검증 공백을 맡겨줘.
 
 ### 실행 정책을 검토할 때
 
-승인 대상은 [루트 작업 원칙](../../AGENTS.md#작업-원칙), 요약할 정보는 [승인 절차](../conventions/github-workflow.md#승인-절차)를 따릅니다. 선택 배경은 [ADR-004](../adr/004-agent-commits-and-approvals.md)와 [ADR-005](../adr/005-work-loss-and-github-approvals.md)에 있습니다.
+승인 대상은 [루트 작업 원칙](../../AGENTS.md#작업-원칙), 요약할 정보는 [승인 절차](../conventions/github-workflow.md#승인-절차)를 따릅니다. 선택 배경은 [ADR-002의 승인과 외부 작업](../adr/002-agentic-coding-rules.md#승인과-외부-작업)에 있습니다.
 
 [codex-commands.rules](../../.codex/rules/codex-commands.rules)는 **프로젝트 실행 규칙**입니다. `.codex/` 프로젝트 계층을 신뢰한 Codex가 시작 시 로딩하므로, 이동 전부터 실행 중인 세션에 자동 반영된다고 가정하지 않습니다. 규칙은 Git 이력 변경·푸시·브랜치/stash 삭제, Docker 자원 삭제, 앱 실행, PR 병합·닫기와 릴리스 생성의 일부 명령 형태에 `prompt`를 지정합니다. `git -C .`·`git branch -r -d`와 빠른 시작에서 사용하는 Compose `--env-file .env` 형태도 포함합니다. `allow` 규칙은 없으며, 자동 작업은 기존 세션 권한 안에서 수행한다는 뜻입니다.
 

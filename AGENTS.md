@@ -31,7 +31,7 @@
 | 실행·환경 문제 | [README](README.md), [온보딩](docs/onboarding/README.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
 | 커밋·브랜치·승인·작업 유형·이슈·라벨·PR과 리뷰 | [GitHub 작업 가이드](docs/conventions/github-workflow.md) |
-| 구조·정책·ADR | [현재 ADR 요약](docs/adr/README.md), [ADR 작성 규칙](docs/adr/003-adr-lifecycle.md#작성과-변경-규칙) 및 관련 ADR |
+| 구조·정책·ADR | [현재 ADR 요약](docs/adr/README.md), [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리) 및 해당 주제 ADR |
 | 제품 유즈케이스·정책 검토 | [기획 초안](docs/planning/use-cases.md)의 제안·미결정 사항; 현재 구현은 [도메인 지도](docs/domain/README.md)와 구분 |
 
 전체 안내는 [컨벤션 목차](docs/conventions/backend-conventions.md), 새 프로젝트 적용 순서는 [온보딩](docs/onboarding/README.md)을 사용합니다.
@@ -42,7 +42,7 @@
 - Controller는 Repository를 직접 호출하거나 JPA Entity를 반환하지 않습니다. 모듈 간 Entity 공유와 이유 없는 `shared` 이동은 금지합니다.
 - 같은 대상이라도 모듈별로 필요한 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 정의하고 공개 조회 결과·이벤트를 경계에서 변환합니다. 단순 조회용 값과 Domain 모델의 구분은 [아키텍처](docs/conventions/architecture.md)를 따릅니다.
 - `.env` 등 실제 환경값·비밀값 파일은 커밋하거나 `src/main/resources`에 넣지 않습니다. 비밀값 없는 `.env.example`은 사용 예제로 유지합니다. 생성된 QueryDSL Q 클래스·`build/`의 내용을 직접 편집하지 않습니다. 생성물 정리는 위 작업 원칙을 따릅니다. 로컬/테스트 외 스키마 자동 변경은 금지합니다.
-- 새 기능·버그 수정은 기대 행동·재현 테스트의 의도한 실패부터 확인합니다. 구조·정책 변경은 영향받는 컨벤션·도메인 문서를 갱신하고 새 ADR을 추가합니다. 이전 ADR의 대체된 원문에 취소선·후속 링크를 붙이고 상태와 현재 요약을 [ADR 작성 규칙](docs/adr/003-adr-lifecycle.md#작성과-변경-규칙)에 따라 갱신합니다. 세팅 과정의 실행 기록은 상시 문서에 누적하지 않습니다.
+- 새 기능·버그 수정은 기대 행동·재현 테스트의 의도한 실패부터 확인합니다. 구조·정책 변경은 영향받는 컨벤션·도메인 문서와 해당 주제 ADR을 함께 갱신합니다. 독립적인 새 주제의 ADR 추가와 현재판·이력 관리는 [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리)을 따릅니다. 세팅 과정의 실행 기록은 상시 문서에 누적하지 않습니다.
 
 ## 검증과 완료
 
