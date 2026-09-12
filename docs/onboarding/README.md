@@ -46,7 +46,7 @@ curl http://localhost:9090/actuator/health
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web-api.md)와 [ControllerDocs](../conventions/openapi-conventions.md) 규칙을 따릅니다.
-5. [집중 검사](../conventions/testing.md) 후 전체 검증을 수행하고, 바뀐 책임·정책의 도메인 문서를 갱신하고 새 ADR을 추가합니다.
+5. 바뀐 책임·정책의 도메인 문서와 새 ADR을 해당 변경 단위에 포함합니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/github-workflow.md#작업-중-커밋-체크포인트)을 마치고, 모든 단위와 알려진 수정 사항을 완료한 뒤 전체 검증을 수행합니다.
 
 ## 자주 쓰는 명령
 

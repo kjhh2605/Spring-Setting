@@ -3,6 +3,7 @@
 - 상태: Accepted
 - 기준일: 2026-09-12
 - 관계: [ADR-004](004-agent-commits-and-approvals.md)의 독립 단위 자동 커밋을 구체화합니다. 기존 결정의 대체는 없습니다.
+- 보완: [ADR-008](008-guideline-reading-and-contract-review.md)이 문서 조회와 단위별 계약 검토·전체 검증 순서를 구체화합니다.
 
 ## 배경
 
