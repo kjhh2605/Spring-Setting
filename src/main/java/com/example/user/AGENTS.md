@@ -2,7 +2,8 @@
 
 [루트 지침](../../../../../../AGENTS.md)에 추가 적용합니다. 책임·불변식·공개 계약은 [User 문서](../../../../../../docs/domain/user.md)를 읽습니다. 아래 코드 경로는 이 모듈 기준입니다.
 
-- 사용자 식별자·표시 이름과 등록·요약 조회를 소유합니다. 공개 계약은 루트의 `UserLookup`, `UserSummary`, `UserRegistered`입니다.
+- 사용자 식별자·표시 이름·소셜 계정 연결과 등록·요약 조회를 소유합니다. 공개 계약은 루트의 `UserLookup`, `UserSummary`, `UserRegistered`, `SocialUserRegistration`입니다.
+- 소셜 등록에는 서버에서 검증된 제공자·제공자 사용자 ID만 전달합니다. 두 값의 유일 제약과 PostgreSQL 충돌 처리를 유지하며 이메일·이름으로 계정을 합치지 않습니다.
 - 불변식은 `domain`에 두며 JPA annotation을 넣지 않습니다. JPA Entity·Spring Data Repository는 `adapter/out/persistence` 밖으로 노출하지 않습니다.
 - 등록 이벤트는 저장 후 같은 트랜잭션에서 발행합니다. `userId`와 Clock 기반 UTC `occurredAt`만 공개하며 커밋 시각으로 해석하거나 표시 이름을 추가하지 않습니다.
 - 계약 변경은 `auth` 사용처·허용 의존성도 확인합니다. `auth` 구현에 역의존하지 않습니다.

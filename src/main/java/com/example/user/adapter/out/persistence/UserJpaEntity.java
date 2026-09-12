@@ -6,12 +6,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 import com.example.user.domain.User;
 import com.example.user.domain.UserId;
 
 @Entity
-@Table(name = "app_user")
+@Table(
+        name = "app_user",
+        uniqueConstraints =
+                @UniqueConstraint(
+                        name = "uk_app_user_social",
+                        columnNames = {"social_provider", "social_subject"}))
 class UserJpaEntity {
 
     @Id
@@ -20,6 +26,12 @@ class UserJpaEntity {
 
     @Column(name = "display_name", nullable = false, length = 100)
     private String displayName;
+
+    @Column(name = "social_provider", length = 32)
+    private String socialProvider;
+
+    @Column(name = "social_subject", length = 128)
+    private String socialSubject;
 
     protected UserJpaEntity() {}
 

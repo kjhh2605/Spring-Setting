@@ -4,6 +4,13 @@ server:
   forward-headers-strategy: framework
 
 spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT:2s}
+      timeout: ${REDIS_TIMEOUT:2s}
   application:
     name: spring-settings
   lifecycle:
@@ -72,5 +79,22 @@ logging:
     org.hibernate.orm.jdbc.bind: WARN
 
 app:
+  auth:
+    token:
+      secret: ${JWT_SECRET}
+      issuer: ${JWT_ISSUER:spring-settings}
+      access-audience: ${JWT_ACCESS_AUDIENCE:api}
+      refresh-audience: ${JWT_REFRESH_AUDIENCE:refresh}
+      access-ttl: ${JWT_ACCESS_TTL:15m}
+      refresh-ttl: ${JWT_REFRESH_TTL:14d}
+      clock-skew: ${JWT_CLOCK_SKEW:0s}
+    refresh-store:
+      key-prefix: ${REFRESH_KEY_PREFIX:auth:refresh:}
+    kakao:
+      app-id: ${KAKAO_APP_ID}
+      token-info-uri: https://kapi.kakao.com/v1/user/access_token_info
+      user-info-uri: https://kapi.kakao.com/v2/user/me
+      connect-timeout: ${KAKAO_CONNECT_TIMEOUT:2s}
+      read-timeout: ${KAKAO_READ_TIMEOUT:3s}
   cors:
     allowed-origin-patterns: ${CORS_ALLOWED_ORIGIN_PATTERNS:http://localhost:3000,http://localhost:5173}

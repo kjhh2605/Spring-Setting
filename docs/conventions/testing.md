@@ -22,6 +22,8 @@
 | 내부 의존성·JPA Entity 위치 | `com.example.ArchitectureTest` |
 | 등록 트랜잭션·이벤트·비동기 설정 | `com.example.UserRegistrationEventIntegrationTest` |
 | HTTP·응답·예외·보안 | `com.example.ApiWorkflowIntegrationTest` |
+| 소셜 로그인·JWT·RTR·dev | `com.example.AuthLoginIntegrationTest`, `com.example.DevTokenIntegrationTest`, `com.example.auth.adapter.out.redis.RedisRefreshSessionAdapterTest`, `com.example.auth.adapter.out.dev.DevProfileTest` |
+| 동시 소셜 등록 | `com.example.user.adapter.out.persistence.SocialUserConcurrencyTest` |
 | OpenAPI 계약 | `com.example.OpenApiDocumentationIntegrationTest` |
 
 - `ModularityTest`의 `ApplicationModules.verify()`는 순환·허용 의존성·내부 패키지 침범을 CI에서 차단합니다.

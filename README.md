@@ -5,7 +5,7 @@
 ## 기술 스택
 
 Java 21 · Spring Boot · Spring Modulith · Gradle Kotlin DSL. 정확한 버전은 [버전 카탈로그](gradle/libs.versions.toml)와 [빌드 설정](build.gradle.kts)에서 관리합니다.
-Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/PostgreSQL을 사용합니다.
+Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/PostgreSQL, JWT와 Redis를 사용합니다.
 테스트는 JUnit Jupiter(Boot BOM 관리), Mockito, Modulith Test, Testcontainers입니다.
 
 ## 빠른 시작
@@ -14,7 +14,8 @@ JDK 21과 Docker/Compose가 필요합니다. 별도 Gradle 설치 없이 Wrapper
 
 ```bash
 cp .env.example .env
-docker compose --env-file .env up -d postgres
+# .env의 JWT_SECRET, KAKAO_APP_ID를 먼저 설정합니다.
+docker compose --env-file .env up -d postgres redis
 set -a && source .env && set +a
 ./gradlew bootRun
 ```
@@ -27,7 +28,7 @@ set -a && source .env && set +a
 - Health: `http://localhost:9090/actuator/health`
 - Prometheus: `http://localhost:9090/actuator/prometheus`
 
-예제 API와 Health는 공개입니다. Prometheus·Info는 인증이 필요하지만 현재 실제 인증 수단은 없습니다. 운영 적용 시 수집기의 인증·접근 정책을 구성해야 합니다.
+예제 API와 Health는 공개입니다. 소셜 로그인에서 발급한 JWT로 보호된 API를 인증합니다. Prometheus·Info 수집기의 인증·접근 정책은 운영 환경에서 구성합니다. [로그인 API·필수 설정·스키마](docs/domain/auth.md)를 확인하세요.
 
 ```bash
 curl -X POST http://localhost:8080/api/v1/users \
@@ -55,7 +56,7 @@ docs/
 
 - `shared`: 오류·OpenAPI 공개 계약과 내부 인프라.
 - `user`: 사용자 등록·요약 조회·등록 이벤트.
-- `auth`: user 공개 API를 자체 subject 모델로 변환하는 조회 예제·등록 커밋 후 비동기 로그 처리. 실제 로그인·토큰 발급 및 영속 이벤트 저장소·자동 재처리는 없습니다.
+- `auth`: 카카오 전략/resolver, JWT·Redis RTR·dev 발급, subject 조회 예제·등록 커밋 후 비동기 로그 처리. 영속 이벤트 저장소·자동 재처리는 없습니다.
 
 소유권·공개 타입은 [도메인 지도](docs/domain/README.md), 의존성은 [아키텍처](docs/conventions/architecture.md)가 원본입니다. 운영 스키마는 자동 변경하지 않으며 배포 전에 마이그레이션 전략을 결정해야 합니다. 프로필·이벤트 경계는 [영속성·이벤트](docs/conventions/persistence-events.md)를 확인합니다.
 

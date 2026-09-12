@@ -14,6 +14,21 @@ import com.example.support.IntegrationTestSupport;
 @AutoConfigureMockMvc
 class OpenApiDocumentationIntegrationTest extends IntegrationTestSupport {
 
+    @Test
+    void documentsSocialLoginAndRotationWithoutPublishingDevApi() throws Exception {
+        mockMvc.perform(get("/docs-json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.paths['/api/v1/auth/social/{provider}'].post.summary")
+                        .value("소셜 로그인"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/refresh'].post.responses['401']"
+                                + ".content['application/json'].examples['AUTH-005'].value.code")
+                        .value("AUTH-005"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/refresh'].post.responses['200']"
+                                + ".content['application/json'].schema.properties.result['$ref']")
+                        .value("#/components/schemas/com.example.auth.adapter.in.web.TokenResponse"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/dev/tokens']").doesNotExist());
+    }
+
     @Autowired
     private MockMvc mockMvc;
 

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.AssertablePublishedEvents;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.example.support.TestcontainersConfiguration;
@@ -20,6 +22,9 @@ import com.example.user.application.port.in.command.dto.RegisteredUserInfo;
 @Import(TestcontainersConfiguration.class)
 @Testcontainers(disabledWithoutDocker = true)
 class UserModuleTest {
+
+    @MockitoBean
+    private JwtDecoder jwtDecoder;
 
     @Autowired
     private RegisterUserUseCase useCase;

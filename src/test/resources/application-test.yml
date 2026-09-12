@@ -20,3 +20,10 @@ logging:
   level:
     root: WARN
     org.testcontainers: INFO
+
+app:
+  auth:
+    token:
+      secret: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+    kakao:
+      app-id: 123456
