@@ -10,7 +10,7 @@ JDK 21, Docker와 Docker Compose가 필요합니다. Gradle은 저장소 Wrapper
 
 1. 코드를 바꾸기 전에 [빠른 시작](../../README.md)으로 등록·조회 예제가 동작하는지 확인합니다.
 2. 아래 식별자를 새 프로젝트 이름과 기본 패키지로 변경합니다. main·test의 패키지 경로, package 선언, import와 애플리케이션 클래스 참조를 함께 바꿉니다.
-3. [도메인 지도](../domain/README.md)를 기준으로 `user`·`activity` 예제를 실제 유스케이스로 교체합니다. 모듈을 추가·제거하면 `allowedDependencies`, `ModularityTest`의 모듈 목록, 모듈별 테스트·지침·도메인 문서를 함께 갱신합니다.
+3. [도메인 지도](../domain/README.md)를 기준으로 `user`·`auth` 예제를 실제 유스케이스로 교체합니다. 모듈을 추가·제거하면 `allowedDependencies`, `ModularityTest`의 모듈 목록, 모듈별 테스트·지침·도메인 문서를 함께 갱신합니다.
 4. `.env.example`과 실행 환경의 DB·포트·CORS 값을 맞춥니다. 실제 환경값은 `.env` 또는 배포 환경에 두며 커밋하지 않습니다.
 5. [전체 검증](../../AGENTS.md)을 실행한 뒤 프로젝트의 초기 기준점으로 삼습니다. 소스의 `port/out`·`adapter/out`과 테스트도 Git에 포함되어 있어야 합니다.
 6. [GitHub 초기 설정](../conventions/github-workflow.md)에 따라 새 저장소에 라벨을 적용하고 기본 브랜치의 이슈·PR 양식을 확인합니다.
@@ -46,7 +46,7 @@ curl http://localhost:9090/actuator/health
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web-api.md)와 [ControllerDocs](../conventions/openapi-conventions.md) 규칙을 따릅니다.
-5. [집중 검사](../conventions/testing.md) 후 전체 검증을 수행하고, 바뀐 책임·정책의 도메인 문서·ADR을 갱신합니다.
+5. [집중 검사](../conventions/testing.md) 후 전체 검증을 수행하고, 바뀐 책임·정책의 도메인 문서를 갱신하고 새 ADR을 추가합니다.
 
 ## 자주 쓰는 명령
 

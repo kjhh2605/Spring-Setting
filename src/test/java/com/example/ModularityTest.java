@@ -12,10 +12,10 @@ class ModularityTest {
     private final ApplicationModules modules = ApplicationModules.of(SpringSettingsApplication.class);
 
     @Test
-    @DisplayName("shared, user, activity 모듈만 구성한다")
+    @DisplayName("shared, user, auth 모듈만 구성한다")
     void containsExpectedModules() {
         assertThat(modules.stream().map(module -> module.getIdentifier().toString()))
-                .containsExactlyInAnyOrder("shared", "user", "activity");
+                .containsExactlyInAnyOrder("shared", "user", "auth");
     }
 
     @Test

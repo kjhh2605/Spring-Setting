@@ -1,16 +1,18 @@
 # ADR-001: 백엔드 템플릿 아키텍처
 
-- 상태: Accepted
+- 상태: Partially Superseded
 - 기준일: 2026-09-08
+- 상태 변경일: 2026-09-12
+- 후속 결정: [ADR-002](002-application-contracts-and-auth-example.md), [ADR-003](003-adr-lifecycle.md)
 
 ## 목적과 범위
 
-새 Java 백엔드 프로젝트가 실행·모듈 경계·검증 체계를 갖춘 상태에서 시작하도록 합니다. 이 문서는 템플릿의 현재 결정과 이유를 담는 단일 ADR입니다. 세팅 과정의 계획·실험 기록은 포함하지 않으며, 템플릿의 구조나 정책을 변경할 때 이 문서와 해당 상세 규칙을 함께 갱신합니다.
+새 Java 백엔드 프로젝트가 실행·모듈 경계·검증 체계를 갖춘 상태에서 시작하도록 합니다. ~~이 문서는 템플릿의 현재 결정과 이유를 담는 단일 ADR입니다.~~ ([ADR-003로 대체](003-adr-lifecycle.md)) 세팅 과정의 계획·실험 기록은 포함하지 않으며, ~~템플릿의 구조나 정책을 변경할 때 이 문서와 해당 상세 규칙을 함께 갱신합니다.~~ ([ADR-003로 대체](003-adr-lifecycle.md))
 
 ## 배포와 모듈 경계
 
 - Java 21과 Spring Boot·Spring Modulith를 사용하고 Gradle의 단일 실행 JAR로 배포합니다. 버전은 `build.gradle.kts`, `gradle/libs.versions.toml`, Gradle Wrapper에서 관리합니다.
-- 하나의 배포 단위 안에서 비즈니스 책임별 패키지를 Application Module로 구분합니다. 현재 `user`·`activity`는 동기 조회와 이벤트 연동을 보여주는 예제이고, `shared`는 공통 기술 계약과 인프라를 담당합니다.
+- 하나의 배포 단위 안에서 비즈니스 책임별 패키지를 Application Module로 구분합니다. ~~현재 `user`·`activity`는 동기 조회와 이벤트 연동을 보여주는 예제이고,~~ ([ADR-002로 대체](002-application-contracts-and-auth-example.md)) `shared`는 공통 기술 계약과 인프라를 담당합니다.
 - 비즈니스 모듈의 공개 계약은 모듈 루트에 둡니다. `shared`는 오류·OpenAPI 계약을 named interface로 나누어 소비자가 필요한 계약만 허용하도록 합니다. 내부 패키지 공개로 검증을 우회하지 않습니다.
 - 초기에는 별도 Gradle 모듈이나 서비스로 나누지 않습니다. 배포·운영 비용을 낮추는 대신 모듈 경계와 순환 의존성을 `ApplicationModules.verify()`로 검증합니다.
 
@@ -20,6 +22,7 @@
 
 - Domain, Application Port, Adapter를 분리합니다. Domain은 기술에 의존하지 않고, Application은 Port를 통해 외부 기술을 사용합니다. 입력 Adapter는 입력 Port에 위임합니다.
 - Domain 모델과 JPA Entity, Web DTO를 분리합니다. 변환 코드가 생기더라도 영속성과 외부 API 변경이 비즈니스 모델이나 다른 모듈로 전파되지 않도록 합니다.
+- 같은 대상도 모듈별 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 소유합니다. 공개 DTO·이벤트는 전달 계약으로 유지하고 Port·Adapter 경계에서 변환하여 제공 모듈의 모델 변경이 소비 모듈의 규칙으로 전파되는 것을 줄입니다. 단순 표시·조회에는 별도 Domain 모델을 강제하지 않으며, 모델 분리는 테이블 복제나 원본 데이터 소유권 이전을 뜻하지 않습니다. 구체적인 적용 기준과 ~~현재 activity 예제의 범위~~ ([ADR-002로 대체](002-application-contracts-and-auth-example.md))는 [아키텍처 규칙](../conventions/architecture.md#소비-모듈의-모델과-외부-정보-변환)에 둡니다.
 - HTTP 응답·오류 처리와 OpenAPI 래퍼 생성은 공통 인프라가 담당합니다. 각 모듈의 ControllerDocs는 실제 결과 타입과 오류 계약을 선언하여 런타임 응답과 문서의 중복 작성을 줄입니다.
 - 모듈 전용 오류는 `application.error`가 소유하고 `CommonErrorCode`에는 공통 오류만 둡니다. `BusinessException(BaseCode)`와 전역 처리 방식을 유지하며, 응답·OpenAPI 매핑 중복을 줄이기 위해 Application 오류에는 HTTP 상태를 허용합니다. Domain 불변식 오류에는 이 웹 지향 계약을 사용하지 않습니다.
 - 신규 오류 식별자는 HTTP 상태와 독립적인 모듈별 일련번호를 사용합니다. 상태 변경에도 클라이언트의 오류 식별을 안정적으로 유지하며, 기존 응답 코드는 호환성을 위해 보존합니다. 상세 규칙은 [아키텍처 규칙](../conventions/architecture.md)에 둡니다.

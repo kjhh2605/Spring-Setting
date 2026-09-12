@@ -1,6 +1,6 @@
 package com.example.user.adapter.in.web;
 
-import com.example.user.application.port.in.RegisteredUserInfo;
+import com.example.user.application.port.in.command.dto.RegisteredUserInfo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

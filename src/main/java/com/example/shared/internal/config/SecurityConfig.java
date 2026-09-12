@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(
                                 "/api/v1/users/**",
-                                "/api/v1/activities/**",
+                                "/api/v1/auth/examples/**",
                                 "/docs",
                                 "/docs/**",
                                 "/docs-json",

@@ -15,12 +15,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.example.activity.application.ActivityService;
+import com.example.auth.application.service.RecordUserRegistrationService;
 import com.example.support.IntegrationTestSupport;
 import com.example.user.UserLookup;
-import com.example.user.application.port.in.RegisterUserCommand;
-import com.example.user.application.port.in.RegisterUserUseCase;
-import com.example.user.application.port.in.RegisteredUserInfo;
+import com.example.user.application.port.in.command.RegisterUserUseCase;
+import com.example.user.application.port.in.command.dto.RegisterUserCommand;
+import com.example.user.application.port.in.command.dto.RegisteredUserInfo;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -37,18 +37,18 @@ class UserRegistrationEventIntegrationTest extends IntegrationTestSupport {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    private final ActivityLogAppender appender = new ActivityLogAppender();
-    private final Logger activityLogger = (Logger) LoggerFactory.getLogger(ActivityService.class);
+    private final AuthLogAppender appender = new AuthLogAppender();
+    private final Logger authLogger = (Logger) LoggerFactory.getLogger(RecordUserRegistrationService.class);
 
     @BeforeEach
-    void captureActivityLogs() {
+    void captureAuthLogs() {
         appender.start();
-        activityLogger.addAppender(appender);
+        authLogger.addAppender(appender);
     }
 
     @AfterEach
-    void stopCapturingActivityLogs() {
-        activityLogger.detachAppender(appender);
+    void stopCapturingAuthLogs() {
+        authLogger.detachAppender(appender);
         appender.stop();
     }
 
@@ -57,17 +57,17 @@ class UserRegistrationEventIntegrationTest extends IntegrationTestSupport {
         long publishingThreadId = Thread.currentThread().threadId();
         RegisteredUserInfo user = new TransactionTemplate(transactionManager).execute(status -> {
             RegisteredUserInfo registered = registerUser.register(new RegisterUserCommand("커밋 사용자"));
-            assertThat(appender.events).as("커밋 전에는 활동을 기록하지 않는다").isEmpty();
+            assertThat(appender.events).as("커밋 전에는 후속 처리를 기록하지 않는다").isEmpty();
             return registered;
         });
 
-        ActivityLog activity = appender.events.poll(5, TimeUnit.SECONDS);
+        AuthLog auth = appender.events.poll(5, TimeUnit.SECONDS);
 
         assertThat(user).isNotNull();
-        assertThat(activity).as("커밋한 사용자 등록의 후속 활동이 기록된다").isNotNull();
-        assertThat(activity.userId()).isEqualTo(user.id());
-        assertThat(activity.threadId()).isNotEqualTo(publishingThreadId);
-        assertThat(activity.transactionActive()).isTrue();
+        assertThat(auth).as("커밋한 사용자 등록의 후속 처리가 기록된다").isNotNull();
+        assertThat(auth.userId()).isEqualTo(user.id());
+        assertThat(auth.threadId()).isNotEqualTo(publishingThreadId);
+        assertThat(auth.transactionActive()).isTrue();
         assertThat(userLookup.findById(user.id())).isPresent();
     }
 
@@ -82,20 +82,20 @@ class UserRegistrationEventIntegrationTest extends IntegrationTestSupport {
         assertThat(user).isNotNull();
         assertThat(userLookup.findById(user.id())).isEmpty();
         assertThat(appender.events.poll(500, TimeUnit.MILLISECONDS))
-                .as("롤백한 사용자 등록은 활동을 기록하지 않는다")
+                .as("롤백한 사용자 등록은 후속 처리를 기록하지 않는다")
                 .isNull();
     }
 
-    private record ActivityLog(Long userId, long threadId, boolean transactionActive) {}
+    private record AuthLog(Long userId, long threadId, boolean transactionActive) {}
 
-    private static class ActivityLogAppender extends AppenderBase<ILoggingEvent> {
+    private static class AuthLogAppender extends AppenderBase<ILoggingEvent> {
 
-        private final BlockingQueue<ActivityLog> events = new LinkedBlockingQueue<>();
+        private final BlockingQueue<AuthLog> events = new LinkedBlockingQueue<>();
 
         @Override
         protected void append(ILoggingEvent event) {
-            if (event.getMessage().startsWith("User registration activity received:")) {
-                events.add(new ActivityLog(
+            if (event.getMessage().startsWith("Auth example registration received:")) {
+                events.add(new AuthLog(
                         (Long) event.getArgumentArray()[0],
                         Thread.currentThread().threadId(),
                         TransactionSynchronizationManager.isActualTransactionActive()));

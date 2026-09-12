@@ -40,17 +40,17 @@ class OpenApiDocumentationIntegrationTest extends IntegrationTestSupport {
     }
 
     @Test
-    void documentsActivityDescriptionNotFoundError() throws Exception {
+    void documentsAuthSubjectNotFoundError() throws Exception {
         mockMvc.perform(get("/docs-json"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.paths['/api/v1/activities/users/{userId}'].get.summary")
-                        .value("사용자 활동 설명 조회"))
-                .andExpect(jsonPath("$.paths['/api/v1/activities/users/{userId}'].get.responses['404']"
+                .andExpect(jsonPath("$.paths['/api/v1/auth/examples/subjects/{userId}'].get.summary")
+                        .value("예제 subject 조회"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/examples/subjects/{userId}'].get.responses['404']"
                                 + ".content['application/json'].schema.properties.code.example")
-                        .value("ACTIVITY-404"))
-                .andExpect(jsonPath("$.paths['/api/v1/activities/users/{userId}'].get.responses['404']"
-                                + ".content['application/json'].examples['ACTIVITY-404'].value.code")
-                        .value("ACTIVITY-404"));
+                        .value("AUTH-001"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/examples/subjects/{userId}'].get.responses['404']"
+                                + ".content['application/json'].examples['AUTH-001'].value.code")
+                        .value("AUTH-001"));
     }
 
     @Test
@@ -76,8 +76,8 @@ class OpenApiDocumentationIntegrationTest extends IntegrationTestSupport {
                                 + ".properties.id.example")
                         .value(1))
                 .andExpect(jsonPath("$.components.schemas"
-                                + "['com.example.activity.adapter.in.web.ActivityDescriptionResponse']"
-                                + ".properties.description.description")
-                        .value("활동 설명"));
+                                + "['com.example.auth.adapter.in.web.AuthSubjectResponse']"
+                                + ".properties.subject.description")
+                        .value("예제 subject 식별자"));
     }
 }

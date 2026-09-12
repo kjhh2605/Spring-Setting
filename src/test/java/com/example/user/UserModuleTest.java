@@ -11,9 +11,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.example.support.TestcontainersConfiguration;
-import com.example.user.application.port.in.RegisterUserCommand;
-import com.example.user.application.port.in.RegisterUserUseCase;
-import com.example.user.application.port.in.RegisteredUserInfo;
+import com.example.user.application.port.in.command.RegisterUserUseCase;
+import com.example.user.application.port.in.command.dto.RegisterUserCommand;
+import com.example.user.application.port.in.command.dto.RegisteredUserInfo;
 
 @ApplicationModuleTest
 @ActiveProfiles("test")
