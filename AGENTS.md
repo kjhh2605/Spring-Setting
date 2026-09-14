@@ -19,13 +19,13 @@
 
 대상 경로를 좁히고 상위부터 해당 디렉터리까지 `AGENTS.override.md` 또는 `AGENTS.md`를 확인합니다. 가까운 지침이 우선하며 받은 본문은 재조회하지 않습니다. 하위 지침은 별도로 읽고 새 모듈의 첫 편집 전에 지침·계약을 확인합니다. 테스트도 대상 소스 모듈 지침을 적용합니다. 경로는 [도메인 지도](docs/domain/README.md#작업-경로와-추가-지침), 자동 로딩·크기·새 세션 점검 시에만 [문서 탐색](docs/agents/context.md#에이전트-문서-탐색)을 읽습니다.
 
-아래 조건의 **파일·앵커로 직접 진입**합니다. 첫 편집 전 체크포인트·커밋 단위를 정하고 설계 질문은 계약·미결정 정책부터 확인합니다. 다른 단계·전체 디렉터리를 미리 읽지 않습니다.
+아래 조건의 **파일·앵커로 직접 진입**합니다. 작업 단위 계획·첫 편집 전에 체크포인트를 적용하고 설계 질문은 계약·미결정 정책부터 확인합니다. 다른 단계·전체 디렉터리를 미리 읽지 않습니다.
 
-조회 파일·현재 필요한 이유를 정한 뒤 같은 단위만 묶습니다. 합산 크기를 확인해 최종 출력 한도를 지키며 코드 검색 결과·여러 단계 문서를 한 응답에 합치지 않습니다. 긴 참고 문서는 제목으로 범위를 좁히고 잘리면 누락 본문만 복구한 뒤 적용합니다. 링크 발견은 읽기 지시가 아닙니다. 조건은 대화·임시 메모에서 재사용하며 문서 변경·범위 확대·구체적 불확실성 없이 재조회하지 않습니다. 재귀 탐색·영구 읽기 기록은 금지합니다.
+조회 파일·필요한 이유를 정한 뒤 이번 검증까지의 작업 단위만 묶습니다. 전체 기능에 쓰일 문서가 모두 현재 필요한 것은 아닙니다. 합산 크기를 확인해 최종 출력 한도를 지키며 코드 검색 결과·여러 단계 문서를 한 응답에 합치지 않습니다. 긴 참고 문서는 제목으로 범위를 좁히고 잘리면 누락 본문만 복구한 뒤 적용합니다. 링크 발견은 읽기 지시가 아닙니다. 조건은 대화·임시 메모에서 재사용하며 문서 변경·범위 확대·구체적 불확실성 없이 재조회하지 않습니다. 재귀 탐색·영구 읽기 기록은 금지합니다.
 
 | 작업 | 읽을 문서 |
 | --- | --- |
-| 구현 첫 편집 전 | [커밋 체크포인트](docs/conventions/workflow/checkpoints.md#checkpoints); 기능 작업이면 [PR 계획](docs/conventions/workflow/pull-requests/planning.md#planning) |
+| 작업 단위 계획·첫 편집 전 | [커밋 체크포인트](docs/conventions/workflow/checkpoints.md#checkpoints); 기능 작업이면 [PR 계획](docs/conventions/workflow/pull-requests/planning.md#planning) |
 | Java 코드 | [포맷·명명](docs/conventions/java/style.md#style) |
 | 패키지·모듈 공개 계약 | [모듈 경계](docs/conventions/architecture/modules.md#modules)와 [대상 모듈](docs/domain/README.md#작업-경로와-추가-지침) |
 | Domain/Application·Adapter | [내부 계층](docs/conventions/architecture/layers.md#layers); 외부 조회·이벤트 변환 시 [소비 모델](docs/conventions/architecture/external-models.md#external-models) |
