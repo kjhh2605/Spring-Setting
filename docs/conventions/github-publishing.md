@@ -4,29 +4,27 @@
 
 ## 작업 유형과 이슈 양식
 
-유형 이름에 `type:`을 붙인 라벨을 사용합니다. 아래 표는 분류 경계와 양식 선택 기준이며, 개별 라벨의 이름·색상·짧은 설명은 [정의 파일](../../.github/labels.json)이 원본입니다.
+유형 이름에 `type:`을 붙인 라벨을 사용합니다. 유형의 의미는 [작업 유형 선택](change-types.md)이 원본이며, 아래 표는 선택한 유형에 대응하는 이슈 양식입니다. 개별 라벨의 이름·색상·짧은 설명은 [정의 파일](../../.github/labels.json)이 원본입니다.
 
-| 유형 | 선택 기준 | 이슈 양식 |
-| --- | --- | --- |
-| `feat` | 새로운 기능·API·외부 동작을 제공하는 작업 | [기능](../../.github/ISSUE_TEMPLATE/02-feature.yml) |
-| `fix` | 기대 동작·합의된 계약과 다른 결과를 바로잡는 작업 | [버그](../../.github/ISSUE_TEMPLATE/01-bug.yml) |
-| `docs` | 문서·설명·가이드만 바꾸는 작업. 실제 API 동작·계약도 변경하면 그 목적의 유형 사용 | [문서](../../.github/ISSUE_TEMPLATE/04-docs.yml) |
-| `refactor` | 외부 동작을 보존하며 책임·의존성·코드 구조를 개선하는 작업 | [구조/성능 개선](../../.github/ISSUE_TEMPLATE/03-improvement.yml) |
-| `perf` | 응답 시간·처리량·자원 사용량의 개선이 주목적인 작업 | [구조/성능 개선](../../.github/ISSUE_TEMPLATE/03-improvement.yml) |
-| `test` | 테스트 자체나 테스트 환경의 개선이 주목적인 작업 | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
-| `build` | Gradle·패키징·의존성 변경이 주목적인 작업 | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
-| `ci` | CI 워크플로·자동 검사 실행 절차를 바꾸는 작업 | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
-| `chore` | 다른 유형에 속하지 않는 저장소 관리·보조 설정·유지보수 | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
-| `revert` | 특정 PR·커밋의 변경을 되돌리는 작업 | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
-| `investigation` | 불확실성을 해소하는 조사·질문·대안 비교와 결론 정리 | [조사](../../.github/ISSUE_TEMPLATE/06-investigation.yml) |
-
-대표 유형은 작업 목적을 기준으로 하나만 선택합니다. 버그 수정에 테스트·문서가 포함되어도 `fix`이고, 테스트만 보강하면 `test`입니다. `chore`로 분류하기 전에 더 구체적인 유형이 맞는지 확인합니다. 포맷만의 변경은 `chore`로 분류하고, 다른 작업에 수반된 포맷은 그 작업 유형을 따릅니다. 독립된 목적이 섞이면 이슈·PR을 나눕니다.
+| 유형 | 이슈 양식 |
+| --- | --- |
+| `feat` | [기능](../../.github/ISSUE_TEMPLATE/02-feature.yml) |
+| `fix` | [버그](../../.github/ISSUE_TEMPLATE/01-bug.yml) |
+| `docs` | [문서](../../.github/ISSUE_TEMPLATE/04-docs.yml) |
+| `refactor` | [구조/성능 개선](../../.github/ISSUE_TEMPLATE/03-improvement.yml) |
+| `perf` | [구조/성능 개선](../../.github/ISSUE_TEMPLATE/03-improvement.yml) |
+| `test` | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
+| `build` | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
+| `ci` | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
+| `chore` | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
+| `revert` | [일반 작업](../../.github/ISSUE_TEMPLATE/05-task.yml) |
+| `investigation` | [조사](../../.github/ISSUE_TEMPLATE/06-investigation.yml) |
 
 구조/성능 개선·일반 작업 Form은 `작업 유형`을 필수로 선택합니다. GitHub Form은 선택값을 라벨로 자동 변환하지 않으므로 두 양식은 처음에 `status:needs-triage`만 지정합니다. 라벨을 변경할 수 있는 작성자 또는 분류 담당자가 선택값을 확인해 정확한 `type:*` 하나를 붙입니다. 다른 네 양식은 고정 유형을 기본 지정합니다. CLI/API 작성에서는 선택한 유형 라벨도 직접 전달합니다.
 
 ## 이슈 작성
 
-[유형·양식 선택](#작업-유형과-이슈-양식)과 [라벨 운영](#라벨-운영)을 함께 적용합니다. AI가 작성할 때는 [AI 작성 절차](#ai-작성-절차)도 확인합니다.
+[유형 선택](change-types.md)·[양식 선택](#작업-유형과-이슈-양식)과 [라벨 운영](#라벨-운영)을 함께 적용합니다. AI가 작성할 때는 [AI 작성 절차](#ai-작성-절차)도 확인합니다.
 
 - 제목은 대상과 문제 또는 원하는 결과를 한 문장으로 적습니다. 유형은 라벨로 구분하므로 제목 접두사를 강제하지 않습니다. 예: `빈 사용자 이름으로 등록할 때 500 응답이 발생한다`는 작성 형식 예시이며 현재 구현의 결함을 뜻하지 않습니다.
 - 새 이슈 작성 전에 관련 이슈를 확인하고, 같은 문제면 기존 이슈에 근거를 보탭니다. 접근할 수 없었다면 중복 확인을 완료했다고 적지 않습니다.

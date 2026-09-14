@@ -66,7 +66,7 @@ docs/
 
 ## 검증
 
-[전체 검증 명령](AGENTS.md)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. 집중 검사·CI 보고서 정책은 [테스트 문서](docs/conventions/testing.md)에 있습니다.
+[전체 검증 명령](AGENTS.md#검증과-완료)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. [집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)와 [CI 보고서 정책](docs/conventions/testing.md#전체-실행과-ci)은 해당 절에서 확인합니다.
 
 ## 문서 안내
 

@@ -8,7 +8,7 @@
 
 ## 작업 유형과 이슈 양식
 
-[작업 유형과 이슈 양식](github-publishing.md#작업-유형과-이슈-양식)
+[작업 유형 선택](change-types.md) · [이슈 양식](github-publishing.md#작업-유형과-이슈-양식)
 
 ## 커밋
 

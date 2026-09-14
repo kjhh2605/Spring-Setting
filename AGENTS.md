@@ -19,7 +19,7 @@
 
 먼저 작업 대상 경로를 좁히고, 대상까지 각 디렉터리의 `AGENTS.override.md` 또는 `AGENTS.md`를 확인합니다. 가까운 지침이 우선하며 이미 입력으로 받은 본문은 다시 읽지 않습니다. 루트에서 시작하면 하위 지침은 별도 확인합니다. 소스·테스트 경로별 진입점은 [도메인 지도](docs/domain/README.md#작업-경로와-추가-지침)에 있습니다. 테스트 작업에서도 대상 소스 모듈 지침을 함께 확인합니다. 자동 로딩·크기 제한·새 세션 검증을 점검할 때만 [에이전트 문서 탐색](docs/agents/context.md#에이전트-문서-탐색)을 읽습니다.
 
-아래 표에서 **현재 단계에 필요한 절**만 읽습니다. 설계 질문에는 관련 계약·미결정 정책부터 확인하고, 구현·테스트·커밋·PR 절차는 해당 단계에 추가합니다. 긴 문서는 제목을 검색해 절 범위를 정하고 도구의 최종 출력 한도 안에서 조회합니다. 잘린 출력은 누락 구간만 읽습니다. 적용할 조건은 대화나 임시 메모에 재사용하며 문서 변경·범위 확대·구체적인 불확실성 없이 재조회하지 않습니다. 링크 전체의 재귀 탐색과 영구적인 읽기 기록은 만들지 않습니다.
+아래 표에서 **현재 단계에 필요한 절**만 읽습니다. 설계 질문에는 관련 계약·미결정 정책부터 확인하고, 구현·테스트·커밋·PR 절차는 해당 단계에 추가합니다. 긴 문서는 제목 행만 검색해 필요한 절의 범위를 정한 뒤 도구의 최종 출력 한도 안에서 조회합니다. 서문·다른 절의 링크를 발견했다는 이유로 읽기 범위를 넓히지 않습니다. 잘린 출력은 누락 구간만 읽습니다. 적용할 조건은 대화나 임시 메모에 재사용하며 문서 변경·범위 확대·구체적인 불확실성 없이 재조회하지 않습니다. 링크 전체의 재귀 탐색과 영구적인 읽기 기록은 만들지 않습니다.
 
 | 작업 | 읽을 문서 |
 | --- | --- |
@@ -30,7 +30,7 @@
 | OpenAPI 계약 | [OpenAPI](docs/conventions/openapi-conventions.md) |
 | 테스트 작성·실행, CI | [설계](docs/conventions/testing.md#설계)·[집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)·[실행·출력](docs/conventions/testing.md#검사-실행과-출력)·[전체 실행·CI](docs/conventions/testing.md#전체-실행과-ci) 중 현재 단계; 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
 | 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/persistence-events.md#프로필과-실행-환경) |
-| 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |
+| 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md#역할-선택과-인계), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
 | 커밋·브랜치 | [커밋](docs/conventions/commits.md#커밋); 확인 대상 행위가 있으면 [승인 절차](docs/conventions/approvals.md#승인-절차) |
 | 이슈·PR 작성·리뷰 | 요청한 작업의 [이슈](docs/conventions/github-publishing.md#이슈-작성)·[PR](docs/conventions/pull-requests.md#pr-작성)·[리뷰](docs/conventions/reviews.md#pr-크기와-ai-리뷰) 절 |
@@ -43,7 +43,7 @@
 
 - 비즈니스 모듈은 루트 공개 타입, `shared`는 명시적 named interface로 계약을 제공합니다. 내부 타입 공개로 검증을 우회하지 않습니다. Domain은 Spring/JPA/Web 및 Application/Adapter에 의존하지 않습니다.
 - Controller는 Repository를 직접 호출하거나 JPA Entity를 반환하지 않습니다. 모듈 간 Entity 공유와 이유 없는 `shared` 이동은 금지합니다.
-- 같은 대상이라도 모듈별로 필요한 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 정의하고 공개 조회 결과·이벤트를 경계에서 변환합니다. 단순 조회용 값과 Domain 모델의 구분은 [아키텍처](docs/conventions/architecture.md)를 따릅니다.
+- 같은 대상이라도 모듈별로 필요한 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 정의하고 공개 조회 결과·이벤트를 경계에서 변환합니다. 단순 조회용 값과 Domain 모델의 구분은 [모델과 외부 정보 변환](docs/conventions/architecture.md#소비-모듈의-모델과-외부-정보-변환)을 따릅니다.
 - `.env` 등 실제 환경값·비밀값 파일은 커밋하거나 `src/main/resources`에 넣지 않습니다. 비밀값 없는 `.env.example`은 사용 예제로 유지합니다. 생성된 QueryDSL Q 클래스·`build/`의 내용을 직접 편집하지 않습니다. 생성물 정리는 위 작업 원칙을 따릅니다. 로컬/테스트 외 스키마 자동 변경은 금지합니다.
 - 새 기능·버그 수정은 기대 행동·재현 테스트의 의도한 실패부터 확인합니다. 구조·정책 변경은 영향받는 컨벤션·도메인 문서와 해당 주제 ADR을 함께 갱신합니다. 독립적인 새 주제의 ADR 추가와 현재판·이력 관리는 [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리)을 따릅니다. 세팅 과정의 실행 기록은 상시 문서에 누적하지 않습니다.
 
@@ -53,7 +53,7 @@
 
 코드·빌드·실행 설정 변경은 집중 테스트 후 각 PR의 검토 준비를 마칠 때 아래 전체 검사를 수행합니다. PR을 만들지 않는 작업도 완료 시 수행하며, 같은 최종 상태의 통과 결과는 재사용합니다. 중간 커밋의 집중 검사 통과가 전체 통과를 뜻하지 않습니다. DB 자원 삭제를 포함한 검사는 위 작업 원칙에 따라 사전 확인받습니다. 포맷 결과를 수동으로 되돌리지 않습니다.
 
-같은 단위의 집중 검사는 묶어서 실행할 수 있습니다. 긴 검사는 짧은 폴링 대신 10~30초 대기와 결과 요약을 활용하며, 큰 로그의 처리와 소비 모듈 검사 선택은 [테스트 규칙](docs/conventions/testing.md#검사-실행과-출력)을 따릅니다.
+같은 단위의 집중 검사는 묶어서 실행할 수 있습니다. 긴 검사는 짧은 폴링 대신 10~30초 대기와 결과 요약을 활용하며, 큰 로그 처리는 [실행·출력 규칙](docs/conventions/testing.md#검사-실행과-출력), 소비 모듈 검사 선택은 [집중 검사 기준](docs/conventions/testing.md#아키텍처와-집중-검사)을 따릅니다.
 
 ```bash
 ./gradlew spotlessApply

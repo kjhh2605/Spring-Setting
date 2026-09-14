@@ -10,7 +10,7 @@ GitHub는 작고 목적이 분명한 PR, 변경 배경과 결과, 작성자의 �
 
 분류 어휘는 Conventional Commits를 참고합니다. 규격이 의미를 정한 `feat`·`fix` 외의 유형은 프로젝트에서 선택할 수 있으며, `investigation`은 조사·논의를 위한 자체 유형입니다. 작업 유형의 수와 입력 양식의 수를 일치시킬 필요는 없습니다. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
-입력 필드 원본은 [이슈 양식](../../.github/ISSUE_TEMPLATE/)과 [PR 양식](../../.github/pull_request_template.md), 라벨 이름·색상·설명 원본은 [labels.json](../../.github/labels.json)입니다. 양식을 바꿀 때는 [유형·양식 선택 기준](../conventions/github-publishing.md#작업-유형과-이슈-양식)도 함께 맞춥니다. 조직별 Issue Type·Project·담당자는 미리 지정하지 않아 개인·조직 저장소에서 재사용할 수 있습니다.
+입력 필드 원본은 [이슈 양식](../../.github/ISSUE_TEMPLATE/)과 [PR 양식](../../.github/pull_request_template.md), 라벨 이름·색상·설명 원본은 [labels.json](../../.github/labels.json)입니다. 양식을 바꿀 때는 [유형 선택](../conventions/change-types.md)·[양식 선택 기준](../conventions/github-publishing.md#작업-유형과-이슈-양식)도 함께 맞춥니다. 조직별 Issue Type·Project·담당자는 미리 지정하지 않아 개인·조직 저장소에서 재사용할 수 있습니다.
 
 ## 새 저장소에 적용
 

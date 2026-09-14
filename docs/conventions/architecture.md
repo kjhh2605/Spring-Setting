@@ -39,7 +39,7 @@ com.example
 
 ## Shared 공개 계약
 
-- 오류와 OpenAPI 계약은 각각 `shared::error`, `shared::openapi`로 공개합니다. 공개 타입 목록·소비 모듈은 [도메인 지도](../domain/README.md)가 원본입니다.
+- 오류와 OpenAPI 계약은 각각 `shared::error`, `shared::openapi`로 공개합니다. 공개 타입 목록·소비 모듈의 원본은 [모듈별 책임과 공개 계약](../domain/README.md#모듈별-책임과-공개-계약) 표입니다.
 - 설정·공통 응답·예외 처리·보안 구현은 `shared.internal`에 두고 공개하지 않습니다.
 - 실제 여러 모듈이 재사용하는 작고 안정적인 계약만 `shared`에 둡니다. 한 모듈 전용이거나 사용처 없는 타입을 이동하지 않습니다.
 - 페이지 요청·응답은 소유 모듈의 Web Adapter에 먼저 둡니다. 둘 이상 모듈에서 의미·노출 정책·변경 주기가 같아질 때만 기술 중립적인 공통 계약을 설계합니다.
@@ -49,7 +49,7 @@ com.example
 - 소스 의존성은 Adapter에서 Application의 Port와 Domain으로 향합니다. Domain은 Application/Adapter 및 Spring·JPA·Web 기술에 의존하지 않습니다.
 - 입력 Adapter는 입력 Port를 호출하고 Application Service 구현·출력 Port·Persistence를 직접 호출하지 않습니다.
 - Application Service는 Domain과 Port에 의존하고 Adapter·영속 기술에 직접 의존하지 않습니다. 출력 Adapter는 출력 Port를 구현합니다.
-- `ModularityTest`는 모듈 간 계약, `ArchitectureTest`는 내부 의존성과 JPA Entity 위치를 검사합니다. 구체적 검사는 [테스트 규칙](testing.md)에 있습니다.
+- `ModularityTest`는 모듈 간 계약, `ArchitectureTest`는 내부 의존성과 JPA Entity 위치를 검사합니다. 구체적 검사는 [집중 검사 기준](testing.md#아키텍처와-집중-검사)에 있습니다.
 
 ## Application과 Domain
 

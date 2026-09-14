@@ -35,7 +35,7 @@ user.UserRegistered
 - 리스너가 공개 이벤트를 auth 소유 Command로 변환합니다. Application과 Domain은 user 타입을 참조하지 않습니다.
 - 등록 커밋 후 별도 스레드·트랜잭션에서 `userId`, `occurredAt`만 로그로 기록합니다. 롤백 시 소비하지 않습니다.
 - 발생 시각은 user의 발행 시각이며 커밋 시각이 아닙니다. 소비 실패가 이미 커밋한 등록을 되돌리지 않습니다.
-- 로그 외 영속 모델·자동 재처리는 없습니다. 전달 보장은 [영속성·이벤트](../conventions/persistence-events.md)를 따릅니다.
+- 로그 외 영속 모델·자동 재처리는 없습니다. 전달 보장은 [트랜잭션 이벤트](../conventions/persistence-events.md#트랜잭션-이벤트)를 따릅니다.
 
 ## 패키지와 공개 계약
 

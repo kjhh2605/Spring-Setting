@@ -2,6 +2,8 @@
 
 현재 구현된 예제 모듈의 책임·공개 계약을 찾는 출발점입니다. 대상 모듈만 아래 문서·지침으로 이어서 읽습니다. 제품 모듈 분리·정책 논의에는 [기획 초안](../planning/use-cases.md)을 사용하며, 초안의 5개 비즈니스 모듈은 현재 구현과 구분합니다.
 
+## 모듈별 책임과 공개 계약
+
 | 모듈 | 소유 책임 | 공개 계약 | 허용 의존성 |
 | --- | --- | --- | --- |
 | `shared` | 오류 기반, OpenAPI 오류 문서화, 공통 응답 구현, 설정과 보안 | `shared::error` (`BaseCode`, `BusinessException`, `CommonErrorCode`), `shared::openapi` (`ApiErrorCodes`, `ApiErrorCodesGroup`) | 없음 |
@@ -16,9 +18,9 @@
 | --- | --- | --- |
 | `src/main/java/com/example/user/**` | [user 지침](../../src/main/java/com/example/user/AGENTS.md) → [User](user.md) | 불변식·공개 정보·발행 시점과 auth 영향 |
 | `src/main/java/com/example/auth/**` | [auth 지침](../../src/main/java/com/example/auth/AGENTS.md) → [Auth](auth.md) | 예제 한계·소유 모델 변환·커밋 후 처리 |
-| `src/main/java/com/example/shared/**` | [shared 지침](../../src/main/java/com/example/shared/AGENTS.md) → [Shared 계약](../conventions/architecture.md#shared-공개-계약) | named interface와 내부 구현, 소비 모듈 영향 |
+| `src/main/java/com/example/shared/**` | [shared 지침](../../src/main/java/com/example/shared/AGENTS.md) → [공개 타입·소비자](#모듈별-책임과-공개-계약)·[공개 경계 규칙](../conventions/architecture.md#shared-공개-계약) | named interface와 내부 구현, 소비 모듈 영향 |
 | `src/test/java/com/example/**` | [테스트 지침](../../src/test/java/com/example/AGENTS.md) → 위 대상 소스 모듈 지침·계약 | 테스트가 다루는 소유 모듈·소비 경계 |
 
-모듈 목록·책임 요약·허용 의존성은 이 지도, 공개 타입·필드·동작은 개별 모듈 문서가 소유합니다. 새 모듈은 지도에 진입점을 추가하고 상세 계약은 해당 문서에 기록합니다. 같은 타입 목록을 지도·하위 지침에 복제하지 않습니다. 별도 문서가 없는 shared의 공개 타입 목록은 위 표가 소유합니다.
+모듈 목록·책임 요약·허용 의존성은 이 지도, 공개 타입·필드·동작은 개별 모듈 문서가 소유합니다. 새 모듈은 지도에 진입점을 추가하고 상세 계약은 해당 문서에 기록합니다. 같은 타입 목록을 지도·하위 지침에 복제하지 않습니다. 별도 문서가 없는 shared의 공개 타입 목록은 [모듈별 책임과 공개 계약](#모듈별-책임과-공개-계약) 표가 소유합니다.
 
 검증할 때는 [집중 검사 표](../conventions/testing.md#아키텍처와-집중-검사)를 적용합니다. `user`·`auth`는 구조를 보여주는 예제이며, 새 프로젝트에서는 실제 유스케이스와 데이터 소유권에 맞춰 교체합니다.
