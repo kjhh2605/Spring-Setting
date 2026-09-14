@@ -71,7 +71,7 @@ docs/
 ## 문서 안내
 
 - 템플릿 적용·개발자 온보딩: [온보딩](docs/onboarding/README.md)
-- 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/backend-conventions.md)
+- 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/README.md#conventions)
 - API 스키마: [OpenAPI](docs/conventions/web/openapi/controllers.md#controllers)
 - AI 작업 방식: [AGENTS.md](AGENTS.md)
 - Codex 협업 역할·설정: [협업 안내](docs/agents/collaboration.md#codex-협업-설정)
