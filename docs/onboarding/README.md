@@ -44,7 +44,7 @@ curl http://localhost:9090/actuator/health
 
 ## 기능 추가 순서
 
-1. [도메인 지도](../domain/README.md)에서 소유 모듈을 정하고 해당 모듈 지침을 읽습니다.
+1. [도메인 지도](../domain/README.md)에서 소유 모듈을 정하고 해당 모듈 지침을 읽습니다. [stacked PR](../conventions/github-workflow.md#기능-작업과-stacked-pr)의 검토 단위·의존 순서와 각 PR 안의 작은 커밋을 계획합니다.
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web-api.md)와 [ControllerDocs](../conventions/openapi-conventions.md) 규칙을 따릅니다.
