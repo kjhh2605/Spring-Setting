@@ -43,6 +43,6 @@ user.UserRegistered
 - 이벤트 후속 처리 계약·값: `application/port/in/command`, `command/dto`.
 - 구현 두 개는 `application/service`에 둡니다. 아직 service 하위 command/query를 나누지 않습니다.
 - 출력 Port는 `application/port/out`, user 연동 구현은 `adapter/out/user`에 둡니다.
-- 현재 다른 모듈에 공개하는 타입은 없습니다. 허용 의존성은 `shared::error`, `shared::openapi`, `user`입니다.
+- 현재 다른 모듈에 공개하는 타입은 없습니다. 허용 의존성은 [도메인 지도](README.md)가 관리합니다.
 
 소비 모듈 모델의 일반 기준은 [아키텍처](../conventions/architecture.md#소비-모듈의-모델과-외부-정보-변환), 예제의 선택 배경은 [ADR-001](../adr/001-backend-architecture.md#예제-모듈)을 따릅니다.

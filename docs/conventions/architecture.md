@@ -4,7 +4,7 @@ Domain/Application·패키지·모듈 계약 변경에 적용합니다. 현재 �
 
 ## 패키지와 모듈 경계
 
-`com.example` 아래 Application Module은 `shared`, `user`, `auth`입니다. 최상위를 비즈니스 책임으로 나누며 `controller`, `service`, `repository`, `entity`, `dto` 기술 계층 패키지를 만들지 않습니다.
+`com.example` 최상위를 비즈니스 책임별 Application Module로 나누며 `controller`, `service`, `repository`, `entity`, `dto` 기술 계층 패키지를 만들지 않습니다. 모듈 목록은 [도메인 지도](../domain/README.md)를 확인합니다.
 
 ```text
 com.example
@@ -25,7 +25,7 @@ com.example
 - 비즈니스 모듈의 공개 계약은 모듈 루트, `shared`의 공개 계약은 명시적 `@NamedInterface`에 둡니다. 다른 모듈의 `domain`, `application`, `adapter` 직접 접근이나 모듈 간 JPA Entity 공유는 금지합니다.
 - `package-info.java`의 `allowedDependencies`는 실제 의존성만 선언합니다. `shared::error`처럼 한정하고 `shared::*`로 일괄 허용하지 않습니다.
 - 내부 타입을 공개해 검증을 우회하지 않습니다. 필요한 최소 계약을 설계합니다.
-- 즉시 응답은 공개 인터페이스, 완료 사실 전파는 공개 이벤트를 사용합니다. `auth`는 `user`의 공개 조회 계약과 이벤트만 사용합니다.
+- 즉시 응답은 공개 인터페이스, 완료 사실 전파는 공개 이벤트를 사용합니다.
 
 ## 소비 모듈의 모델과 외부 정보 변환
 
@@ -35,7 +35,7 @@ com.example
 - 단순 표시·조회만 필요하고 별도 의미나 도메인 규칙이 없으면 Application의 조회 결과 값으로 충분합니다. 필드 선택만을 위해 행동 없는 Domain 클래스를 강제하지 않습니다. 자체 도메인 규칙이 필요해지면 위 경계로 전환합니다.
 - 자체 모델을 만든다고 별도 테이블이나 원본 데이터의 소유권이 생기지는 않습니다. 원본 변경은 소유 모듈의 공개 계약으로 요청합니다. 로컬 조회 모델을 영속화할 필요가 있으면 동기화·최신성·실패 복구 정책을 별도로 정합니다.
 
-현재 `auth.domain.AuthSubject`는 사용자 식별자를 auth의 subject 형식으로 표현합니다. `UserSubjectAdapter`가 `UserLookup`의 공개 결과에서 식별자만 변환하고, 등록 이벤트는 `UserRegisteredListener`에서 auth 소유 Command로 변환합니다. auth는 별도 테이블을 소유하지 않으며 실제 인증·토큰 발급은 구현하지 않습니다.
+적용 예시는 [Auth 조회 흐름](../domain/auth.md#조회-흐름)과 [이벤트 흐름](../domain/auth.md#이벤트-흐름)을 확인합니다. 현재 구현 범위는 해당 모듈 문서가 소유합니다.
 
 ## Shared 공개 계약
 
@@ -55,7 +55,7 @@ com.example
 
 - 입력 Port는 상태 변경·후속 처리를 `application/port/in/command`, 조회를 `application/port/in/query`로 분리합니다. 없는 책임의 빈 패키지는 만들지 않습니다.
 - 입력·결과 DTO는 사용하는 계약의 `command/dto` 또는 `query/dto`에 둡니다. 접미사가 아니라 소유 유스케이스로 결정합니다. 등록 결과 `RegisteredUserInfo`는 `command/dto`에 둡니다.
-- 모듈 간 공개 계약은 이 내부 분류와 별개입니다. `UserLookup`, `UserSummary`, `UserRegistered`는 모듈 루트에 유지하고 다른 모듈이 내부 Port를 직접 참조하지 않습니다.
+- 모듈 간 공개 계약은 이 내부 분류와 별개로 모듈 루트에 유지합니다. 다른 모듈이 내부 Port를 직접 참조하지 않습니다.
 - 서비스 구현은 `application/service`에 둡니다. 구현이 늘어 탐색·책임 구분이 필요할 때 `service/command`, `service/query`를 추가합니다. 소규모 모듈에는 기본 `service`로 충분합니다.
 - Port와 계약 DTO는 서비스 구현에 의존하지 않습니다. 조회·변경의 구분은 패키지 분류이며 별도 DB나 CQRS 인프라를 요구하지 않습니다.
 

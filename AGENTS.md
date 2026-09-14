@@ -16,9 +16,9 @@
 
 ## 읽기 경로
 
-대상 파일까지의 각 디렉터리에서 지침을 확인합니다. Codex는 시작 시 저장소 루트부터 작업 디렉터리까지 디렉터리마다 `AGENTS.override.md`, `AGENTS.md` 순으로 하나를 선택하며, 더 가까운 지침이 우선합니다. 루트에서 시작하면 하위 지침은 별도로 읽어야 합니다. 다른 도구도 루트의 공통 규칙과 대상 경로의 추가 규칙을 함께 적용합니다. 크기 제한·스킬·새 세션 확인은 [에이전트 문서 탐색](docs/onboarding/README.md#에이전트-문서-탐색)을 참고합니다.
+먼저 작업 대상 경로를 좁히고, 대상까지 각 디렉터리의 `AGENTS.override.md` 또는 `AGENTS.md`를 확인합니다. 가까운 지침이 우선하며 이미 입력으로 받은 본문은 다시 읽지 않습니다. 루트에서 시작하면 하위 지침은 별도 확인합니다. 소스·테스트 경로별 진입점은 [도메인 지도](docs/domain/README.md#작업-경로와-추가-지침)에 있습니다. 테스트 작업에서도 대상 소스 모듈 지침을 함께 확인합니다. 자동 로딩·크기 제한·새 세션 검증을 점검할 때만 [에이전트 문서 탐색](docs/onboarding/README.md#에이전트-문서-탐색)을 읽습니다.
 
-작업에 해당하는 문서만 읽고, 이번 변경에 적용할 핵심 조건을 대화나 임시 메모에 짧게 정리해 재사용합니다. 조회는 파일·절 단위로 나눠 출력 한도 안에 맞추고, 출력이 잘리면 누락된 구간만 다시 읽습니다. 문서 변경·작업 범위 확대·구체적인 불확실성이 없으면 같은 내용을 재조회하지 않습니다. 링크 전체의 재귀 탐색과 상시 문서로 읽기 기록을 남기는 일은 피하고 구현과 문서의 차이는 명시합니다.
+아래 표에서 **현재 단계에 필요한 절**만 읽습니다. 설계 질문에는 관련 계약·미결정 정책부터 확인하고, 구현·테스트·커밋·PR 절차는 해당 단계에 추가합니다. 긴 문서는 제목을 검색해 절 범위를 정하고 도구의 최종 출력 한도 안에서 조회합니다. 잘린 출력은 누락 구간만 읽습니다. 적용할 조건은 대화나 임시 메모에 재사용하며 문서 변경·범위 확대·구체적인 불확실성 없이 재조회하지 않습니다. 링크 전체의 재귀 탐색과 영구적인 읽기 기록은 만들지 않습니다.
 
 | 작업 | 읽을 문서 |
 | --- | --- |
@@ -30,9 +30,10 @@
 | 테스트 작성·실행, CI | [테스트](docs/conventions/testing.md); 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
 | 실행·환경 문제 | [README](README.md), [온보딩](docs/onboarding/README.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
-| 커밋·브랜치·승인·작업 유형·이슈·라벨·PR과 리뷰 | [GitHub 작업 가이드](docs/conventions/github-workflow.md) |
-| 구조·정책·ADR | [현재 ADR 요약](docs/adr/README.md), [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리) 및 해당 주제 ADR |
-| 제품 유즈케이스·정책 검토 | [기획 초안](docs/planning/use-cases.md)의 제안·미결정 사항; 현재 구현은 [도메인 지도](docs/domain/README.md)와 구분 |
+| 커밋·브랜치 | [커밋](docs/conventions/github-workflow.md#커밋); 확인 대상 행위가 있으면 [승인 절차](docs/conventions/github-workflow.md#승인-절차) |
+| 이슈·PR 작성·리뷰 | 요청한 작업의 [이슈](docs/conventions/github-workflow.md#이슈-작성)·[PR](docs/conventions/github-workflow.md#pr-작성)·[리뷰](docs/conventions/github-workflow.md#pr-크기와-ai-리뷰) 절 |
+| 구조·정책·ADR | [현재 ADR 요약](docs/adr/README.md)에서 해당 주제의 절; 문서 변경에는 [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리) |
+| 제품 유즈케이스·정책 검토 | [기획 초안](docs/planning/use-cases.md)의 관련 유즈케이스·미결정 항목만 확인; 현재 구현은 [도메인 지도](docs/domain/README.md)와 구분 |
 
 전체 안내는 [컨벤션 목차](docs/conventions/backend-conventions.md), 새 프로젝트 적용 순서는 [온보딩](docs/onboarding/README.md)을 사용합니다.
 

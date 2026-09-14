@@ -13,7 +13,7 @@ JPA·DB·프로필·트랜잭션·이벤트 흐름을 변경할 때 적용합니
 - 완료 이벤트는 변경 트랜잭션 안에서 발행하고 `@ApplicationModuleListener`로 커밋 후 소비합니다. 롤백한 트랜잭션의 이벤트는 소비하지 않습니다.
 - `shared.internal.config.AsyncConfig`의 `@EnableAsync`와 Boot의 TaskExecutor를 사용합니다. 리스너는 발행자와 다른 스레드·별도 트랜잭션에서 실행합니다.
 - 발생 시각은 발행 시점의 `Clock` 값이며 커밋 시각이 아닙니다. 후속 처리 완료는 API 응답과 독립적이고, 소비 실패가 이미 커밋된 등록을 되돌리지 않습니다.
-- 현재 후속 처리는 로그뿐이며 영속 Event Publication Registry·자동 재처리 보장은 없습니다. 전달 보장이 필요한 확장은 저장소·재처리·멱등성과 ADR을 함께 설계합니다.
+- 전달 보장이 필요한 확장은 저장소·재처리·멱등성과 ADR을 함께 설계합니다. 현재 소비·재처리 범위는 [Auth 이벤트 흐름](../domain/auth.md#이벤트-흐름)을 확인합니다.
 - 실제 커밋·롤백·소비 스레드를 통합 테스트로 검증합니다. 테스트 전체를 트랜잭션으로 감싸지 않습니다.
 
 ## JPA와 스키마
@@ -25,6 +25,6 @@ JPA·DB·프로필·트랜잭션·이벤트 흐름을 변경할 때 적용합니
 - 운영은 `SPRING_PROFILES_ACTIVE=prod`로 실행합니다. DB 정보 `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`는 기본값 없이 받아 누락 시 시작에 실패하게 합니다.
 - `prod,local`이 함께 지정되어도 로컬 설정이 활성화되지 않도록 프로필 표현식으로 보호합니다. 운영 OpenAPI UI는 비활성화합니다.
 - 프로필 설정은 `application-{profile}.yml`로 분리하고 공통 설정을 중복하지 않습니다.
-- 현재 마이그레이션 도구는 없습니다. 운영 배포 전에 마이그레이션 전략을 ADR로 결정합니다.
+- 운영 배포 전에 마이그레이션 전략을 ADR로 결정합니다. 현재 실행 준비 상태는 [온보딩](../onboarding/README.md#로컬-실행)을 확인합니다.
 
 선택 배경: [영속성과 이벤트 결정](../adr/001-backend-architecture.md#영속성과-이벤트).

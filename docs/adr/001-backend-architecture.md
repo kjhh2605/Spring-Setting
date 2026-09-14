@@ -1,7 +1,7 @@
 # ADR-001: 백엔드 아키텍처
 
 - 상태: Accepted
-- 기준일: 2026-09-12
+- 기준일: 2026-09-14
 - 범위: 초기 백엔드의 구조·기술 선택·예제 계약과 검증 체계. 에이전트 작업 방식은 [ADR-002](002-agentic-coding-rules.md)가 다룹니다.
 
 ## 배경과 목적
@@ -21,7 +21,7 @@
 - Domain, Application Port, Adapter를 분리합니다. Domain은 기술에 의존하지 않고 Application은 Port를 통해 외부 기술을 사용합니다. 입력 Adapter는 입력 Port에 위임합니다.
 - 입력 Port는 상태 변경·후속 처리의 `application/port/in/command`와 조회의 `application/port/in/query`로 나눕니다. DTO는 사용하는 계약의 `command/dto`, `query/dto`에 둡니다. 등록 결과 `RegisteredUserInfo`도 command가 소유하며 접미사만으로 위치를 정하지 않습니다.
 - 서비스 구현은 `application/service`에 둡니다. 구현이 늘어 책임별 탐색이 필요할 때만 `service/command`, `service/query`로 세분화하고 빈 패키지를 미리 만들지 않습니다.
-- Domain 모델·JPA Entity·Web DTO를 분리합니다. 모듈 간 공개 계약인 `UserLookup`, `UserSummary`, `UserRegistered`는 내부 Port·DTO 패키지로 옮기지 않습니다.
+- Domain 모델·JPA Entity·Web DTO를 분리합니다. 모듈 간 공개 계약은 내부 Port·DTO 패키지로 옮기지 않습니다.
 - 같은 대상도 모듈별 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 소유하고 공개 DTO·이벤트를 Port·Adapter 경계에서 변환합니다. 단순 표시·조회에는 별도 Domain 모델을 강제하지 않으며, 모델 분리는 테이블 복제나 원본 데이터 소유권 이전을 뜻하지 않습니다.
 
 상세 기준은 [소비 모듈의 모델과 외부 정보 변환](../conventions/architecture.md#소비-모듈의-모델과-외부-정보-변환)을 따릅니다.
@@ -29,11 +29,10 @@
 ## 예제 모듈
 
 - `user`는 등록·표시 이름 불변식·순수 Domain·JPA Adapter·공개 요약 조회·이벤트 발행을 보여 줍니다.
-- `auth`는 공개 조회 결과를 `adapter/out/user`에서 자체 `AuthSubject`로, 공개 이벤트를 `adapter/in/event`에서 자체 Command로 변환합니다. Application과 Domain은 user 타입을 참조하지 않습니다.
-- `/api/v1/auth/examples/subjects/{userId}`는 예제 subject를 반환합니다. 실제 자격 증명 검증·토큰 발급·인증 상태 설정은 없으며 Security 공개 범위도 예제 경로로 제한합니다.
-- 현재 예제 구성은 `shared`·`user`·`auth`이며 `activity` 코드·API와 `ACTIVITY-404`는 제공하지 않습니다.
+- `auth` 예제는 공개 조회 결과와 이벤트를 Adapter에서 자체 값으로 변환하여 소비 모듈의 독립성을 보여 줍니다. Application과 Domain은 user 타입을 참조하지 않습니다.
+- 예제 subject에는 인증 의미를 부여하지 않습니다. 실제 인증 확장은 별도 자격 증명 검증과 접근 정책을 설계해야 합니다.
 
-계약은 [User](../domain/user.md)·[Auth](../domain/auth.md)를 따릅니다. 변환 코드가 늘지만 별도 DB·CQRS 인프라·인증 제품 기능을 추가하지 않고 소비 모듈의 경계를 보여 줍니다.
+현재 모듈 목록은 [도메인 지도](../domain/README.md), API·구현 범위는 [User](../domain/user.md)·[Auth](../domain/auth.md)가 소유합니다. 예제는 변환 코드가 늘어나는 비용을 감수하여 원본 모델 공유 없이 소비 모듈의 경계를 보여 주도록 선택했습니다.
 
 ## HTTP와 오류 계약
 
@@ -48,7 +47,7 @@
 - PostgreSQL·JPA·QueryDSL을 사용하고 DB 검증은 PostgreSQL Testcontainers로 수행합니다. H2로 대체하지 않아 SQL·매핑 차이를 실제 DB에서 확인합니다.
 - 공통·운영 설정은 스키마를 자동 변경하지 않습니다. 로컬 예제·테스트만 임시 스키마를 사용하고 활성 프로필·운영 DB 접속 정보는 실행 환경에서 지정합니다.
 - 즉시 결과가 필요한 모듈 간 조회는 공개 API로 호출하고, 등록 완료 후속 처리는 커밋 후 비동기 이벤트로 실행합니다. 시간은 주입받은 `Clock`과 UTC `Instant`를 사용합니다.
-- 현재 이벤트 소비는 로그 기록입니다. 영속 Event Publication Registry·Outbox·자동 재처리는 제공하지 않으므로 필요한 서비스는 저장소·재처리·멱등성 정책을 함께 설계합니다.
+- 전달 보장이 필요한 서비스는 영속 저장소·재처리·멱등성 정책을 함께 설계합니다. 최소 예제의 후속 처리는 모듈 경계를 보여 주는 데 한정하며 전달 보장을 암시하지 않습니다.
 - 마이그레이션 도구와 실제 인증 수단은 제품 요구에 따라 결정합니다. 운영 적용 전 스키마 준비와 API·Actuator 접근 정책을 구성해야 합니다.
 
 프로필·트랜잭션·이벤트의 실행 규칙은 [영속성·이벤트](../conventions/persistence-events.md), 실행 준비는 [온보딩](../onboarding/README.md)을 따릅니다.
