@@ -20,3 +20,8 @@ logging:
   level:
     root: WARN
     org.testcontainers: INFO
+
+app:
+  auth:
+    jwt:
+      secret: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
