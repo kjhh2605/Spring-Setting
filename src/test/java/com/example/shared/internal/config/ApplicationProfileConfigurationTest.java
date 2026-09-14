@@ -29,6 +29,8 @@ class ApplicationProfileConfigurationTest {
 
             assertThat(environment.getProperty("spring.datasource.url"))
                     .isEqualTo("jdbc:postgresql://localhost:54321/postgres");
+            assertThat(environment.getProperty("spring.data.redis.host")).isEqualTo("localhost");
+            assertThat(environment.getProperty("spring.data.redis.port")).isEqualTo("6379");
             assertThat(environment.getProperty("spring.jpa.hibernate.ddl-auto")).isEqualTo("create-drop");
             assertThat(environment.getProperty("springdoc.api-docs.enabled")).isEqualTo("true");
         }
@@ -48,6 +50,12 @@ class ApplicationProfileConfigurationTest {
             assertThatThrownBy(() -> environment.getRequiredProperty("spring.datasource.password"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("DATABASE_PASSWORD");
+            assertThatThrownBy(() -> environment.getRequiredProperty("spring.data.redis.host"))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("REDIS_HOST");
+            assertThatThrownBy(() -> environment.getRequiredProperty("spring.data.redis.password"))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("REDIS_PASSWORD");
         }
     }
 
@@ -57,7 +65,10 @@ class ApplicationProfileConfigurationTest {
                 "--spring.profiles.active=prod",
                 "--DATABASE_URL=jdbc:postgresql://prod.example:5432/app",
                 "--DATABASE_USERNAME=app",
-                "--DATABASE_PASSWORD=secret")) {
+                "--DATABASE_PASSWORD=secret",
+                "--REDIS_HOST=redis.example",
+                "--REDIS_PORT=6379",
+                "--REDIS_PASSWORD=secret")) {
             Environment environment = context.getEnvironment();
 
             assertThat(environment.getProperty("spring.jpa.hibernate.ddl-auto")).isEqualTo("none");

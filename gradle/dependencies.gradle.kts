@@ -30,6 +30,8 @@ dependencies {
     add("annotationProcessor", "jakarta.persistence:jakarta.persistence-api")
 
     add("runtimeOnly", "org.postgresql:postgresql")
+    add("implementation", "org.springframework.boot:spring-boot-starter-flyway")
+    add("implementation", "org.flywaydb:flyway-database-postgresql")
 
     add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:${version("springdoc")}")
     add("implementation", "io.micrometer:micrometer-registry-prometheus")
