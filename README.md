@@ -12,7 +12,7 @@ Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/Postgr
 
 JDK 21과 Docker/Compose가 필요합니다. 별도 Gradle 설치 없이 Wrapper를 사용합니다.
 
-에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/github-workflow.md#승인-절차)를 따릅니다.
+에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/approvals.md#승인-절차)를 따릅니다.
 
 ```bash
 cp .env.example .env

@@ -13,7 +13,7 @@ JDK 21, Docker와 Docker Compose가 필요합니다. Gradle은 저장소 Wrapper
 3. [도메인 지도](../domain/README.md)에서 현재 구현 범위를 확인하고 제품 유스케이스에 맞춥니다. 모듈을 추가·제거하면 `allowedDependencies`, `ModularityTest`의 모듈 목록, 모듈별 테스트와 문서 진입점을 함께 갱신합니다. 상세 계약은 모듈 문서, 추가 작업 규칙은 하위 지침에 유지합니다.
 4. `.env.example`과 실행 환경의 DB·포트·CORS 값을 맞춥니다. 실제 환경값은 `.env` 또는 배포 환경에 두며 커밋하지 않습니다.
 5. [전체 검증](../../AGENTS.md)을 실행한 뒤 프로젝트의 초기 기준점으로 삼습니다. 소스의 `port/out`·`adapter/out`과 테스트도 Git에 포함되어 있어야 합니다.
-6. [GitHub 초기 설정](../conventions/github-workflow.md)에 따라 새 저장소에 라벨을 적용하고 기본 브랜치의 이슈·PR 양식을 확인합니다.
+6. [GitHub 초기 설정](github-setup.md)에 따라 새 저장소에 라벨을 적용하고 기본 브랜치의 이슈·PR 양식을 확인합니다.
 
 | 식별자 | 변경 위치 |
 | --- | --- |
@@ -44,11 +44,11 @@ curl http://localhost:9090/actuator/health
 
 ## 기능 추가 순서
 
-1. [도메인 지도](../domain/README.md)에서 소유 모듈을 정하고 해당 모듈 지침을 읽습니다. [stacked PR](../conventions/github-workflow.md#기능-작업과-stacked-pr)의 검토 단위·의존 순서와 각 PR 안의 작은 커밋을 계획합니다.
+1. [도메인 지도](../domain/README.md)에서 소유 모듈을 정하고 해당 모듈 지침을 읽습니다. [stacked PR](../conventions/pull-requests.md#기능-작업과-stacked-pr)의 검토 단위·의존 순서와 각 PR 안의 작은 커밋을 계획합니다.
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web-api.md)와 [ControllerDocs](../conventions/openapi-conventions.md) 규칙을 따릅니다.
-5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)에 따릅니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/github-workflow.md#작업-중-커밋-체크포인트)을 마치고, 각 PR의 변경과 알려진 수정을 완료한 뒤 전체 검증을 수행합니다.
+5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)에 따릅니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/commits.md#작업-중-커밋-체크포인트)을 마치고, 각 PR의 변경과 알려진 수정을 완료한 뒤 전체 검증을 수행합니다.
 
 ## 자주 쓰는 명령
 
@@ -114,7 +114,7 @@ curl http://localhost:9090/actuator/health
 
 두 역할은 검토 업무를 위한 지시문이며, 파일 쓰기를 막는 별도 sandbox 설정은 아닙니다. 실제 권한은 부모 세션을 상속합니다. 기본 `worker`·`explorer` 역할과 함께 선택적으로 사용하고, 단순 수정에 병렬 실행을 강제하지 않습니다.
 
-주 에이전트는 [기존 리뷰 기준](../conventions/github-workflow.md#pr-크기와-ai-리뷰)에 따라 같은 변경 기준과 요구사항, 담당 파일·diff 범위, 기대 결과를 전달합니다. 커밋 리뷰는 base/head SHA를, 미커밋 변경은 검토 시작 시 diff 범위를 명시합니다. 검토 중 변경이 생기면 영향받는 범위를 다시 확인합니다. 수정 위임이 필요한 작업은 파일 소유권을 나누고 공유 파일의 동시 수정을 피합니다. 하위 결과를 수집한 뒤 중복 지적·계약 연결·최종 검증은 주 에이전트가 확인합니다.
+주 에이전트는 [기존 리뷰 기준](../conventions/reviews.md#pr-크기와-ai-리뷰)에 따라 같은 변경 기준과 요구사항, 담당 파일·diff 범위, 기대 결과를 전달합니다. 커밋 리뷰는 base/head SHA를, 미커밋 변경은 검토 시작 시 diff 범위를 명시합니다. 검토 중 변경이 생기면 영향받는 범위를 다시 확인합니다. 수정 위임이 필요한 작업은 파일 소유권을 나누고 공유 파일의 동시 수정을 피합니다. 하위 결과를 수집한 뒤 중복 지적·계약 연결·최종 검증은 주 에이전트가 확인합니다.
 
 호출 예시:
 
@@ -127,7 +127,7 @@ verification_reviewer에게 테스트·CI 검증 공백을 맡겨줘.
 
 ### 실행 정책을 검토할 때
 
-승인 대상은 [루트 작업 원칙](../../AGENTS.md#작업-원칙), 요약할 정보는 [승인 절차](../conventions/github-workflow.md#승인-절차)를 따릅니다. 선택 배경은 [ADR-002의 승인과 외부 작업](../adr/002-agentic-coding-rules.md#승인과-외부-작업)에 있습니다.
+승인 대상은 [루트 작업 원칙](../../AGENTS.md#작업-원칙), 요약할 정보는 [승인 절차](../conventions/approvals.md#승인-절차)를 따릅니다. 선택 배경은 [ADR-002의 승인과 외부 작업](../adr/002-agentic-coding-rules.md#승인과-외부-작업)에 있습니다.
 
 [codex-commands.rules](../../.codex/rules/codex-commands.rules)는 **프로젝트 실행 규칙**입니다. `.codex/` 프로젝트 계층을 신뢰한 Codex가 시작 시 로딩하므로, 이동 전부터 실행 중인 세션에 자동 반영된다고 가정하지 않습니다. 규칙은 Git 이력 변경·푸시·브랜치/stash 삭제, Docker 자원 삭제, 앱 실행, PR 병합·닫기와 릴리스 생성의 일부 명령 형태에 `prompt`를 지정합니다. `git -C .`·`git branch -r -d`와 빠른 시작에서 사용하는 Compose `--env-file .env` 형태도 포함합니다. `allow` 규칙은 없으며, 자동 작업은 기존 세션 권한 안에서 수행한다는 뜻입니다.
 
