@@ -12,7 +12,7 @@ Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/Postgr
 
 JDK 21과 Docker/Compose가 필요합니다. 별도 Gradle 설치 없이 Wrapper를 사용합니다.
 
-에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/github-workflow.md#승인-절차)를 따릅니다.
+에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/workflow/approvals/README.md#approvals)를 따릅니다.
 
 ```bash
 cp .env.example .env
@@ -29,7 +29,9 @@ set -a && source .env && set +a
 - Health: `http://localhost:9090/actuator/health`
 - Prometheus: `http://localhost:9090/actuator/prometheus`
 
-예제 API와 Health는 공개입니다. Prometheus·Info는 인증이 필요하지만 현재 실제 인증 수단은 없습니다. 운영 적용 시 수집기의 인증·접근 정책을 구성해야 합니다.
+예제 API와 Health는 공개이고 Prometheus·Info는 인증이 필요합니다. 실행 전 [Auth의 인증 지원 범위](docs/domain/auth.md#책임과-범위)를 확인하고 운영 수집기의 인증·접근 정책을 구성해야 합니다.
+
+## 예제 API
 
 ```bash
 curl -X POST http://localhost:8080/api/v1/users \
@@ -52,30 +54,27 @@ docker/                    실행 JAR용 컨테이너 이미지
 .codex/rules/              신뢰한 프로젝트에서 로딩하는 명령 실행 규칙
 docs/
 ├── adr/                    템플릿 아키텍처 결정 이력
+├── agents/                 상황별 에이전트 탐색·협업·실행 정책 안내
 ├── conventions/            주제별 개발 규칙
 ├── domain/                 모듈 책임과 공개 계약
-├── onboarding/             새 프로젝트 적용과 실행·에이전트 탐색 안내
+├── onboarding/             템플릿을 사용하는 개발자의 적용·실행 안내
 ├── planning/               제품 유즈케이스·미결정 정책 초안
 └── troubleshooting/        반복 조사에서 얻은 문제 해결 사례
 ```
 
-- `shared`: 오류·OpenAPI 공개 계약과 내부 인프라.
-- `user`: 사용자 등록·요약 조회·등록 이벤트.
-- `auth`: user 공개 API를 자체 subject 모델로 변환하는 조회 예제·등록 커밋 후 비동기 로그 처리. 실제 로그인·토큰 발급 및 영속 이벤트 저장소·자동 재처리는 없습니다.
-
-소유권·공개 타입은 [도메인 지도](docs/domain/README.md), 의존성은 [아키텍처](docs/conventions/architecture.md)가 원본입니다. 운영 스키마는 자동 변경하지 않으며 배포 전에 마이그레이션 전략을 결정해야 합니다. 프로필·이벤트 경계는 [영속성·이벤트](docs/conventions/persistence-events.md)를 확인합니다.
+모듈별 소유권·공개 계약·구현 범위는 [도메인 지도](docs/domain/README.md), 의존 규칙은 [아키텍처](docs/conventions/architecture/modules.md#modules)가 원본입니다. 운영 적용 준비는 [프로필·마이그레이션](docs/conventions/runtime/profiles.md#profiles), 이벤트 경계는 [트랜잭션 이벤트](docs/conventions/persistence/events.md#events)를 확인합니다.
 
 ## 검증
 
-[전체 검증 명령](AGENTS.md)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. 집중 검사·CI 보고서 정책은 [테스트 문서](docs/conventions/testing.md)에 있습니다.
+[전체 검증 명령](AGENTS.md#검증과-완료)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. [집중 검사](docs/conventions/testing/selection.md#selection)와 [CI 보고서 정책](docs/conventions/testing/completion.md#completion)은 해당 절에서 확인합니다.
 
 ## 문서 안내
 
-- 실행 준비·문제 해결: [온보딩](docs/onboarding/README.md)
-- 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/backend-conventions.md)
-- API 스키마: [OpenAPI](docs/conventions/openapi-conventions.md)
+- 템플릿 적용·개발자 온보딩: [온보딩](docs/onboarding/README.md)
+- 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/README.md#conventions)
+- API 스키마: [OpenAPI](docs/conventions/web/openapi/controllers.md#controllers)
 - AI 작업 방식: [AGENTS.md](AGENTS.md)
-- Codex 협업 역할·설정: [협업 안내](docs/onboarding/README.md#codex-협업-설정)
-- 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/github-workflow.md)
+- Codex 협업 역할·설정: [협업 안내](docs/agents/collaboration.md#codex-협업-설정)
+- 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/workflow/README.md#workflow)
 - 구조 선택의 이유와 제약: [현재 ADR 요약](docs/adr/README.md)에서 유효한 결정 확인
 - 제품 유즈케이스·미결정 정책: [기획 초안](docs/planning/use-cases.md); 현재 구현·확정 정책과 구분
