@@ -12,6 +12,7 @@
 | API 스키마·Swagger annotation | [OpenAPI](openapi-conventions.md) | ControllerDocs와 실제 응답의 일치 |
 | 테스트 작성 | [설계](testing.md#설계) | 검출할 행동·실패 조건 |
 | 검사 선택·실행·CI | [집중 검사 표](testing.md#아키텍처와-집중-검사)·[실행·출력](testing.md#검사-실행과-출력)·[전체 실행·CI](testing.md#전체-실행과-ci) 중 현재 단계 | 검사 범위·승인·보고 조건 |
+| 검사 결과 재사용·검토 범위 | [자동 검사와 리뷰의 역할](testing.md#자동-검사와-리뷰의-역할) | 명령으로 판정한 조건과 LLM에 남는 판단 |
 | 커밋·브랜치·승인 | [커밋](commits.md#커밋), 확인 대상 행위의 [승인 절차](approvals.md#승인-절차) | 변경 단위·검증·승인 요약 |
 | 이슈·PR 작성과 리뷰 | 요청한 작업의 [이슈](github-publishing.md#이슈-작성)·[PR](pull-requests.md#pr-작성)·[리뷰](reviews.md#pr-크기와-ai-리뷰) 절 | 필요한 양식·라벨만 추가 확인; 구현 시작 시 일괄 로딩하지 않음 |
 | 오류·실패 조사와 사례 기록 | [트러블슈팅](../troubleshooting/README.md) | 관련 증상과 재사용 가능한 발견의 기록 조건 |

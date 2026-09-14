@@ -56,11 +56,17 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 
 ## 자동 검사와 리뷰의 역할
 
+- 포맷·구문·경로/앵커 존재·집계처럼 기계적으로 판정 가능한 항목은 기존 명령이나 필요한 범위의 스크립트로 확인합니다. LLM의 추정·수작업 계산을 통과 근거로 쓰지 않습니다.
+- 실제 통과 결과의 명령·옵션·대상 SHA 또는 현재 diff·관련 설정과 환경이 현재 검사 대상과 일치하면 재사용합니다. 필터·건너뛰기·검출 범위를 넘어 결과를 일반화하지 않습니다. 실행 가능한 명령이 있다는 사실만으로 검증 완료로 보지 않습니다.
+- 유효한 검사 결과가 판정한 동일 조건은 원문을 다시 세거나 다른 에이전트에 반복 판정시키지 않습니다. 위임할 때는 완료한 검사 근거와 미검증 범위를 함께 전달합니다.
+- LLM은 요구사항 충족·계약의 의미·누락 시나리오·검사 자체의 적절성을 검토합니다. 테스트·assertion·검사 규칙을 바꾼 경우 통과 결과만으로 검사의 타당성을 보장하지 않습니다.
+- 새 변경·실패·검사 범위나 관련 환경 변화·구체적인 검사 신뢰성 우려가 있으면 영향을 받는 범위를 다시 확인합니다. 필수 집중·전체 검사, DB 승인과 커밋 직전 상태 확인에는 기존 기준을 적용합니다.
+
 | 대상 | 기존 검사·설정 | 남는 판단 |
 | --- | --- | --- |
 | 포맷·import·명명 형태 | [Spotless](../../build.gradle.kts), [Checkstyle 설정](../../gradle/quality.gradle.kts)과 [규칙](../../config/checkstyle/checkstyle.xml) | `get`/`find`의 의미, DTO 소유권은 [컨벤션](code-style.md)과 리뷰로 확인 |
-| 모듈·계층 경계 | 위 `ModularityTest`, `ArchitectureTest` | 비즈니스 책임·공개 정보의 적절성, 새 규칙의 검사 필요성 |
-| HTTP·OpenAPI·이벤트 | 위 집중 검사 표의 통합 테스트 | 작성된 시나리오를 검증하며 새 API·정책까지 자동 보장하지 않음 |
+| 모듈·계층 경계 | [집중 검사 표](#아키텍처와-집중-검사)의 `ModularityTest`, `ArchitectureTest` | 비즈니스 책임·공개 정보의 적절성, 새 규칙의 검사 필요성 |
+| HTTP·OpenAPI·이벤트 | [집중 검사 표](#아키텍처와-집중-검사)의 통합 테스트 | 작성된 시나리오를 검증하며 새 API·정책까지 자동 보장하지 않음 |
 | 프로필 | [ApplicationProfileConfigurationTest](../../src/test/java/com/example/shared/internal/config/ApplicationProfileConfigurationTest.java) | 실제 배포 환경의 인증·접근·마이그레이션 정책 |
 | 전체 테스트·보고서 | [테스트 설정](../../gradle/testing.gradle.kts), [CI](../../.github/workflows/ci.yml) | 필터 없는 실행 여부; JaCoCo는 보고서 생성이며 최소 커버리지 게이트는 없음 |
 | Markdown·ADR·PR 작성 | [문서 검증 기준](../../AGENTS.md#검증과-완료), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리), [GitHub 가이드](github-workflow.md) | 현재 링크·ADR 상태·PR 제목/라벨·크기·커밋별 완결성을 자동 차단하는 저장소 CI는 없음 |
