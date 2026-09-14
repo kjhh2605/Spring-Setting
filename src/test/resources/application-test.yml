@@ -23,5 +23,8 @@ logging:
 
 app:
   auth:
+    kakao:
+      client-id: test-kakao-client
+      client-secret: test-kakao-secret
     jwt:
       secret: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
