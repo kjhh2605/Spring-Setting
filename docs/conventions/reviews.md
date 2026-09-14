@@ -6,7 +6,7 @@
 
 이 프로젝트는 **사람에게 제출하는 PR 하나의 변경된 텍스트를 약 500줄 이내**로 유지합니다. 해당 PR의 base/head 비교에서 추가 줄과 삭제 줄을 합산하며 diff 문맥은 세지 않습니다. 코드·테스트·설정·문서를 모두 포함합니다. 더 작은 PR을 채우지 않으며 커밋 크기나 AI의 컨텍스트 읽기 단위에 이 수치를 적용하지 않습니다.
 
-기능이 같아도 판단할 문제·위험·의존성이 다르면 [stacked PR](pull-requests.md#기능-작업과-stacked-pr)의 작업 단위로 나눕니다. 예상 범위가 기준을 넘으면 구현 전에 분할 경계를 다시 검토합니다. 결합된 계약을 파손하지 않고도 나눌 수 있는지 확인하며, 불가피한 초과에는 이유와 검토 범위를 명시합니다. 파일 분포·정책의 복잡성도 확인하고 줄 수만으로 리뷰 가능성을 판정하지 않습니다. [GitHub PR 권장사항](https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes)
+기능이 같아도 판단할 문제·위험·의존성이 다르면 [stacked PR](workflow/pull-requests/planning.md#planning)의 작업 단위로 나눕니다. 예상 범위가 기준을 넘으면 구현 전에 분할 경계를 다시 검토합니다. 결합된 계약을 파손하지 않고도 나눌 수 있는지 확인하며, 불가피한 초과에는 이유와 검토 범위를 명시합니다. 파일 분포·정책의 복잡성도 확인하고 줄 수만으로 리뷰 가능성을 판정하지 않습니다. [GitHub PR 권장사항](https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes)
 
 ### AI 리뷰
 

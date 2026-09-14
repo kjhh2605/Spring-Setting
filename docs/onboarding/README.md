@@ -46,11 +46,11 @@ curl http://localhost:9090/actuator/health
 
 ## 기능 추가 순서
 
-1. [도메인 지도](../domain/README.md)에서 소유 모듈을 정하고 해당 모듈 지침을 읽습니다. [stacked PR](../conventions/pull-requests.md#기능-작업과-stacked-pr)의 검토 단위·의존 순서와 각 PR 안의 작은 커밋을 계획합니다.
+1. [도메인 지도](../domain/README.md)에서 소유 모듈을 정하고 해당 모듈 지침을 읽습니다. [stacked PR](../conventions/workflow/pull-requests/planning.md#planning)의 검토 단위·의존 순서와 각 PR 안의 작은 커밋을 계획합니다.
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web-api.md)와 [ControllerDocs](../conventions/openapi-conventions.md) 규칙을 따릅니다.
-5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)에 따릅니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/commits.md#작업-중-커밋-체크포인트)을 마치고, 각 PR의 변경과 알려진 수정을 완료한 뒤 전체 검증을 수행합니다.
+5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)에 따릅니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/workflow/checkpoints.md#checkpoints)을 마치고, 각 PR의 변경과 알려진 수정을 완료한 뒤 전체 검증을 수행합니다.
 
 ## 자주 쓰는 명령
 

@@ -8,23 +8,23 @@
 
 ## 작업 유형과 이슈 양식
 
-[작업 유형 선택](change-types.md) · [이슈 양식](github-publishing.md#작업-유형과-이슈-양식)
+[작업 유형 선택](workflow/change-types.md#change-types) · [이슈 양식](github-publishing.md#작업-유형과-이슈-양식)
 
 ## 커밋
 
-[커밋](commits.md#커밋)
+[커밋](workflow/commits.md#commits)
 
 ### 메시지와 변경 단위
 
-[메시지와 변경 단위](commits.md#메시지와-변경-단위)
+[메시지와 변경 단위](workflow/commits.md#commits)
 
 ### 작업 중 커밋 체크포인트
 
-[작업 중 커밋 체크포인트](commits.md#작업-중-커밋-체크포인트)
+[작업 중 커밋 체크포인트](workflow/checkpoints.md#checkpoints)
 
 ### 브랜치와 스테이징
 
-[브랜치와 스테이징](commits.md#브랜치와-스테이징)
+[브랜치와 스테이징](workflow/commits.md#commits)
 
 ## 승인 절차
 
@@ -40,11 +40,11 @@
 
 ## 기능 작업과 stacked PR
 
-[기능 작업과 stacked PR](pull-requests.md#기능-작업과-stacked-pr)
+[기능 작업과 stacked PR](workflow/pull-requests/planning.md#planning)
 
 ## PR 작성
 
-[PR 작성](pull-requests.md#pr-작성)
+[PR 작성](workflow/pull-requests/writing.md#writing)
 
 ## AI 작성 절차
 
