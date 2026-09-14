@@ -62,7 +62,7 @@ docs/
 └── troubleshooting/        반복 조사에서 얻은 문제 해결 사례
 ```
 
-모듈별 소유권·공개 계약·구현 범위는 [도메인 지도](docs/domain/README.md), 의존 규칙은 [아키텍처](docs/conventions/architecture/modules.md#modules)가 원본입니다. 운영 적용 준비는 [프로필·마이그레이션](docs/conventions/persistence-events.md#프로필과-실행-환경), 이벤트 경계는 [트랜잭션 이벤트](docs/conventions/persistence-events.md#트랜잭션-이벤트)를 확인합니다.
+모듈별 소유권·공개 계약·구현 범위는 [도메인 지도](docs/domain/README.md), 의존 규칙은 [아키텍처](docs/conventions/architecture/modules.md#modules)가 원본입니다. 운영 적용 준비는 [프로필·마이그레이션](docs/conventions/runtime/profiles.md#profiles), 이벤트 경계는 [트랜잭션 이벤트](docs/conventions/persistence/events.md#events)를 확인합니다.
 
 ## 검증
 

@@ -5,7 +5,7 @@
 - 예제 subject나 사용자 식별자만으로 인증 성공·토큰·세션을 만들지 않습니다.
 - user의 공개 조회 결과는 `adapter/out/user`, 공개 이벤트는 `adapter/in/event`에서 auth 소유 값으로 변환합니다. 이벤트 입력은 auth의 입력 Port에 위임합니다. user 내부 타입·Repository를 참조하거나 Application·Domain에서 user 타입을 참조하지 않습니다.
 - 등록 커밋 후 별도 스레드·트랜잭션에서 소비하며 롤백 시 처리하지 않습니다. 로그는 `userId`, `occurredAt`만 기록합니다.
-- 사용자 원본은 user가 소유합니다. 영속 모델·재처리 확장은 [영속성·이벤트](../../../../../../docs/conventions/persistence-events.md#트랜잭션-이벤트)에 따라 설계하고 Auth 문서에 반영합니다.
+- 사용자 원본은 user가 소유합니다. 영속 모델·재처리 확장은 [영속성·이벤트](../../../../../../docs/conventions/persistence/events.md#events)에 따라 설계하고 Auth 문서에 반영합니다.
 
 ## 인증·세션 구현 시
 

@@ -7,7 +7,7 @@
 | Java 포맷·이름 | [포맷·명명](java/style.md#style) | formatter에 맡길 배치와 의미에 따른 이름 |
 | 구조·작업 규칙 결정과 ADR 관리 | [현재 ADR 요약](../adr/README.md), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리) | 주제별 현재 결정과 선택 이유, Git 이력의 과거 근거 |
 | 모듈·패키지·Domain/Application | [아키텍처](architecture/modules.md#modules), [도메인 지도](../domain/README.md)의 해당 모듈 | 의존 방향·수정 위치와 모듈별 책임·계약·추가 지침 |
-| JPA·스키마·프로필·트랜잭션·이벤트 | [영속성·이벤트](persistence-events.md) | 저장·발행·소비 경계와 운영 제약 |
+| JPA·스키마·프로필·트랜잭션·이벤트 | [영속성·이벤트](persistence/transactions.md#transactions) | 저장·발행·소비 경계와 운영 제약 |
 | HTTP·응답·Web DTO | [Web API](web-api.md) | 입력 검증·오류 변환·DTO 소유권 |
 | API 스키마·Swagger annotation | [OpenAPI](openapi-conventions.md) | ControllerDocs와 실제 응답의 일치 |
 | 테스트 작성 | [설계](testing.md#설계) | 검출할 행동·실패 조건 |
@@ -16,7 +16,7 @@
 | 커밋·브랜치·승인 | [커밋](workflow/commits.md#commits), 확인 대상 행위의 [승인 절차](approvals.md#승인-절차) | 변경 단위·검증·승인 요약 |
 | 이슈·PR 작성과 리뷰 | 요청한 작업의 [이슈](github-publishing.md#이슈-작성)·[PR](workflow/pull-requests/writing.md#writing)·[리뷰](reviews.md#pr-크기와-ai-리뷰) 절 | 필요한 양식·라벨만 추가 확인; 구현 시작 시 일괄 로딩하지 않음 |
 | 오류·실패 조사와 사례 기록 | [트러블슈팅](../troubleshooting/README.md) | 관련 증상과 재사용 가능한 발견의 기록 조건 |
-| 실행·환경 문제 | [빠른 시작](../../README.md#빠른-시작), 프로필·DB는 [실행 환경](persistence-events.md#프로필과-실행-환경) | 실행 명령과 활성 프로필·스키마 제약 |
+| 실행·환경 문제 | [빠른 시작](../../README.md#빠른-시작), 프로필·DB는 [실행 환경](runtime/profiles.md#profiles) | 실행 명령과 활성 프로필·스키마 제약 |
 | 에이전트 지침·스킬 탐색 점검 | [에이전트 문서 탐색](../agents/context.md#에이전트-문서-탐색) | 자동 로딩과 별도 읽기, 공식 동작과 저장소 적용의 구분 |
 | Codex 역할·협업 설정 | [역할 선택·인계](../agents/collaboration.md#역할-선택과-인계) | 검토 역할 선택·인계 |
 | 명령 규칙·승인 모드 진단 | [실행 정책](../agents/execution-policy.md) | `.rules`의 적용 범위와 컨벤션의 역할 구분 |
@@ -34,7 +34,7 @@
 
 | 작업 | 읽기 순서와 판단 기준 | 집중 검증 예시 |
 | --- | --- | --- |
-| 사용자 등록 불변식·이벤트 수정 | [도메인 지도](../domain/README.md) → User 문서·지침, [아키텍처](architecture/modules.md#modules), [영속성·이벤트](persistence-events.md), [포맷·명명](java/style.md#style). 공개 이벤트 변경이면 Auth 소비 경계도 확인 | `./gradlew test --tests com.example.user.domain.UserTest --tests com.example.user.application.service.RegisterUserServiceTest --tests com.example.UserRegistrationEventIntegrationTest -PrequireAllTests=true` |
+| 사용자 등록 불변식·이벤트 수정 | [도메인 지도](../domain/README.md) → User 문서·지침, [아키텍처](architecture/modules.md#modules), [영속성·이벤트](persistence/transactions.md#transactions), [포맷·명명](java/style.md#style). 공개 이벤트 변경이면 Auth 소비 경계도 확인 | `./gradlew test --tests com.example.user.domain.UserTest --tests com.example.user.application.service.RegisterUserServiceTest --tests com.example.UserRegistrationEventIntegrationTest -PrequireAllTests=true` |
 | auth 조회 API·문서 수정 | [도메인 지도](../domain/README.md) → Auth 문서·지침, [Web API](web-api.md), [OpenAPI](openapi-conventions.md), [포맷·명명](java/style.md#style). subject 예제에 인증 의미를 부여하지 않음 | `./gradlew test --tests com.example.ApiWorkflowIntegrationTest --tests com.example.OpenApiDocumentationIntegrationTest -PrequireAllTests=true` |
 | 제품 모듈 분리안 검토·문서 정리 | [기획 초안](../planning/use-cases.md) → [도메인 지도](../domain/README.md), [아키텍처](architecture/modules.md#modules), [현재 ADR 요약](../adr/README.md). 초안을 확정 정책으로 취급하지 않고, 새 결정이 있으면 ADR 작성 규칙 적용 | 실행·빌드·설정 영향이 없는 문서는 링크·경로·일관성 확인과 `git diff --check` |
 

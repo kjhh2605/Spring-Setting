@@ -32,9 +32,9 @@ JDK 21, Docker와 Docker Compose가 필요합니다. Gradle은 저장소 Wrapper
 
 [README 빠른 시작](../../README.md#빠른-시작)을 실행합니다. `.env.example`의 `SPRING_PROFILES_ACTIVE=local`을 불러와야 합니다. 로컬은 시작 시 스키마를 만들고 종료 시 제거하므로 컨테이너 볼륨에도 보존할 데이터를 넣지 마세요.
 
-운영은 `SPRING_PROFILES_ACTIVE=prod`만 지정합니다. 필수 DB 환경변수·프로필 보호·운영 OpenAPI 제한은 [프로필 규칙](../conventions/persistence-events.md#프로필과-실행-환경)을 따릅니다.
+운영은 `SPRING_PROFILES_ACTIVE=prod`만 지정합니다. 필수 DB 환경변수·프로필 보호·운영 OpenAPI 제한은 [프로필 규칙](../conventions/runtime/profiles.md#profiles)을 따릅니다.
 
-운영 배포 전 스키마 준비는 [현재 마이그레이션 상태와 규칙](../conventions/persistence-events.md#프로필과-실행-환경)을 확인합니다. 인증과 후속 처리 지원 범위는 [Auth 문서](../domain/auth.md#책임과-범위)를 확인합니다.
+운영 배포 전 스키마 준비는 [현재 마이그레이션 상태와 규칙](../conventions/runtime/profiles.md#profiles)을 확인합니다. 인증과 후속 처리 지원 범위는 [Auth 문서](../domain/auth.md#책임과-범위)를 확인합니다.
 
 ## 첫 확인
 

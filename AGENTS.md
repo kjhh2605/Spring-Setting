@@ -30,11 +30,11 @@
 | 패키지·모듈 공개 계약 | [모듈 경계](docs/conventions/architecture/modules.md#modules)와 [대상 모듈](docs/domain/README.md#작업-경로와-추가-지침) |
 | Domain/Application·Adapter | [내부 계층](docs/conventions/architecture/layers.md#layers); 외부 조회·이벤트 변환 시 [소비 모델](docs/conventions/architecture/external-models.md#external-models) |
 | Shared 공개 타입·오류 변경 | 해당하는 [Shared 계약](docs/conventions/architecture/shared.md#shared) 또는 [오류 계약](docs/conventions/architecture/errors.md#errors) |
-| JPA·트랜잭션·이벤트·프로필 | [영속성·이벤트](docs/conventions/persistence-events.md) |
+| 저장·트랜잭션·이벤트·프로필 변경 | 해당하는 [JPA](docs/conventions/persistence/jpa.md#jpa)·[트랜잭션](docs/conventions/persistence/transactions.md#transactions)·[이벤트](docs/conventions/persistence/events.md#events)·[프로필](docs/conventions/runtime/profiles.md#profiles) 파일만 |
 | HTTP·Web DTO | [Web API](docs/conventions/web-api.md) |
 | OpenAPI 계약 | [OpenAPI](docs/conventions/openapi-conventions.md) |
 | 테스트 작성·실행, CI | [설계](docs/conventions/testing.md#설계)·[집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)·[실행·출력](docs/conventions/testing.md#검사-실행과-출력)·[전체 실행·CI](docs/conventions/testing.md#전체-실행과-ci) 중 현재 단계; 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
-| 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/persistence-events.md#프로필과-실행-환경) |
+| 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/runtime/profiles.md#profiles) |
 | 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md#역할-선택과-인계), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
 | 커밋·브랜치 | [커밋](docs/conventions/workflow/commits.md#commits); 확인 대상 행위가 있으면 [승인 절차](docs/conventions/approvals.md#승인-절차) |
