@@ -25,11 +25,20 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 | 내부 의존성·JPA Entity 위치 | `com.example.ArchitectureTest` |
 | 등록 트랜잭션·이벤트·비동기 설정 | `com.example.UserRegistrationEventIntegrationTest` |
 | HTTP·응답·예외·보안 | `com.example.ApiWorkflowIntegrationTest` |
+| 공통 Security·Bean 조립과 소비 모듈 의존성 | 영향받는 `com.example.user.UserModuleTest`, `com.example.auth.AuthModuleTest`와 위 API 검사 |
 | OpenAPI 계약 | `com.example.OpenApiDocumentationIntegrationTest` |
 
+- 공통 설정의 Bean 의존성이 바뀌면 소비 모듈을 격리한 조립 검사도 같은 변경 단위에 포함합니다. 전체 애플리케이션에서만 존재하는 Bean 때문에 실패할 수 있으므로 API 검사나 정적 의존 검사만으로 대체하지 않습니다.
 - [ModularityTest](../../src/test/java/com/example/ModularityTest.java)의 `ApplicationModules.verify()`는 순환·허용 의존성·내부 패키지 침범을 CI에서 차단합니다.
 - [ArchitectureTest](../../src/test/java/com/example/ArchitectureTest.java)는 Domain의 Application·Adapter·Spring·Jakarta·Hibernate·QueryDSL 의존, Application의 Adapter·영속 기술 의존, 입력 Adapter의 출력 Port·Persistence·`@Service` 구현 의존 및 JPA Entity 위치를 검사합니다.
 - 새 아키텍처 규칙은 의도적인 위반이 실제로 실패하는지 확인한 뒤 위반 코드를 제거합니다.
+
+## 검사 실행과 출력
+
+- DB·컨테이너 검사는 승인 범위를 확인한 뒤 Docker 가용성을 먼저 조회합니다. 실행하지 못하는 검사를 반복 호출하지 않고 가능한 독립 검사부터 수행합니다.
+- 같은 변경 단위에서 필요한 테스트 클래스는 한 Gradle 호출의 여러 `--tests`로 묶을 수 있습니다. 의도한 실패 확인과 수정 후 검증은 구분하며 새 변경·실패 원인이 있을 때 필요한 검사를 다시 실행합니다.
+- 진행 상황을 즉시 볼 필요가 없으면 실행 도구의 초기·후속 대기를 10~30초로 잡아 같은 프로세스를 짧게 반복 조회하지 않습니다. 시간 초과·중단 대응과 사용자 진행 안내가 필요하면 적절히 나눕니다. 검사 자체의 timeout이나 실행 범위는 줄이지 않습니다.
+- 성공 시 종료 코드·검사 수·성공/실패/건너뛰기 요약을 확인합니다. 큰 로그는 임시 파일·기존 보고서에 보존하고 실패 원인과 관련 구간만 읽습니다. 출력 축약으로 실패·미실행을 숨기거나 실행 도구의 오류를 무시하지 않습니다.
 
 ## 전체 실행과 CI
 

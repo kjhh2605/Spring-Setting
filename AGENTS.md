@@ -51,6 +51,8 @@
 
 코드·빌드·실행 설정 변경은 집중 테스트 후 작업 완료 시 아래 전체 검사를 수행합니다. 중간 커밋의 집중 검사 통과가 전체 통과를 뜻하지 않습니다. DB 자원 삭제를 포함한 검사는 위 작업 원칙에 따라 사전 확인받습니다. 포맷 결과를 수동으로 되돌리지 않습니다.
 
+같은 단위의 집중 검사는 묶어서 실행할 수 있습니다. 긴 검사는 짧은 폴링 대신 10~30초 대기와 결과 요약을 활용하며, 큰 로그의 처리와 소비 모듈 검사 선택은 [테스트 규칙](docs/conventions/testing.md#검사-실행과-출력)을 따릅니다.
+
 ```bash
 ./gradlew spotlessApply
 ./gradlew spotlessCheck checkstyleMain checkstyleTest

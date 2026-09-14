@@ -11,4 +11,6 @@
 
 ## 사례
 
-아직 등록된 사례가 없습니다.
+| 증상 | 사례 |
+| --- | --- |
+| 대화에서 승인했지만 `approval required by policy, but AskForApproval is set to Never`로 명령 거절 | [Codex 승인 모드와 prompt 규칙 충돌](codex-approval-never.md) |
