@@ -31,6 +31,8 @@ set -a && source .env && set +a
 
 예제 API와 Health는 공개이고 Prometheus·Info는 인증이 필요합니다. 실행 전 [Auth의 인증 지원 범위](docs/domain/auth.md#책임과-범위)를 확인하고 운영 수집기의 인증·접근 정책을 구성해야 합니다.
 
+## 예제 API
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/users \
   -H 'Content-Type: application/json' \
@@ -52,14 +54,15 @@ docker/                    실행 JAR용 컨테이너 이미지
 .codex/rules/              신뢰한 프로젝트에서 로딩하는 명령 실행 규칙
 docs/
 ├── adr/                    템플릿 아키텍처 결정 이력
+├── agents/                 상황별 에이전트 탐색·협업·실행 정책 안내
 ├── conventions/            주제별 개발 규칙
 ├── domain/                 모듈 책임과 공개 계약
-├── onboarding/             새 프로젝트 적용과 실행·에이전트 탐색 안내
+├── onboarding/             템플릿을 사용하는 개발자의 적용·실행 안내
 ├── planning/               제품 유즈케이스·미결정 정책 초안
 └── troubleshooting/        반복 조사에서 얻은 문제 해결 사례
 ```
 
-모듈별 소유권·공개 계약·구현 범위는 [도메인 지도](docs/domain/README.md), 의존 규칙은 [아키텍처](docs/conventions/architecture.md)가 원본입니다. 운영 적용 준비는 [온보딩](docs/onboarding/README.md#로컬-실행), 프로필·이벤트 경계는 [영속성·이벤트](docs/conventions/persistence-events.md)를 확인합니다.
+모듈별 소유권·공개 계약·구현 범위는 [도메인 지도](docs/domain/README.md), 의존 규칙은 [아키텍처](docs/conventions/architecture.md)가 원본입니다. 운영 적용 준비는 [프로필·마이그레이션](docs/conventions/persistence-events.md#프로필과-실행-환경), 이벤트 경계는 [트랜잭션 이벤트](docs/conventions/persistence-events.md#트랜잭션-이벤트)를 확인합니다.
 
 ## 검증
 
@@ -67,11 +70,11 @@ docs/
 
 ## 문서 안내
 
-- 실행 준비·문제 해결: [온보딩](docs/onboarding/README.md)
+- 템플릿 적용·개발자 온보딩: [온보딩](docs/onboarding/README.md)
 - 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/backend-conventions.md)
 - API 스키마: [OpenAPI](docs/conventions/openapi-conventions.md)
 - AI 작업 방식: [AGENTS.md](AGENTS.md)
-- Codex 협업 역할·설정: [협업 안내](docs/onboarding/README.md#codex-협업-설정)
+- Codex 협업 역할·설정: [협업 안내](docs/agents/collaboration.md#codex-협업-설정)
 - 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/github-workflow.md)
 - 구조 선택의 이유와 제약: [현재 ADR 요약](docs/adr/README.md)에서 유효한 결정 확인
 - 제품 유즈케이스·미결정 정책: [기획 초안](docs/planning/use-cases.md); 현재 구현·확정 정책과 구분

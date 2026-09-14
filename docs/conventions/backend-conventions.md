@@ -10,13 +10,15 @@
 | JPA·스키마·프로필·트랜잭션·이벤트 | [영속성·이벤트](persistence-events.md) | 저장·발행·소비 경계와 운영 제약 |
 | HTTP·응답·Web DTO | [Web API](web-api.md) | 입력 검증·오류 변환·DTO 소유권 |
 | API 스키마·Swagger annotation | [OpenAPI](openapi-conventions.md) | ControllerDocs와 실제 응답의 일치 |
-| 테스트 설계·집중 검사·CI | [테스트](testing.md) | 변경별 검사 선택과 자동 검증의 범위 |
+| 테스트 작성 | [설계](testing.md#설계) | 검출할 행동·실패 조건 |
+| 검사 선택·실행·CI | [집중 검사 표](testing.md#아키텍처와-집중-검사)·[실행·출력](testing.md#검사-실행과-출력)·[전체 실행·CI](testing.md#전체-실행과-ci) 중 현재 단계 | 검사 범위·승인·보고 조건 |
 | 커밋·브랜치·승인 | [커밋](commits.md#커밋), 확인 대상 행위의 [승인 절차](approvals.md#승인-절차) | 변경 단위·검증·승인 요약 |
 | 이슈·PR 작성과 리뷰 | 요청한 작업의 [이슈](github-publishing.md#이슈-작성)·[PR](pull-requests.md#pr-작성)·[리뷰](reviews.md#pr-크기와-ai-리뷰) 절 | 필요한 양식·라벨만 추가 확인; 구현 시작 시 일괄 로딩하지 않음 |
 | 오류·실패 조사와 사례 기록 | [트러블슈팅](../troubleshooting/README.md) | 관련 증상과 재사용 가능한 발견의 기록 조건 |
-| 실행·새 프로젝트 적용 | [README](../../README.md), [온보딩](../onboarding/README.md) | 실행 명령·예제 API와 식별자 교체 순서 |
-| 에이전트 지침·스킬 탐색 점검 | [에이전트 문서 탐색](../onboarding/README.md#에이전트-문서-탐색) | 자동 로딩과 별도 읽기, 공식 동작과 저장소 적용의 구분 |
-| Codex 역할·실행 정책·협업 설정 | [Codex 협업 설정](../onboarding/README.md#codex-협업-설정) | 검토 역할 선택·인계, `.rules`와 컨벤션의 역할 구분 |
+| 실행·환경 문제 | [빠른 시작](../../README.md#빠른-시작), 프로필·DB는 [실행 환경](persistence-events.md#프로필과-실행-환경) | 실행 명령과 활성 프로필·스키마 제약 |
+| 에이전트 지침·스킬 탐색 점검 | [에이전트 문서 탐색](../agents/context.md#에이전트-문서-탐색) | 자동 로딩과 별도 읽기, 공식 동작과 저장소 적용의 구분 |
+| Codex 역할·협업 설정 | [협업 안내](../agents/collaboration.md) | 검토 역할 선택·인계 |
+| 명령 규칙·승인 모드 진단 | [실행 정책](../agents/execution-policy.md) | `.rules`의 적용 범위와 컨벤션의 역할 구분 |
 | 제품 유즈케이스·정책 검토 | [기획 초안](../planning/use-cases.md)의 해당 유즈케이스·미결정 항목 | 관련 제목·키워드로 범위를 좁혀 읽고 무관한 업무 정책은 제외 |
 
 ## 구현·결정·초안 구분

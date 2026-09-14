@@ -18,6 +18,7 @@
 ## PR 작성
 
 공통 [유형](github-publishing.md#작업-유형과-이슈-양식)·[라벨](github-publishing.md#라벨-운영)·[AI 작성 절차](github-publishing.md#ai-작성-절차)는 게시물 가이드에서, 크기와 리뷰는 [리뷰 기준](reviews.md)에서 확인합니다.
+
 제목은 `type(scope): 최종 변경 결과` 형식으로 작성하며 `scope`는 생략할 수 있습니다. 유형은 [작업 유형](github-publishing.md#작업-유형과-이슈-양식)의 11개 중 하나, 범위는 실제 모듈·영역 이름을 사용합니다. 예: `docs(onboarding): 초기 실행 절차를 정리한다`. 호환성을 깨는 변경은 `feat(api)!: ...`처럼 `!`를 붙이고 `compatibility:breaking` 라벨과 전환 설명을 함께 작성합니다.
 
 PR의 대표 라벨은 제목 유형과 일치시킵니다. 예를 들어 `fix(user): ...`에는 `type:fix`를 지정합니다. 유형은 최종 diff의 목적을 기준으로 정하므로 조사 이슈에서 시작한 기능 구현 PR은 `feat`가 될 수 있습니다. 이슈의 유형을 기계적으로 복사하지 않습니다.

@@ -17,7 +17,7 @@
 
 ## 읽기 경로
 
-먼저 작업 대상 경로를 좁히고, 대상까지 각 디렉터리의 `AGENTS.override.md` 또는 `AGENTS.md`를 확인합니다. 가까운 지침이 우선하며 이미 입력으로 받은 본문은 다시 읽지 않습니다. 루트에서 시작하면 하위 지침은 별도 확인합니다. 소스·테스트 경로별 진입점은 [도메인 지도](docs/domain/README.md#작업-경로와-추가-지침)에 있습니다. 테스트 작업에서도 대상 소스 모듈 지침을 함께 확인합니다. 자동 로딩·크기 제한·새 세션 검증을 점검할 때만 [에이전트 문서 탐색](docs/onboarding/README.md#에이전트-문서-탐색)을 읽습니다.
+먼저 작업 대상 경로를 좁히고, 대상까지 각 디렉터리의 `AGENTS.override.md` 또는 `AGENTS.md`를 확인합니다. 가까운 지침이 우선하며 이미 입력으로 받은 본문은 다시 읽지 않습니다. 루트에서 시작하면 하위 지침은 별도 확인합니다. 소스·테스트 경로별 진입점은 [도메인 지도](docs/domain/README.md#작업-경로와-추가-지침)에 있습니다. 테스트 작업에서도 대상 소스 모듈 지침을 함께 확인합니다. 자동 로딩·크기 제한·새 세션 검증을 점검할 때만 [에이전트 문서 탐색](docs/agents/context.md#에이전트-문서-탐색)을 읽습니다.
 
 아래 표에서 **현재 단계에 필요한 절**만 읽습니다. 설계 질문에는 관련 계약·미결정 정책부터 확인하고, 구현·테스트·커밋·PR 절차는 해당 단계에 추가합니다. 긴 문서는 제목을 검색해 절 범위를 정하고 도구의 최종 출력 한도 안에서 조회합니다. 잘린 출력은 누락 구간만 읽습니다. 적용할 조건은 대화나 임시 메모에 재사용하며 문서 변경·범위 확대·구체적인 불확실성 없이 재조회하지 않습니다. 링크 전체의 재귀 탐색과 영구적인 읽기 기록은 만들지 않습니다.
 
@@ -28,15 +28,16 @@
 | JPA·트랜잭션·이벤트·프로필 | [영속성·이벤트](docs/conventions/persistence-events.md) |
 | HTTP·Web DTO | [Web API](docs/conventions/web-api.md) |
 | OpenAPI 계약 | [OpenAPI](docs/conventions/openapi-conventions.md) |
-| 테스트 작성·실행, CI | [테스트](docs/conventions/testing.md); 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
-| 실행·환경 문제 | [README](README.md), [온보딩](docs/onboarding/README.md) |
+| 테스트 작성·실행, CI | [설계](docs/conventions/testing.md#설계)·[집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)·[실행·출력](docs/conventions/testing.md#검사-실행과-출력)·[전체 실행·CI](docs/conventions/testing.md#전체-실행과-ci) 중 현재 단계; 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
+| 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/persistence-events.md#프로필과-실행-환경) |
+| 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
 | 커밋·브랜치 | [커밋](docs/conventions/commits.md#커밋); 확인 대상 행위가 있으면 [승인 절차](docs/conventions/approvals.md#승인-절차) |
 | 이슈·PR 작성·리뷰 | 요청한 작업의 [이슈](docs/conventions/github-publishing.md#이슈-작성)·[PR](docs/conventions/pull-requests.md#pr-작성)·[리뷰](docs/conventions/reviews.md#pr-크기와-ai-리뷰) 절 |
 | 구조·정책·ADR | [현재 ADR 요약](docs/adr/README.md)에서 해당 주제의 절; 문서 변경에는 [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리) |
 | 제품 유즈케이스·정책 검토 | [기획 초안](docs/planning/use-cases.md)의 관련 유즈케이스·미결정 항목만 확인; 현재 구현은 [도메인 지도](docs/domain/README.md)와 구분 |
 
-전체 안내는 [컨벤션 목차](docs/conventions/backend-conventions.md), 새 프로젝트 적용 순서는 [온보딩](docs/onboarding/README.md)을 사용합니다.
+전체 안내는 [컨벤션 목차](docs/conventions/backend-conventions.md)를 사용합니다.
 
 ## 핵심 경계
 

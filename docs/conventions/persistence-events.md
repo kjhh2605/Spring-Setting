@@ -20,11 +20,14 @@ JPA·DB·프로필·트랜잭션·이벤트 흐름을 변경할 때 적용합니
 
 - JPA Entity는 Domain 모델과 분리하고 Persistence Adapter에서 변환합니다. 기본 생성자는 `protected`, 연관관계는 지연 로딩이 기본입니다.
 - QueryDSL 생성물은 `build/generated/querydsl`에 두고 직접 수정하지 않습니다.
+
+## 프로필과 실행 환경
+
 - 패키징된 설정은 활성 프로필을 기본 선택하지 않습니다. 환경에서 `SPRING_PROFILES_ACTIVE`를 지정합니다.
 - 공통·`prod`의 `ddl-auto`는 `none`, `create-drop`은 로컬 예제·테스트에만 허용합니다. 로컬 DB에 보존할 데이터를 넣지 않습니다.
 - 운영은 `SPRING_PROFILES_ACTIVE=prod`로 실행합니다. DB 정보 `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`는 기본값 없이 받아 누락 시 시작에 실패하게 합니다.
 - `prod,local`이 함께 지정되어도 로컬 설정이 활성화되지 않도록 프로필 표현식으로 보호합니다. 운영 OpenAPI UI는 비활성화합니다.
 - 프로필 설정은 `application-{profile}.yml`로 분리하고 공통 설정을 중복하지 않습니다.
-- 운영 배포 전에 마이그레이션 전략을 ADR로 결정합니다. 현재 실행 준비 상태는 [온보딩](../onboarding/README.md#로컬-실행)을 확인합니다.
+- 현재 마이그레이션 도구는 없습니다. 운영 배포 전에 마이그레이션 전략을 ADR로 결정합니다. 실행 명령은 [빠른 시작](../../README.md#빠른-시작)을 확인합니다.
 
 선택 배경: [영속성과 이벤트 결정](../adr/001-backend-architecture.md#영속성과-이벤트).
