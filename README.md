@@ -66,13 +66,13 @@ docs/
 
 ## 검증
 
-[전체 검증 명령](AGENTS.md#검증과-완료)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. [집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)와 [CI 보고서 정책](docs/conventions/testing.md#전체-실행과-ci)은 해당 절에서 확인합니다.
+[전체 검증 명령](AGENTS.md#검증과-완료)을 사용합니다. 전체 테스트에는 Docker가 필요하며 일부 건너뛰기를 통과로 보지 않습니다. [집중 검사](docs/conventions/testing/selection.md#selection)와 [CI 보고서 정책](docs/conventions/testing/completion.md#completion)은 해당 절에서 확인합니다.
 
 ## 문서 안내
 
 - 템플릿 적용·개발자 온보딩: [온보딩](docs/onboarding/README.md)
 - 작업별 규칙·원본·검증 경로: [컨벤션 목차](docs/conventions/backend-conventions.md)
-- API 스키마: [OpenAPI](docs/conventions/openapi-conventions.md)
+- API 스키마: [OpenAPI](docs/conventions/web/openapi/controllers.md#controllers)
 - AI 작업 방식: [AGENTS.md](AGENTS.md)
 - Codex 협업 역할·설정: [협업 안내](docs/agents/collaboration.md#codex-협업-설정)
 - 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/github-workflow.md)
