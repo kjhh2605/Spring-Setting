@@ -16,6 +16,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import com.example.auth.application.port.in.query.GetAuthSubjectUseCase;
 import com.example.auth.application.port.in.query.dto.GetAuthSubjectQuery;
 import com.example.support.TestcontainersConfiguration;
+import com.example.user.SocialAccountProvisioning;
 import com.example.user.UserLookup;
 import com.example.user.UserSummary;
 
@@ -27,6 +28,9 @@ class AuthModuleTest {
 
     @MockitoBean
     private UserLookup userLookup;
+
+    @MockitoBean
+    private SocialAccountProvisioning socialAccountProvisioning;
 
     @Autowired
     private GetAuthSubjectUseCase useCase;

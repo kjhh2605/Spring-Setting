@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.example.auth.application.error.AuthErrorCode;
+import com.example.auth.application.port.in.command.IssueTokenPairUseCase;
 import com.example.auth.application.port.in.command.LogoutAllUseCase;
 import com.example.auth.application.port.in.command.LogoutUseCase;
 import com.example.auth.application.port.in.command.RefreshTokensUseCase;
@@ -20,7 +21,8 @@ import com.example.auth.domain.TokenPolicy;
 import com.example.shared.error.BusinessException;
 
 @Service
-public class TokenSessionService implements RefreshTokensUseCase, LogoutUseCase, LogoutAllUseCase {
+public class TokenSessionService
+        implements IssueTokenPairUseCase, RefreshTokensUseCase, LogoutUseCase, LogoutAllUseCase {
 
     private final AccessTokenIssuer accessTokenIssuer;
     private final RefreshSessionStore refreshSessionStore;
@@ -41,6 +43,7 @@ public class TokenSessionService implements RefreshTokensUseCase, LogoutUseCase,
         this.clock = clock;
     }
 
+    @Override
     public TokenPairInfo issue(long userId, boolean onboardingRequired) {
         return issue(
                 userId,
