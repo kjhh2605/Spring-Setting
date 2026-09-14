@@ -5,14 +5,14 @@
 | 작업 | 읽을 원본 | 확인할 내용 |
 | --- | --- | --- |
 | Java 포맷·이름 | [포맷·명명](java/style.md#style) | formatter에 맡길 배치와 의미에 따른 이름 |
-| 구조·작업 규칙 결정과 ADR 관리 | [현재 ADR 요약](../adr/README.md), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리) | 주제별 현재 결정과 선택 이유, Git 이력의 과거 근거 |
+| 구조·작업 규칙 결정과 ADR 관리 | [현재 ADR 요약](../adr/README.md), [ADR 관리 규칙](../agents/documents/maintenance.md#maintenance) | 주제별 현재 결정과 선택 이유, Git 이력의 과거 근거 |
 | 모듈·패키지·Domain/Application | [아키텍처](architecture/modules.md#modules), [도메인 지도](../domain/README.md)의 해당 모듈 | 의존 방향·수정 위치와 모듈별 책임·계약·추가 지침 |
 | JPA·스키마·프로필·트랜잭션·이벤트 | [영속성·이벤트](persistence/transactions.md#transactions) | 저장·발행·소비 경계와 운영 제약 |
 | HTTP·응답·Web DTO | [Web API](web/http.md#http) | 입력 검증·오류 변환·DTO 소유권 |
 | API 스키마·Swagger annotation | [OpenAPI](web/openapi/controllers.md#controllers) | ControllerDocs와 실제 응답의 일치 |
-| 테스트 작성 | [설계](testing.md#설계) | 검출할 행동·실패 조건 |
-| 검사 선택·실행·CI | [집중 검사 표](testing.md#아키텍처와-집중-검사)·[실행·출력](testing.md#검사-실행과-출력)·[전체 실행·CI](testing.md#전체-실행과-ci) 중 현재 단계 | 검사 범위·승인·보고 조건 |
-| 검사 결과 재사용·검토 범위 | [자동 검사와 리뷰의 역할](testing.md#자동-검사와-리뷰의-역할) | 명령으로 판정한 조건과 LLM에 남는 판단 |
+| 테스트 작성 | [설계](testing/design.md#design) | 검출할 행동·실패 조건 |
+| 검사 선택·실행·CI | [집중 검사 표](testing/selection.md#selection)·[실행·출력](testing/execution.md#execution)·[전체 실행·CI](testing/completion.md#completion) 중 현재 단계 | 검사 범위·승인·보고 조건 |
+| 검사 결과 재사용·검토 범위 | [자동 검사와 리뷰의 역할](testing/evidence.md#evidence) | 명령으로 판정한 조건과 LLM에 남는 판단 |
 | 커밋·브랜치·승인 | [커밋](workflow/commits.md#commits), 확인 대상 행위의 [승인 절차](approvals.md#승인-절차) | 변경 단위·검증·승인 요약 |
 | 이슈·PR 작성과 리뷰 | 요청한 작업의 [이슈](github-publishing.md#이슈-작성)·[PR](workflow/pull-requests/writing.md#writing)·[리뷰](reviews.md#pr-크기와-ai-리뷰) 절 | 필요한 양식·라벨만 추가 확인; 구현 시작 시 일괄 로딩하지 않음 |
 | 오류·실패 조사와 사례 기록 | [트러블슈팅](../troubleshooting/README.md) | 관련 증상과 재사용 가능한 발견의 기록 조건 |
@@ -30,7 +30,7 @@
 
 ## 대표 작업의 읽기와 검증 경로
 
-아래는 탐색 예시이며 새 기능 구현을 요구하는 목록이 아닙니다. 집중 검사는 [테스트 표](testing.md#아키텍처와-집중-검사), 완료 검사는 [루트 검증 기준](../../AGENTS.md#검증과-완료)을 적용합니다.
+아래는 탐색 예시이며 새 기능 구현을 요구하는 목록이 아닙니다. 집중 검사는 [테스트 표](testing/selection.md#selection), 완료 검사는 [루트 검증 기준](../../AGENTS.md#검증과-완료)을 적용합니다.
 
 | 작업 | 읽기 순서와 판단 기준 | 집중 검증 예시 |
 | --- | --- | --- |

@@ -50,7 +50,7 @@ curl http://localhost:9090/actuator/health
 2. Domain/Application 테스트로 기대 행동의 실패를 확인하고 내부 Port·구현을 추가합니다.
 3. 다른 모듈에 필요한 최소 계약만 루트 또는 shared의 책임별 named interface로 공개합니다.
 4. Adapter를 연결하고 모듈·API 통합 테스트를 추가합니다. Web 변경은 [DTO](../conventions/web/http.md#http)와 [ControllerDocs](../conventions/web/openapi/controllers.md#controllers) 규칙을 따릅니다.
-5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)에 따릅니다. 단위마다 [집중 검사](../conventions/testing.md)·[계약 검토·커밋](../conventions/workflow/checkpoints.md#checkpoints)을 마치고, 각 PR의 변경과 알려진 수정을 완료한 뒤 전체 검증을 수행합니다.
+5. 바뀐 책임·정책의 도메인 문서와 해당 주제 ADR의 갱신을 변경 단위에 포함합니다. 독립적인 새 주제는 [ADR 관리 규칙](../agents/documents/maintenance.md#maintenance)에 따릅니다. 단위마다 [집중 검사](../conventions/testing/design.md#design)·[계약 검토·커밋](../conventions/workflow/checkpoints.md#checkpoints)을 마치고, 각 PR의 변경과 알려진 수정을 완료한 뒤 전체 검증을 수행합니다.
 
 ## 자주 쓰는 명령
 
@@ -78,7 +78,7 @@ Codex의 지침·스킬 로딩을 확인하려면 [탐색 안내](../agents/cont
 
 반복 조사로 확인된 상세 사례는 [트러블슈팅 색인](../troubleshooting/README.md)을 확인합니다.
 
-- `All tests must run` 또는 컨테이너 테스트 건너뛰기: Docker daemon과 비활성화된 테스트를 확인합니다. 세부 [전체 실행 정책](../conventions/testing.md)을 우회하지 않습니다.
+- `All tests must run` 또는 컨테이너 테스트 건너뛰기: Docker daemon과 비활성화된 테스트를 확인합니다. 세부 [전체 실행 정책](../conventions/testing/design.md#design)을 우회하지 않습니다.
 - DB 연결 실패: `.env`의 포트와 `docker compose ps`를 비교합니다.
 - QueryDSL 타입 누락: `./gradlew compileJava` 후 IDE의 Gradle 모델을 다시 불러옵니다.
 - 포맷 실패: `./gradlew spotlessApply` 후 `./gradlew spotlessCheck checkstyleMain checkstyleTest`. 빈 record·체인의 줄바꿈을 수동 복원하지 않습니다.

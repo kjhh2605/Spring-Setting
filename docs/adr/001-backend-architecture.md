@@ -58,4 +58,4 @@
 - `ModularityTest`는 모듈 경계, `ArchitectureTest`는 내부 의존성과 JPA Entity 위치를 검사합니다. API·OpenAPI 통합 테스트는 공개 계약을, `UserRegistrationEventIntegrationTest`는 실제 커밋·롤백·스레드·트랜잭션 경계를 확인합니다.
 - CI는 Docker와 필터 없는 전체 테스트를 요구하고 건너뛰기를 실패로 처리합니다. 로컬 집중 검사는 빠른 피드백에 사용하며 전체 검증을 대체하지 않습니다.
 
-포맷 규칙은 [포맷·명명](../conventions/java/style.md#style), 테스트 설계·CI 정책은 [테스트](../conventions/testing.md), 완료 명령은 [루트 지침](../../AGENTS.md#검증과-완료)이 원본입니다.
+포맷 규칙은 [포맷·명명](../conventions/java/style.md#style), 테스트 설계·CI 정책은 [테스트](../conventions/testing/design.md#design), 완료 명령은 [루트 지침](../../AGENTS.md#검증과-완료)이 원본입니다.

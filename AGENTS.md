@@ -33,7 +33,7 @@
 | 저장·트랜잭션·이벤트·프로필 변경 | 해당하는 [JPA](docs/conventions/persistence/jpa.md#jpa)·[트랜잭션](docs/conventions/persistence/transactions.md#transactions)·[이벤트](docs/conventions/persistence/events.md#events)·[프로필](docs/conventions/runtime/profiles.md#profiles) 파일만 |
 | HTTP·Controller / Web DTO | 해당하는 [HTTP 계약](docs/conventions/web/http.md#http) / [DTO 구성](docs/conventions/web/dto.md#dto) |
 | OpenAPI 계약 변경 | 해당하는 [ControllerDocs](docs/conventions/web/openapi/controllers.md#controllers)·[응답](docs/conventions/web/openapi/responses.md#responses)·[파라미터](docs/conventions/web/openapi/parameters.md#parameters); 변경 후 [검증](docs/conventions/web/openapi/verification.md#verification) |
-| 테스트 작성·실행, CI | [설계](docs/conventions/testing.md#설계)·[집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)·[실행·출력](docs/conventions/testing.md#검사-실행과-출력)·[전체 실행·CI](docs/conventions/testing.md#전체-실행과-ci) 중 현재 단계; 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
+| 테스트 작성·실행, CI | [설계](docs/conventions/testing/design.md#design)·[집중 검사](docs/conventions/testing/selection.md#selection)·[실행·출력](docs/conventions/testing/execution.md#execution)·[전체 실행·CI](docs/conventions/testing/completion.md#completion) 중 현재 단계; 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
 | 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/runtime/profiles.md#profiles) |
 | 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md#역할-선택과-인계), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
@@ -50,17 +50,17 @@
 - Controller는 Repository를 직접 호출하거나 JPA Entity를 반환하지 않습니다. 모듈 간 Entity 공유와 이유 없는 `shared` 이동은 금지합니다.
 - 같은 대상이라도 모듈별로 필요한 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 정의하고 공개 조회 결과·이벤트를 경계에서 변환합니다. 단순 조회용 값과 Domain 모델의 구분은 [모델과 외부 정보 변환](docs/conventions/architecture/external-models.md#external-models)을 따릅니다.
 - `.env` 등 실제 환경값·비밀값 파일은 커밋하거나 `src/main/resources`에 넣지 않습니다. 비밀값 없는 `.env.example`은 사용 예제로 유지합니다. 생성된 QueryDSL Q 클래스·`build/`의 내용을 직접 편집하지 않습니다. 생성물 정리는 위 작업 원칙을 따릅니다. 로컬/테스트 외 스키마 자동 변경은 금지합니다.
-- 새 기능·버그 수정은 기대 행동·재현 테스트의 의도한 실패부터 확인합니다. 구조·정책 변경은 영향받는 컨벤션·도메인 문서와 해당 주제 ADR을 함께 갱신합니다. 독립적인 새 주제의 ADR 추가와 현재판·이력 관리는 [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리)을 따릅니다. 세팅 과정의 실행 기록은 상시 문서에 누적하지 않습니다.
+- 새 기능·버그 수정은 기대 행동·재현 테스트의 의도한 실패부터 확인합니다. 구조·정책 변경은 영향받는 컨벤션·도메인 문서와 해당 주제 ADR을 함께 갱신합니다. 독립적인 새 주제의 ADR 추가와 현재판·이력 관리는 [ADR 관리 규칙](docs/agents/documents/maintenance.md#maintenance)을 따릅니다. 세팅 과정의 실행 기록은 상시 문서에 누적하지 않습니다.
 
 ## 검증과 완료
 
 문서·주석만 바뀌고 실행·빌드·설정에 영향이 없으면 링크·경로·일관성과 `git diff --check`를 검사합니다. 무의미한 테스트는 추가하지 않으며, 영향이 불명확하면 관련 검사를 실행합니다.
 
-명령·스크립트로 판정 가능한 항목은 실제 검사 결과를 근거로 판단합니다. 그 결과가 확인한 동일 조건을 LLM의 수작업이나 하위 에이전트로 중복 검사하지 않습니다. 결과의 재사용 조건과 남는 판단은 [자동 검사와 리뷰의 역할](docs/conventions/testing.md#자동-검사와-리뷰의-역할)을 따릅니다.
+명령·스크립트로 판정 가능한 항목은 실제 검사 결과를 근거로 판단합니다. 그 결과가 확인한 동일 조건을 LLM의 수작업이나 하위 에이전트로 중복 검사하지 않습니다. 결과의 재사용 조건과 남는 판단은 [자동 검사와 리뷰의 역할](docs/conventions/testing/evidence.md#evidence)을 따릅니다.
 
 코드·빌드·실행 설정 변경은 집중 테스트 후 각 PR의 검토 준비를 마칠 때 아래 전체 검사를 수행합니다. PR을 만들지 않는 작업도 완료 시 수행하며, 같은 최종 상태의 통과 결과는 재사용합니다. 중간 커밋의 집중 검사 통과가 전체 통과를 뜻하지 않습니다. DB 자원 삭제를 포함한 검사는 위 작업 원칙에 따라 사전 확인받습니다. 포맷 결과를 수동으로 되돌리지 않습니다.
 
-같은 단위의 집중 검사는 묶어서 실행할 수 있습니다. 긴 검사는 짧은 폴링 대신 10~30초 대기와 결과 요약을 활용하며, 큰 로그 처리는 [실행·출력 규칙](docs/conventions/testing.md#검사-실행과-출력), 소비 모듈 검사 선택은 [집중 검사 기준](docs/conventions/testing.md#아키텍처와-집중-검사)을 따릅니다.
+같은 단위의 집중 검사는 묶어서 실행할 수 있습니다. 긴 검사는 짧은 폴링 대신 10~30초 대기와 결과 요약을 활용하며, 큰 로그 처리는 [실행·출력 규칙](docs/conventions/testing/execution.md#execution), 소비 모듈 검사 선택은 [집중 검사 기준](docs/conventions/testing/selection.md#selection)을 따릅니다.
 
 ```bash
 ./gradlew spotlessApply

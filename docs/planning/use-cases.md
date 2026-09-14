@@ -182,4 +182,4 @@ flowchart LR
 
 구현 위치는 [아키텍처의 수정 위치 표](../conventions/architecture/layers.md#layers)를 따른다. 입력 계약의 command/query 분류와 서비스 배치는 [Application과 Domain](../conventions/architecture/layers.md#layers)이 원본이다.
 
-다른 모듈의 내부 타입이나 JPA Entity를 공유하지 않는다. 실제 모듈 구조를 변경할 때 [도메인 지도](../domain/README.md)와 해당 모듈 문서·백엔드 ADR을 함께 갱신한다. 독립적인 새 주제의 기록과 이전 결정의 확인은 [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리)을 따른다.
+다른 모듈의 내부 타입이나 JPA Entity를 공유하지 않는다. 실제 모듈 구조를 변경할 때 [도메인 지도](../domain/README.md)와 해당 모듈 문서·백엔드 ADR을 함께 갱신한다. 독립적인 새 주제의 기록과 이전 결정의 확인은 [ADR 관리 규칙](../agents/documents/maintenance.md#maintenance)을 따른다.
