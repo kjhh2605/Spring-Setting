@@ -5,11 +5,13 @@
 ## 설계
 
 - 새 기능·버그 수정은 기대 행동·재현 조건의 의도한 실패부터 확인합니다. 구현 복제나 문서·포맷만의 변경을 위한 무의미한 테스트는 추가하지 않습니다.
+- 구현 전에 이번 변경의 정상·거부·경계 조건과 각각을 확인할 검사 수단을 정합니다. 테스트 수나 mock 호출 횟수만으로 기능 완성을 판단하지 않습니다. 거부·철회 검사는 준비한 토큰·세션·데이터가 해당 조건 외에는 유효한지 확인하여 잘못된 준비 때문에 통과하지 않게 합니다.
 - Domain/Application 규칙·흐름은 Spring Context 없는 단위 테스트, 독립 모듈 조립은 `@ApplicationModuleTest`로 검증합니다.
 - DB·영속성·전체 API는 H2 대체 없이 PostgreSQL Testcontainers를 사용합니다. 핵심 API는 MockMvc로 공통 응답·보안·트랜잭션·영속성을 함께 확인합니다.
 - 전체 API·이벤트·모듈 통합 테스트에 클래스 수준 `@Transactional`을 붙이지 않습니다. 매핑용 `@DataJpaTest`의 기본 롤백은 허용하지만 커밋·이벤트 검증을 대체하지 않습니다.
-- 시간은 고정 `Clock`/`Instant`, 비동기는 제한 시간 있는 조건 기반 대기로 검증합니다. 테스트 데이터는 공유 DB 상태·실행 순서에 의존하지 않도록 격리합니다.
+- 애플리케이션 내부 시간은 고정 `Clock`/`Instant`로 검증합니다. 실제 저장소의 TTL처럼 외부 시계를 사용하는 검사는 현재 시각을 기준으로 두 시계를 맞추고, 고정된 달력 날짜로 실시간 만료 키를 생성하지 않습니다. 비동기는 제한 시간 있는 조건 기반 대기로 검증하며 데이터는 공유 상태·실행 순서와 격리합니다.
 - 리스너 직접 호출·mock은 위임/발행 계약만 검증합니다. 실제 커밋 전 미처리·커밋 후 별도 스레드/트랜잭션·롤백 시 미처리는 이벤트 통합 테스트로 확인합니다.
+- 저장소 원자 연산·TTL은 실제 저장소 통합 검사로, 인증 토큰의 claim 검증은 실제 검증기로 확인합니다. 외부 제공자는 응답을 고정할 수 있지만 대체한 경계를 명시하며 실제 제공자 E2E로 보고하지 않습니다.
 - 통과를 위해 assertion·아키텍처 규칙·CI 검사를 약화하지 않습니다. 실패를 제품·테스트·환경 문제로 구분합니다.
 - 계약 불일치로 실패하면 오류가 가리키는 선언·구현·호출부를 함께 비교하고 원인을 수정한 뒤 해당 집중 검사를 재실행합니다. 한쪽 선언만 추측으로 바꾸며 반복 실행하지 않습니다.
 
@@ -25,10 +27,11 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 | 내부 의존성·JPA Entity 위치 | `com.example.ArchitectureTest` |
 | 등록 트랜잭션·이벤트·비동기 설정 | `com.example.UserRegistrationEventIntegrationTest` |
 | HTTP·응답·예외·보안 | `com.example.ApiWorkflowIntegrationTest` |
-| 공통 Security·Bean 조립과 소비 모듈 의존성 | 영향받는 `com.example.user.UserModuleTest`, `com.example.auth.AuthModuleTest`와 위 API 검사 |
+| Bean 등록·생성자 주입·공통 Security·설정과 소비 모듈 의존성 | 영향받는 `com.example.user.UserModuleTest`, `com.example.auth.AuthModuleTest`와 위 API 검사 |
 | OpenAPI 계약 | `com.example.OpenApiDocumentationIntegrationTest` |
 
-- 공통 설정의 Bean 의존성이 바뀌면 소비 모듈을 격리한 조립 검사도 같은 변경 단위에 포함합니다. 전체 애플리케이션에서만 존재하는 Bean 때문에 실패할 수 있으므로 API 검사나 정적 의존 검사만으로 대체하지 않습니다.
+- `@Service`·`@Bean` 추가, 생성자 주입·프로필·공통 설정이 바뀌면 해당 모듈과 영향받는 소비 모듈의 조립 검사를 같은 커밋 단위에 포함합니다. mock을 주입한 서비스 검사나 전체 API·정적 의존 검사만으로 실제 Bean의 존재와 생성 가능성을 보증하지 않습니다.
+- 새 등록 진입점도 기존 이벤트·트랜잭션 계약을 검사합니다. 환경값·스키마 변경은 `.env.example`·실행 안내·운영 적용 자산과 복구 제약을 대조합니다. 테스트 프로필·공통 fixture를 바꿀 때는 기존 격리 설정을 삭제하는 이유와 영향을 확인합니다.
 - [ModularityTest](../../src/test/java/com/example/ModularityTest.java)의 `ApplicationModules.verify()`는 순환·허용 의존성·내부 패키지 침범을 CI에서 차단합니다.
 - [ArchitectureTest](../../src/test/java/com/example/ArchitectureTest.java)는 Domain의 Application·Adapter·Spring·Jakarta·Hibernate·QueryDSL 의존, Application의 Adapter·영속 기술 의존, 입력 Adapter의 출력 Port·Persistence·`@Service` 구현 의존 및 JPA Entity 위치를 검사합니다.
 - 새 아키텍처 규칙은 의도적인 위반이 실제로 실패하는지 확인한 뒤 위반 코드를 제거합니다.
@@ -38,11 +41,12 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 - DB·컨테이너 검사는 승인 범위를 확인한 뒤 Docker 가용성을 먼저 조회합니다. 실행하지 못하는 검사를 반복 호출하지 않고 가능한 독립 검사부터 수행합니다.
 - 같은 변경 단위에서 필요한 테스트 클래스는 한 Gradle 호출의 여러 `--tests`로 묶을 수 있습니다. 의도한 실패 확인과 수정 후 검증은 구분하며 새 변경·실패 원인이 있을 때 필요한 검사를 다시 실행합니다.
 - 진행 상황을 즉시 볼 필요가 없으면 실행 도구의 초기·후속 대기를 10~30초로 잡아 같은 프로세스를 짧게 반복 조회하지 않습니다. 시간 초과·중단 대응과 사용자 진행 안내가 필요하면 적절히 나눕니다. 검사 자체의 timeout이나 실행 범위는 줄이지 않습니다.
-- 성공 시 종료 코드·검사 수·성공/실패/건너뛰기 요약을 확인합니다. 큰 로그는 임시 파일·기존 보고서에 보존하고 실패 원인과 관련 구간만 읽습니다. 출력 축약으로 실패·미실행을 숨기거나 실행 도구의 오류를 무시하지 않습니다.
+- 성공 시 종료 코드·검사 수·성공/실패/건너뛰기 요약을 확인하고 대상 커밋 또는 커밋할 diff와 연결합니다. 큰 로그는 임시 파일·기존 보고서에 보존하고 실패 원인과 관련 구간만 읽습니다. 출력 축약으로 실패·미실행을 숨기거나 실행 도구의 오류를 무시하지 않습니다.
 
 ## 전체 실행과 CI
 
-- 코드 변경의 중간 커밋은 [단위별 집중 검사·계약 검토](github-workflow.md#작업-중-커밋-체크포인트) 후 생성합니다. 모든 단위의 검토와 알려진 수정 사항을 마친 뒤 루트의 전체 검증을 수행하며, 새로 발견한 문제의 수정·재검증은 생략하지 않습니다. `--tests` 필터는 완료 검증에 사용하지 않습니다.
+- 코드 변경의 중간 커밋은 [단위별 집중 검사·계약 검토](github-workflow.md#작업-중-커밋-체크포인트) 후 생성합니다. 각 PR의 변경·알려진 수정을 마치면 루트의 전체 검증을 수행합니다. 커밋마다 전체 검사를 반복할 필요는 없지만 필요한 집중 검사를 생략하지 않습니다. `--tests` 필터는 완료 검증에 사용하지 않습니다.
+- 현재 [CI](../../.github/workflows/ci.yml)는 PR의 최종 병합 결과를 검사하며 내부의 모든 커밋을 순회하지 않습니다. 커밋별 조립·실행 가능성은 해당 상태의 검사 근거로 확인합니다. [GitHub의 PR 이벤트 동작](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request)
 - 일반 로컬 `./gradlew test`는 Docker가 없으면 컨테이너 테스트를 건너뜁니다. 전체 실행은 `./gradlew test -PrequireAllTests=true`를 사용합니다.
 - `CI=true` 또는 `-PrequireAllTests=true`에서는 0건 실행 또는 건너뛴 테스트가 있으면 실패합니다. `-PrequireAllTests=false`로 CI 정책을 해제할 수 없습니다. 이 옵션이 `--tests` 필터 자체를 감지하지는 않으므로, 전체 실행 여부는 실제 명령도 확인합니다.
 - Docker를 사용할 수 없으면 가능한 검사부터 실행하고 나머지는 원인과 함께 미검증으로 보고합니다. 성공·실패·건너뛰기·필터 여부를 구분하며 이전 실행 결과를 이번 실행으로 보고하지 않습니다.
@@ -59,6 +63,6 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 | HTTP·OpenAPI·이벤트 | 위 집중 검사 표의 통합 테스트 | 작성된 시나리오를 검증하며 새 API·정책까지 자동 보장하지 않음 |
 | 프로필 | [ApplicationProfileConfigurationTest](../../src/test/java/com/example/shared/internal/config/ApplicationProfileConfigurationTest.java) | 실제 배포 환경의 인증·접근·마이그레이션 정책 |
 | 전체 테스트·보고서 | [테스트 설정](../../gradle/testing.gradle.kts), [CI](../../.github/workflows/ci.yml) | 필터 없는 실행 여부; JaCoCo는 보고서 생성이며 최소 커버리지 게이트는 없음 |
-| Markdown·ADR·PR 작성 | [문서 검증 기준](../../AGENTS.md#검증과-완료), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리), [GitHub 가이드](github-workflow.md) | 현재 Markdown 링크·ADR 상태·PR 제목/라벨을 검사하는 저장소 CI는 없음 |
+| Markdown·ADR·PR 작성 | [문서 검증 기준](../../AGENTS.md#검증과-완료), [ADR 관리 규칙](../adr/002-agentic-coding-rules.md#문서와-adr-관리), [GitHub 가이드](github-workflow.md) | 현재 링크·ADR 상태·PR 제목/라벨·크기·커밋별 완결성을 자동 차단하는 저장소 CI는 없음 |
 
 선택 배경: [포맷과 검증 결정](../adr/001-backend-architecture.md#포맷과-검증).
