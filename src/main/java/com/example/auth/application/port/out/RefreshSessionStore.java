@@ -8,4 +8,8 @@ public interface RefreshSessionStore {
     void create(String refreshToken, RefreshSession session);
 
     RefreshRotation rotate(String currentRefreshToken, String nextRefreshToken);
+
+    void revoke(String refreshToken);
+
+    void revokeAll(long userId);
 }

@@ -4,7 +4,12 @@ import java.time.Clock;
 import java.time.Duration;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.example.auth.application.error.AuthErrorCode;
+import com.example.auth.application.port.in.command.LogoutAllUseCase;
+import com.example.auth.application.port.in.command.LogoutUseCase;
+import com.example.auth.application.port.in.command.RefreshTokensUseCase;
 import com.example.auth.application.port.in.command.dto.TokenPairInfo;
 import com.example.auth.application.port.out.AccessTokenIssuer;
 import com.example.auth.application.port.out.RefreshSessionStore;
@@ -14,7 +19,8 @@ import com.example.auth.domain.RefreshSession;
 import com.example.auth.domain.TokenPolicy;
 import com.example.shared.error.BusinessException;
 
-public class TokenSessionService {
+@Service
+public class TokenSessionService implements RefreshTokensUseCase, LogoutUseCase, LogoutAllUseCase {
 
     private final AccessTokenIssuer accessTokenIssuer;
     private final RefreshSessionStore refreshSessionStore;
@@ -51,6 +57,7 @@ public class TokenSessionService {
         return tokenPair(refreshToken, session, tokenPolicy.refreshTokenTtl());
     }
 
+    @Override
     public TokenPairInfo refresh(String refreshToken) {
         String nextRefreshToken = refreshTokenGenerator.generate();
         RefreshRotation rotation = refreshSessionStore.rotate(refreshToken, nextRefreshToken);
@@ -64,6 +71,16 @@ public class TokenSessionService {
             throw new BusinessException(AuthErrorCode.REFRESH_TOKEN_INVALID);
         }
         return tokenPair(nextRefreshToken, session, remainingTtl);
+    }
+
+    @Override
+    public void logout(String refreshToken) {
+        refreshSessionStore.revoke(refreshToken);
+    }
+
+    @Override
+    public void logoutAll(long userId) {
+        refreshSessionStore.revokeAll(userId);
     }
 
     private TokenPairInfo tokenPair(String refreshToken, RefreshSession session, Duration refreshTokenTtl) {
