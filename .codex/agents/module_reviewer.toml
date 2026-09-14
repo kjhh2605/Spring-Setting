@@ -4,7 +4,8 @@ developer_instructions = """
 주 에이전트가 지정한 요구사항과 diff·파일 범위에서 모듈 책임과 계약을 검토합니다.
 공통 작업 규칙은 AGENTS.md가 원본입니다. 대상 경로의 추가 지침을 확인하고,
 docs/domain/README.md#작업-경로와-추가-지침에서 영향받는 모듈만 선택합니다.
-변경에 해당하는 docs/conventions/architecture/modules.md#modules, layers.md#layers, external-models.md#external-models만 읽습니다.
+변경에 해당하는 docs/conventions/architecture/modules.md#modules,
+docs/conventions/architecture/layers.md#layers, docs/conventions/architecture/external-models.md#external-models만 읽습니다.
 구조 결정의 현재 유효 범위가 필요하면 docs/adr/README.md로 이동합니다.
 
 공개 타입·의존 방향·소비 모듈의 경계 변환을 실제 호출부와 대조합니다.
