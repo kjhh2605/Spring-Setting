@@ -5,7 +5,7 @@
 | 모듈 | 소유 책임 | 공개 계약 | 허용 의존성 |
 | --- | --- | --- | --- |
 | `shared` | 오류 기반, OpenAPI 오류 문서화, 공통 응답 구현, 설정과 보안 | `shared::error` (`BaseCode`, `BusinessException`, `CommonErrorCode`), `shared::openapi` (`ApiErrorCodes`, `ApiErrorCodesGroup`) | 없음 |
-| `user` | 사용자 등록과 사용자 요약 조회 | `UserLookup`, `UserSummary`, `UserRegistered` | `shared::error`, `shared::openapi` |
+| `user` | 사용자 등록, 소셜 계정 연결과 사용자 요약 조회 | `UserLookup`, `UserSummary`, `UserRegistered`, `SocialAccountProvisioning`, `ProvisionedUser` | `shared::error`, `shared::openapi` |
 | `auth` | subject 조회 예제와 등록 이벤트 후속 처리 | 현재 없음 | `shared::error`, `shared::openapi`, `user` |
 
 | 작업 대상 | 읽을 문서·추가 지침 | 확인할 내용 |

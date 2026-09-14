@@ -9,18 +9,28 @@ public final class User {
 
     private final UserId id;
     private final String displayName;
+    private final UserStatus status;
 
-    private User(UserId id, String displayName) {
+    private User(UserId id, String displayName, UserStatus status) {
         this.id = id;
         this.displayName = validateDisplayName(displayName);
+        this.status = Objects.requireNonNull(status, "status must not be null");
     }
 
     public static User register(String displayName) {
-        return new User(null, displayName);
+        return new User(null, displayName, UserStatus.ACTIVE);
+    }
+
+    public static User registerPending(String displayName) {
+        return new User(null, displayName, UserStatus.PENDING_ONBOARDING);
     }
 
     public static User reconstitute(UserId id, String displayName) {
-        return new User(Objects.requireNonNull(id, "id must not be null"), displayName);
+        return reconstitute(id, displayName, UserStatus.ACTIVE);
+    }
+
+    public static User reconstitute(UserId id, String displayName, UserStatus status) {
+        return new User(Objects.requireNonNull(id, "id must not be null"), displayName, status);
     }
 
     public Optional<UserId> id() {
@@ -29,6 +39,14 @@ public final class User {
 
     public String displayName() {
         return displayName;
+    }
+
+    public UserStatus status() {
+        return status;
+    }
+
+    public boolean onboardingRequired() {
+        return status == UserStatus.PENDING_ONBOARDING;
     }
 
     private static String validateDisplayName(String displayName) {
