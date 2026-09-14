@@ -80,4 +80,20 @@ class OpenApiDocumentationIntegrationTest extends IntegrationTestSupport {
                                 + ".properties.subject.description")
                         .value("예제 subject 식별자"));
     }
+
+    @Test
+    void documentsKakaoLoginRefreshAndSecuredLogoutAll() throws Exception {
+        mockMvc.perform(get("/docs-json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.paths['/api/v1/auth/kakao/authorization-requests'].post.summary")
+                        .value("카카오 인가 요청 생성"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/kakao/login'].post.responses['401']"
+                                + ".content['application/json'].examples['AUTH-004'].value.code")
+                        .value("AUTH-004"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/tokens/refresh'].post.responses['401']"
+                                + ".content['application/json'].examples['AUTH-003'].value.code")
+                        .value("AUTH-003"))
+                .andExpect(jsonPath("$.paths['/api/v1/auth/logout-all'].post.security[0]" + "['Bearer Authentication']")
+                        .isArray());
+    }
 }

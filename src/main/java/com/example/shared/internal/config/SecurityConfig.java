@@ -6,6 +6,7 @@ import org.springframework.boot.health.actuate.endpoint.HealthEndpoint;
 import org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,11 +40,20 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(resourceServer -> resourceServer
+                        .jwt(Customizer.withDefaults())
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(EndpointRequest.to(HealthEndpoint.class))
                         .permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users")
+                        .permitAll()
                         .requestMatchers(
-                                "/api/v1/users/**",
+                                "/api/v1/auth/kakao/authorization-requests",
+                                "/api/v1/auth/kakao/login",
+                                "/api/v1/auth/tokens/refresh",
+                                "/api/v1/auth/logout",
                                 "/api/v1/auth/examples/**",
                                 "/docs",
                                 "/docs/**",

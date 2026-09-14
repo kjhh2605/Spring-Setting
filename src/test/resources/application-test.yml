@@ -23,6 +23,8 @@ logging:
 
 app:
   auth:
+    cookie:
+      secure: false
     kakao:
       client-id: test-kakao-client
       client-secret: test-kakao-secret
