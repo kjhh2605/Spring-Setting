@@ -83,6 +83,8 @@ curl http://localhost:9090/actuator/health
 
 지침 변경 뒤에는 **새 세션**을 루트와 대상 하위 디렉터리에서 각각 시작하여, 추가 파일 읽기 전에 이미 로딩된 지침의 출처·적용 범위를 확인합니다. CLI가 있다면 `codex --version`, `codex exec --help`로 지원 옵션을 확인한 뒤 `codex exec --cd .`와 `codex exec --cd src/test/java/com/example`를 사용할 수 있습니다. 세션의 실제 입력·로그를 확인할 수 있으면 함께 대조합니다. 파일을 직접 읽어 경로를 따라가는 탐색 점검이나 모델의 추정만으로 실제 자동 로딩을 검증했다고 보고하지 않습니다.
 
+하위 지침 누락·출력 잘림이 반복되거나 세팅 전후 효과를 측정할 때는 [컨텍스트와 지침 적용 검증](../troubleshooting/agent-context-verification.md)을 참고합니다.
+
 ### 운영 조언과 적용 판단
 
 [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)는 호출 조건을 좁히고 작업과 무관한 문서 강제 읽기를 줄이라는 모델 운영 조언입니다. [Harness engineering](https://openai.com/index/harness-engineering/)의 짧은 진입 문서·저장소 지식 지도·기계적 경계 검증은 특정 OpenAI 팀의 사례이며 Codex의 필수 동작이 아닙니다. 두 글의 확인일은 2026-09-12입니다.

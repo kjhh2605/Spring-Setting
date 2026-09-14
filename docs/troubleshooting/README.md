@@ -14,3 +14,4 @@
 | 증상 | 사례 |
 | --- | --- |
 | 대화에서 승인했지만 `approval required by policy, but AskForApproval is set to Never`로 명령 거절 | [Codex 승인 모드와 prompt 규칙 충돌](codex-approval-never.md) |
+| 지침 변경 뒤에도 하위 본문 누락·출력 잘림이 반복되거나 효과 측정이 불확실함 | [컨텍스트와 지침 적용 검증](agent-context-verification.md) |
