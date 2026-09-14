@@ -60,7 +60,7 @@ curl http://localhost:9090/actuator/health
 ./gradlew spotlessApply
 ```
 
-전체 명령은 [루트 검증 기준](../../AGENTS.md)을 따릅니다. IDE도 [같은 Spotless 설정](../conventions/code-style.md)을 사용합니다. CI 보고서는 `verification-reports` artifact에서 확인합니다.
+전체 명령은 [루트 검증 기준](../../AGENTS.md)을 따릅니다. IDE도 [같은 Spotless 설정](../conventions/java/style.md#style)을 사용합니다. CI 보고서는 `verification-reports` artifact에서 확인합니다.
 
 ## 에이전트 문서 탐색
 

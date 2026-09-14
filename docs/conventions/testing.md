@@ -64,7 +64,7 @@ DB·컨테이너 검사는 테스트 전용 자원도 삭제할 수 있으므로
 
 | 대상 | 기존 검사·설정 | 남는 판단 |
 | --- | --- | --- |
-| 포맷·import·명명 형태 | [Spotless](../../build.gradle.kts), [Checkstyle 설정](../../gradle/quality.gradle.kts)과 [규칙](../../config/checkstyle/checkstyle.xml) | `get`/`find`의 의미, DTO 소유권은 [컨벤션](code-style.md)과 리뷰로 확인 |
+| 포맷·import·명명 형태 | [Spotless](../../build.gradle.kts), [Checkstyle 설정](../../gradle/quality.gradle.kts)과 [규칙](../../config/checkstyle/checkstyle.xml) | `get`/`find`의 의미, DTO 소유권은 [컨벤션](java/style.md#style)과 리뷰로 확인 |
 | 모듈·계층 경계 | [집중 검사 표](#아키텍처와-집중-검사)의 `ModularityTest`, `ArchitectureTest` | 비즈니스 책임·공개 정보의 적절성, 새 규칙의 검사 필요성 |
 | HTTP·OpenAPI·이벤트 | [집중 검사 표](#아키텍처와-집중-검사)의 통합 테스트 | 작성된 시나리오를 검증하며 새 API·정책까지 자동 보장하지 않음 |
 | 프로필 | [ApplicationProfileConfigurationTest](../../src/test/java/com/example/shared/internal/config/ApplicationProfileConfigurationTest.java) | 실제 배포 환경의 인증·접근·마이그레이션 정책 |

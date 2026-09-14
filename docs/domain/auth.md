@@ -45,4 +45,4 @@ user.UserRegistered
 - 출력 Port는 `application/port/out`, user 연동 구현은 `adapter/out/user`에 둡니다.
 - 현재 다른 모듈에 공개하는 타입은 없습니다. 허용 의존성은 [도메인 지도](README.md)가 관리합니다.
 
-소비 모듈 모델의 일반 기준은 [아키텍처](../conventions/architecture.md#소비-모듈의-모델과-외부-정보-변환), 예제의 선택 배경은 [ADR-001](../adr/001-backend-architecture.md#예제-모듈)을 따릅니다.
+소비 모듈 모델의 일반 기준은 [아키텍처](../conventions/architecture/external-models.md#external-models), 예제의 선택 배경은 [ADR-001](../adr/001-backend-architecture.md#예제-모듈)을 따릅니다.

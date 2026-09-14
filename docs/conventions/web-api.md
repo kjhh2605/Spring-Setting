@@ -7,7 +7,7 @@ HTTP 계약·Controller·Web Request/Response 변경에 적용합니다.
 - URI는 `/api/v{version}/{resource}`로 시작하고 리소스명은 복수형을 사용합니다.
 - Request/Response는 Java `record`를 우선합니다. Request Body에는 `@Valid`, 경로·쿼리 제약에는 `@Validated`를 적용합니다.
 - Adapter에서 Request를 Command/Query로 변환합니다. Web DTO를 Domain/Application 타입과 공유하거나 JPA Entity를 반환하지 않습니다.
-- 정상 응답은 `success`, `code`, `message`, `result`로 감쌉니다. Application의 비즈니스 오류는 모듈별 ErrorCode와 `BusinessException`으로 표현합니다. Domain 불변식 오류의 변환은 [오류 코드와 불변식](architecture.md#오류-코드와-불변식)을 따릅니다.
+- 정상 응답은 `success`, `code`, `message`, `result`로 감쌉니다. Application의 비즈니스 오류는 모듈별 ErrorCode와 `BusinessException`으로 표현합니다. Domain 불변식 오류의 변환은 [오류 코드와 불변식](architecture/errors.md#errors)을 따릅니다.
 - Controller는 `{module}.adapter.in.web.docs`의 `*ControllerDocs` 인터페이스를 구현합니다. 공개 HTTP 계약을 바꾸면 [OpenAPI 규칙](openapi-conventions.md)도 적용합니다. 성공 결과 타입과 실제 `BaseCode` enum 기반 오류를 선언하고 공통 커스터마이저가 래퍼를 반영합니다.
 
 ## Web DTO 구성

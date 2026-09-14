@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | `src/main/java/com/example/user/**` | [user 지침](../../src/main/java/com/example/user/AGENTS.md) → [User](user.md) | 불변식·공개 정보·발행 시점과 auth 영향 |
 | `src/main/java/com/example/auth/**` | [auth 지침](../../src/main/java/com/example/auth/AGENTS.md) → [Auth](auth.md) | 예제 한계·소유 모델 변환·커밋 후 처리 |
-| `src/main/java/com/example/shared/**` | [shared 지침](../../src/main/java/com/example/shared/AGENTS.md) → [공개 타입·소비자](#모듈별-책임과-공개-계약)·[공개 경계 규칙](../conventions/architecture.md#shared-공개-계약) | named interface와 내부 구현, 소비 모듈 영향 |
+| `src/main/java/com/example/shared/**` | [shared 지침](../../src/main/java/com/example/shared/AGENTS.md) → [공개 타입·소비자](#모듈별-책임과-공개-계약)·[공개 경계 규칙](../conventions/architecture/shared.md#shared) | named interface와 내부 구현, 소비 모듈 영향 |
 | `src/test/java/com/example/**` | [테스트 지침](../../src/test/java/com/example/AGENTS.md) → 위 대상 소스 모듈 지침·계약 | 테스트가 다루는 소유 모듈·소비 경계 |
 
 모듈 목록·책임 요약·허용 의존성은 이 지도, 공개 타입·필드·동작은 개별 모듈 문서가 소유합니다. 새 모듈은 지도에 진입점을 추가하고 상세 계약은 해당 문서에 기록합니다. 같은 타입 목록을 지도·하위 지침에 복제하지 않습니다. 별도 문서가 없는 shared의 공개 타입 목록은 [모듈별 책임과 공개 계약](#모듈별-책임과-공개-계약) 표가 소유합니다.

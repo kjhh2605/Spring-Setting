@@ -26,8 +26,10 @@
 | 작업 | 읽을 문서 |
 | --- | --- |
 | 구현 첫 편집 전 | [커밋 체크포인트](docs/conventions/workflow/checkpoints.md#checkpoints); 기능 작업이면 [PR 계획](docs/conventions/workflow/pull-requests/planning.md#planning) |
-| Java 코드 | [포맷·명명](docs/conventions/code-style.md) |
-| Domain/Application·패키지·모듈 계약 | [아키텍처](docs/conventions/architecture.md), [도메인 지도](docs/domain/README.md)와 해당 모듈 문서 |
+| Java 코드 | [포맷·명명](docs/conventions/java/style.md#style) |
+| 패키지·모듈 공개 계약 | [모듈 경계](docs/conventions/architecture/modules.md#modules)와 [대상 모듈](docs/domain/README.md#작업-경로와-추가-지침) |
+| Domain/Application·Adapter | [내부 계층](docs/conventions/architecture/layers.md#layers); 외부 조회·이벤트 변환 시 [소비 모델](docs/conventions/architecture/external-models.md#external-models) |
+| Shared 공개 타입·오류 변경 | 해당하는 [Shared 계약](docs/conventions/architecture/shared.md#shared) 또는 [오류 계약](docs/conventions/architecture/errors.md#errors) |
 | JPA·트랜잭션·이벤트·프로필 | [영속성·이벤트](docs/conventions/persistence-events.md) |
 | HTTP·Web DTO | [Web API](docs/conventions/web-api.md) |
 | OpenAPI 계약 | [OpenAPI](docs/conventions/openapi-conventions.md) |
@@ -46,7 +48,7 @@
 
 - 비즈니스 모듈은 루트 공개 타입, `shared`는 명시적 named interface로 계약을 제공합니다. 내부 타입 공개로 검증을 우회하지 않습니다. Domain은 Spring/JPA/Web 및 Application/Adapter에 의존하지 않습니다.
 - Controller는 Repository를 직접 호출하거나 JPA Entity를 반환하지 않습니다. 모듈 간 Entity 공유와 이유 없는 `shared` 이동은 금지합니다.
-- 같은 대상이라도 모듈별로 필요한 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 정의하고 공개 조회 결과·이벤트를 경계에서 변환합니다. 단순 조회용 값과 Domain 모델의 구분은 [모델과 외부 정보 변환](docs/conventions/architecture.md#소비-모듈의-모델과-외부-정보-변환)을 따릅니다.
+- 같은 대상이라도 모듈별로 필요한 정보·의미·규칙이 다르면 소비 모듈이 자체 Domain 모델을 정의하고 공개 조회 결과·이벤트를 경계에서 변환합니다. 단순 조회용 값과 Domain 모델의 구분은 [모델과 외부 정보 변환](docs/conventions/architecture/external-models.md#external-models)을 따릅니다.
 - `.env` 등 실제 환경값·비밀값 파일은 커밋하거나 `src/main/resources`에 넣지 않습니다. 비밀값 없는 `.env.example`은 사용 예제로 유지합니다. 생성된 QueryDSL Q 클래스·`build/`의 내용을 직접 편집하지 않습니다. 생성물 정리는 위 작업 원칙을 따릅니다. 로컬/테스트 외 스키마 자동 변경은 금지합니다.
 - 새 기능·버그 수정은 기대 행동·재현 테스트의 의도한 실패부터 확인합니다. 구조·정책 변경은 영향받는 컨벤션·도메인 문서와 해당 주제 ADR을 함께 갱신합니다. 독립적인 새 주제의 ADR 추가와 현재판·이력 관리는 [ADR 관리 규칙](docs/adr/002-agentic-coding-rules.md#문서와-adr-관리)을 따릅니다. 세팅 과정의 실행 기록은 상시 문서에 누적하지 않습니다.
 
