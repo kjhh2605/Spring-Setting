@@ -10,6 +10,6 @@
 - IDE도 Gradle Spotless 설정을 사용하며 저장 시 기본 formatter로 결과를 바꾸지 않습니다.
 - `get...`: 없으면 예외, `find...`: `Optional<T>`, `list...`: null이 아닌 목록, `exists...`: 존재 여부, `from`: 단일 원본 객체에서 생성.
 - 최상위 Web 입력은 `Request`, Application 입력은 `Command`/`Query`, 결과는 `Info`, Web 출력은 `Response` 접미사를 사용합니다.
-- 중첩 부분 모델은 `Profile`처럼 문맥에 맞는 역할명을 사용합니다. DTO 변경 시 [소유·재사용 규칙](../web-api.md#web-dto-구성)을 적용합니다.
+- 중첩 부분 모델은 `Profile`처럼 문맥에 맞는 역할명을 사용합니다. DTO 변경 시 [소유·재사용 규칙](../web/dto.md#dto)을 적용합니다.
 
 참고: [포맷 선택 배경](../../adr/001-backend-architecture.md#포맷과-검증).

@@ -31,8 +31,8 @@
 | Domain/Application·Adapter | [내부 계층](docs/conventions/architecture/layers.md#layers); 외부 조회·이벤트 변환 시 [소비 모델](docs/conventions/architecture/external-models.md#external-models) |
 | Shared 공개 타입·오류 변경 | 해당하는 [Shared 계약](docs/conventions/architecture/shared.md#shared) 또는 [오류 계약](docs/conventions/architecture/errors.md#errors) |
 | 저장·트랜잭션·이벤트·프로필 변경 | 해당하는 [JPA](docs/conventions/persistence/jpa.md#jpa)·[트랜잭션](docs/conventions/persistence/transactions.md#transactions)·[이벤트](docs/conventions/persistence/events.md#events)·[프로필](docs/conventions/runtime/profiles.md#profiles) 파일만 |
-| HTTP·Web DTO | [Web API](docs/conventions/web-api.md) |
-| OpenAPI 계약 | [OpenAPI](docs/conventions/openapi-conventions.md) |
+| HTTP·Controller / Web DTO | 해당하는 [HTTP 계약](docs/conventions/web/http.md#http) / [DTO 구성](docs/conventions/web/dto.md#dto) |
+| OpenAPI 계약 변경 | 해당하는 [ControllerDocs](docs/conventions/web/openapi/controllers.md#controllers)·[응답](docs/conventions/web/openapi/responses.md#responses)·[파라미터](docs/conventions/web/openapi/parameters.md#parameters); 변경 후 [검증](docs/conventions/web/openapi/verification.md#verification) |
 | 테스트 작성·실행, CI | [설계](docs/conventions/testing.md#설계)·[집중 검사](docs/conventions/testing.md#아키텍처와-집중-검사)·[실행·출력](docs/conventions/testing.md#검사-실행과-출력)·[전체 실행·CI](docs/conventions/testing.md#전체-실행과-ci) 중 현재 단계; 테스트 수정에는 [하위 지침](src/test/java/com/example/AGENTS.md) |
 | 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/runtime/profiles.md#profiles) |
 | 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md#역할-선택과-인계), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |

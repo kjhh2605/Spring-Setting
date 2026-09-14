@@ -40,7 +40,7 @@
 - 모듈 전용 오류는 `application.error`가 소유하고 `CommonErrorCode`에는 공통 오류만 둡니다. `BusinessException(BaseCode)`와 전역 처리를 유지합니다. 응답·OpenAPI 매핑 중복을 줄이기 위해 Application 오류에는 HTTP 상태를 허용하지만 Domain 불변식 오류에는 이 웹 지향 계약을 사용하지 않습니다.
 - 신규 오류 식별자는 HTTP 상태와 독립적인 모듈별 일련번호를 사용합니다. 상태가 바뀌어도 식별자를 유지하며 기존 응답 코드는 호환성을 위해 보존합니다.
 
-세부 계약은 [Web API](../conventions/web-api.md)·[OpenAPI](../conventions/openapi-conventions.md)·[아키텍처](../conventions/architecture/modules.md#modules)를 따릅니다.
+세부 계약은 [Web API](../conventions/web/http.md#http)·[OpenAPI](../conventions/web/openapi/controllers.md#controllers)·[아키텍처](../conventions/architecture/modules.md#modules)를 따릅니다.
 
 ## 영속성과 이벤트
 
