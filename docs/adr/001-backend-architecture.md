@@ -30,7 +30,7 @@
 
 - `user`는 등록·표시 이름 불변식·순수 Domain·JPA Adapter·공개 요약 조회·이벤트 발행을 보여 줍니다.
 - `auth`는 공개 조회 결과를 `adapter/out/user`에서 자체 `AuthSubject`로, 공개 이벤트를 `adapter/in/event`에서 자체 Command로 변환합니다. Application과 Domain은 user 타입을 참조하지 않습니다.
-- `/api/v1/auth/examples/subjects/{userId}`는 예제 subject를 반환합니다. 실제 자격 증명 검증·토큰 발급·인증 상태 설정은 없으며 Security 공개 범위도 예제 경로로 제한합니다.
+- `/api/v1/auth/examples/subjects/{userId}`는 인증과 분리된 예제 subject를 반환하며 접근 권한을 부여하지 않습니다. 실제 카카오 자격 증명 검증과 토큰 발급은 [ADR-003](003-kakao-login-and-token-security.md)의 별도 유스케이스와 API가 담당합니다.
 - 현재 예제 구성은 `shared`·`user`·`auth`이며 `activity` 코드·API와 `ACTIVITY-404`는 제공하지 않습니다.
 
 계약은 [User](../domain/user.md)·[Auth](../domain/auth.md)를 따릅니다. 변환 코드가 늘지만 별도 DB·CQRS 인프라·인증 제품 기능을 추가하지 않고 소비 모듈의 경계를 보여 줍니다.
@@ -49,7 +49,7 @@
 - 공통·운영 설정은 스키마를 자동 변경하지 않습니다. 로컬 예제·테스트만 임시 스키마를 사용하고 활성 프로필·운영 DB 접속 정보는 실행 환경에서 지정합니다.
 - 즉시 결과가 필요한 모듈 간 조회는 공개 API로 호출하고, 등록 완료 후속 처리는 커밋 후 비동기 이벤트로 실행합니다. 시간은 주입받은 `Clock`과 UTC `Instant`를 사용합니다.
 - 현재 이벤트 소비는 로그 기록입니다. 영속 Event Publication Registry·Outbox·자동 재처리는 제공하지 않으므로 필요한 서비스는 저장소·재처리·멱등성 정책을 함께 설계합니다.
-- 마이그레이션 도구와 실제 인증 수단은 제품 요구에 따라 결정합니다. 운영 적용 전 스키마 준비와 API·Actuator 접근 정책을 구성해야 합니다.
+- Flyway가 운영 스키마 migration을 적용하고 Hibernate는 운영 스키마를 변경하지 않습니다. 실제 카카오 인증과 토큰 보안 결정은 [ADR-003](003-kakao-login-and-token-security.md)이 소유합니다. 운영 적용 전 API·Actuator 접근 정책을 구성해야 합니다.
 
 프로필·트랜잭션·이벤트의 실행 규칙은 [영속성·이벤트](../conventions/persistence-events.md), 실행 준비는 [온보딩](../onboarding/README.md)을 따릅니다.
 

@@ -5,7 +5,7 @@
 ## 기술 스택
 
 Java 21 · Spring Boot · Spring Modulith · Gradle Kotlin DSL. 정확한 버전은 [버전 카탈로그](gradle/libs.versions.toml)와 [빌드 설정](build.gradle.kts)에서 관리합니다.
-Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/PostgreSQL을 사용합니다.
+Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/PostgreSQL, Redis, Flyway를 사용합니다.
 테스트는 JUnit Jupiter(Boot BOM 관리), Mockito, Modulith Test, Testcontainers입니다.
 
 ## 빠른 시작
@@ -16,7 +16,7 @@ JDK 21과 Docker/Compose가 필요합니다. 별도 Gradle 설치 없이 Wrapper
 
 ```bash
 cp .env.example .env
-docker compose --env-file .env up -d postgres
+docker compose --env-file .env up -d postgres redis
 set -a && source .env && set +a
 ./gradlew bootRun
 ```
@@ -29,7 +29,7 @@ set -a && source .env && set +a
 - Health: `http://localhost:9090/actuator/health`
 - Prometheus: `http://localhost:9090/actuator/prometheus`
 
-예제 API와 Health는 공개입니다. Prometheus·Info는 인증이 필요하지만 현재 실제 인증 수단은 없습니다. 운영 적용 시 수집기의 인증·접근 정책을 구성해야 합니다.
+사용자 등록 예제, 카카오 로그인, auth subject 예제와 Health는 공개입니다. 나머지 API는 서비스 Access JWT가 필요합니다. 운영에서는 Actuator 수집기의 별도 인증·접근 정책도 구성해야 합니다.
 
 ```bash
 curl -X POST http://localhost:8080/api/v1/users \
@@ -61,9 +61,11 @@ docs/
 
 - `shared`: 오류·OpenAPI 공개 계약과 내부 인프라.
 - `user`: 사용자 등록·요약 조회·등록 이벤트.
-- `auth`: user 공개 API를 자체 subject 모델로 변환하는 조회 예제·등록 커밋 후 비동기 로그 처리. 실제 로그인·토큰 발급 및 영속 이벤트 저장소·자동 재처리는 없습니다.
+- `auth`: 카카오 OIDC 로그인, Access JWT, Redis Refresh Token Rotation과 user 공개 API 경계. subject 조회 예제·등록 이벤트 로그도 유지합니다.
 
-소유권·공개 타입은 [도메인 지도](docs/domain/README.md), 의존성은 [아키텍처](docs/conventions/architecture.md)가 원본입니다. 운영 스키마는 자동 변경하지 않으며 배포 전에 마이그레이션 전략을 결정해야 합니다. 프로필·이벤트 경계는 [영속성·이벤트](docs/conventions/persistence-events.md)를 확인합니다.
+소유권·공개 타입은 [도메인 지도](docs/domain/README.md), 의존성은 [아키텍처](docs/conventions/architecture.md)가 원본입니다. 운영 스키마는 Hibernate가 변경하지 않고 Flyway migration을 적용합니다. 프로필·이벤트 경계는 [영속성·이벤트](docs/conventions/persistence-events.md)를 확인합니다.
+
+카카오 로그인 전에 `.env`의 `KAKAO_CLIENT_ID`, `KAKAO_CLIENT_SECRET`, `KAKAO_REDIRECT_URI`와 32바이트 이상 값을 Base64 인코딩한 `JWT_SECRET`을 설정합니다. 로그인 API 흐름과 쿠키·RTR 제약은 [Auth 문서](docs/domain/auth.md)를 확인합니다.
 
 ## 검증
 

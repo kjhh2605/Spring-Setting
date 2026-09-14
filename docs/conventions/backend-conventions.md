@@ -20,7 +20,7 @@
 
 ## 구현·결정·초안 구분
 
-- 현재 구현은 `shared`·`user`·`auth` 예제입니다. [도메인 지도](../domain/README.md)는 책임·공개 계약을 설명하며 실제 동작은 연결된 코드·테스트와 대조합니다. 빌드·버전 값은 [빌드 설정](../../build.gradle.kts)과 [버전 카탈로그](../../gradle/libs.versions.toml)를 확인합니다.
+- 현재 구현은 `shared`·`user`·`auth` 모듈이며 카카오 로그인·토큰 세션과 구조 예제 API를 함께 포함합니다. [도메인 지도](../domain/README.md)는 책임·공개 계약을 설명하며 실제 동작은 연결된 코드·테스트와 대조합니다. 빌드·버전 값은 [빌드 설정](../../build.gradle.kts)과 [버전 카탈로그](../../gradle/libs.versions.toml)를 확인합니다.
 - 확정된 설계와 이유는 [현재 ADR 요약](../adr/README.md)에서 유효한 원문으로 이동합니다. 현재 규칙은 위 주제별 컨벤션에서 찾습니다.
 - [기획 초안](../planning/use-cases.md)의 제품 모듈·정책은 구현 사실이나 확정 규칙이 아닙니다. 구현과 문서가 다르면 단순 동기화 누락인지 미결정 정책인지 먼저 구분합니다.
 
@@ -32,6 +32,7 @@
 | --- | --- | --- |
 | 사용자 등록 불변식·이벤트 수정 | [도메인 지도](../domain/README.md) → User 문서·지침, [아키텍처](architecture.md), [영속성·이벤트](persistence-events.md), [포맷·명명](code-style.md). 공개 이벤트 변경이면 Auth 소비 경계도 확인 | `./gradlew test --tests com.example.user.domain.UserTest --tests com.example.user.application.service.RegisterUserServiceTest --tests com.example.UserRegistrationEventIntegrationTest -PrequireAllTests=true` |
 | auth 조회 API·문서 수정 | [도메인 지도](../domain/README.md) → Auth 문서·지침, [Web API](web-api.md), [OpenAPI](openapi-conventions.md), [포맷·명명](code-style.md). subject 예제에 인증 의미를 부여하지 않음 | `./gradlew test --tests com.example.ApiWorkflowIntegrationTest --tests com.example.OpenApiDocumentationIntegrationTest -PrequireAllTests=true` |
+| 카카오 로그인·JWT·RTR 수정 | [Auth](../domain/auth.md) → [ADR-003](../adr/003-kakao-login-and-token-security.md), [보안·Web·영속성 규칙](architecture.md) | `./gradlew test --tests com.example.AuthApiIntegrationTest --tests 'com.example.auth.adapter.out.redis.*Test' -PrequireAllTests=true` |
 | 제품 모듈 분리안 검토·문서 정리 | [기획 초안](../planning/use-cases.md) → [도메인 지도](../domain/README.md), [아키텍처](architecture.md), [현재 ADR 요약](../adr/README.md). 초안을 확정 정책으로 취급하지 않고, 새 결정이 있으면 ADR 작성 규칙 적용 | 실행·빌드·설정 영향이 없는 문서는 링크·경로·일관성 확인과 `git diff --check` |
 
 테스트 코드를 수정하는 경우 [테스트 하위 지침](../../src/test/java/com/example/AGENTS.md)도 읽습니다. 예시의 `--tests` 명령은 전체 테스트 통과를 뜻하지 않습니다.

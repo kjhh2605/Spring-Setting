@@ -25,6 +25,6 @@ JPA·DB·프로필·트랜잭션·이벤트 흐름을 변경할 때 적용합니
 - 운영은 `SPRING_PROFILES_ACTIVE=prod`로 실행합니다. DB 정보 `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`는 기본값 없이 받아 누락 시 시작에 실패하게 합니다.
 - `prod,local`이 함께 지정되어도 로컬 설정이 활성화되지 않도록 프로필 표현식으로 보호합니다. 운영 OpenAPI UI는 비활성화합니다.
 - 프로필 설정은 `application-{profile}.yml`로 분리하고 공통 설정을 중복하지 않습니다.
-- 현재 마이그레이션 도구는 없습니다. 운영 배포 전에 마이그레이션 전략을 ADR로 결정합니다.
+- Flyway가 `db/migration`의 버전 SQL을 애플리케이션 시작 시 적용합니다. 운영의 Hibernate `ddl-auto`는 `none`이며 스키마 변경은 새 migration으로만 수행합니다. 이미 수동 생성된 비어 있지 않은 스키마를 도입할 때는 배포 전에 별도의 baseline 절차를 결정합니다.
 
 선택 배경: [영속성과 이벤트 결정](../adr/001-backend-architecture.md#영속성과-이벤트).

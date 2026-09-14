@@ -10,7 +10,7 @@ JDK 21, Docker와 Docker Compose가 필요합니다. Gradle은 저장소 Wrapper
 
 1. 코드를 바꾸기 전에 [빠른 시작](../../README.md)으로 등록·조회 예제가 동작하는지 확인합니다.
 2. 아래 식별자를 새 프로젝트 이름과 기본 패키지로 변경합니다. main·test의 패키지 경로, package 선언, import와 애플리케이션 클래스 참조를 함께 바꿉니다.
-3. [도메인 지도](../domain/README.md)를 기준으로 `user`·`auth` 예제를 실제 유스케이스로 교체합니다. 모듈을 추가·제거하면 `allowedDependencies`, `ModularityTest`의 모듈 목록, 모듈별 테스트·지침·도메인 문서를 함께 갱신합니다.
+3. [도메인 지도](../domain/README.md)를 기준으로 `user`·`auth`의 예제 API와 실제 카카오 인증 범위를 제품 유스케이스에 맞춥니다. 모듈을 추가·제거하면 `allowedDependencies`, `ModularityTest`의 모듈 목록, 모듈별 테스트·지침·도메인 문서를 함께 갱신합니다.
 4. `.env.example`과 실행 환경의 DB·포트·CORS 값을 맞춥니다. 실제 환경값은 `.env` 또는 배포 환경에 두며 커밋하지 않습니다.
 5. [전체 검증](../../AGENTS.md)을 실행한 뒤 프로젝트의 초기 기준점으로 삼습니다. 소스의 `port/out`·`adapter/out`과 테스트도 Git에 포함되어 있어야 합니다.
 6. [GitHub 초기 설정](../conventions/github-workflow.md)에 따라 새 저장소에 라벨을 적용하고 기본 브랜치의 이슈·PR 양식을 확인합니다.
@@ -24,13 +24,13 @@ JDK 21, Docker와 Docker Compose가 필요합니다. Gradle은 저장소 Wrapper
 | Modulith 시스템 이름 | 애플리케이션 클래스의 `@Modulithic(systemName)` |
 | 문자열로 지정한 패키지 | `ArchitectureTest`의 `importPackages`, 로깅 설정의 `com.example` |
 
-패키지 경로를 옮기면 모듈·테스트 `AGENTS.md`의 상대 링크와 문서의 코드·테스트 경로도 갱신합니다. 운영 적용 전에는 인증·인가, 스키마 마이그레이션과 이벤트 전달 보장 요구를 [백엔드 ADR](../adr/001-backend-architecture.md)에 따라 결정합니다.
+패키지 경로를 옮기면 모듈·테스트 `AGENTS.md`의 상대 링크와 문서의 코드·테스트 경로도 갱신합니다. 운영 적용 전에는 역할별 인가와 이벤트 전달 보장, 기존 DB의 Flyway baseline 필요 여부를 관련 ADR에 따라 결정합니다.
 
 ## 로컬 실행
 
 [README 빠른 시작](../../README.md)을 실행합니다. `.env.example`의 `SPRING_PROFILES_ACTIVE=local`을 불러와야 합니다. 로컬은 시작 시 스키마를 만들고 종료 시 제거하므로 컨테이너 볼륨에도 보존할 데이터를 넣지 마세요.
 
-운영은 `SPRING_PROFILES_ACTIVE=prod`만 지정합니다. 필수 DB 환경변수·프로필 보호·운영 OpenAPI 제한은 [프로필 규칙](../conventions/persistence-events.md)을 따릅니다.
+운영은 `SPRING_PROFILES_ACTIVE=prod`만 지정합니다. 필수 DB·Redis 환경변수, 카카오/JWT secret, 프로필 보호와 운영 OpenAPI 제한은 [프로필 규칙](../conventions/persistence-events.md)과 [Auth 문서](../domain/auth.md)를 따릅니다. Flyway가 시작 시 migration을 적용하고 Hibernate는 운영 스키마를 변경하지 않습니다.
 
 ## 첫 확인
 

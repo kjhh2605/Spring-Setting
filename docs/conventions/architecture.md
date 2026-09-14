@@ -35,7 +35,7 @@ com.example
 - 단순 표시·조회만 필요하고 별도 의미나 도메인 규칙이 없으면 Application의 조회 결과 값으로 충분합니다. 필드 선택만을 위해 행동 없는 Domain 클래스를 강제하지 않습니다. 자체 도메인 규칙이 필요해지면 위 경계로 전환합니다.
 - 자체 모델을 만든다고 별도 테이블이나 원본 데이터의 소유권이 생기지는 않습니다. 원본 변경은 소유 모듈의 공개 계약으로 요청합니다. 로컬 조회 모델을 영속화할 필요가 있으면 동기화·최신성·실패 복구 정책을 별도로 정합니다.
 
-현재 `auth.domain.AuthSubject`는 사용자 식별자를 auth의 subject 형식으로 표현합니다. `UserSubjectAdapter`가 `UserLookup`의 공개 결과에서 식별자만 변환하고, 등록 이벤트는 `UserRegisteredListener`에서 auth 소유 Command로 변환합니다. auth는 별도 테이블을 소유하지 않으며 실제 인증·토큰 발급은 구현하지 않습니다.
+`auth.domain.AuthSubject`는 예제 조회용 사용자 식별자를 auth의 subject 형식으로 표현합니다. 실제 로그인은 카카오 OIDC 검증 결과를 `LoginUserProvisioningAdapter`가 `user.SocialAccountProvisioning`에 전달하고 공개 결과를 auth 소유 `LoginUser`로 변환합니다. auth는 사용자 테이블을 소유하지 않으며 Redis의 OAuth 요청·Refresh Token 세션만 소유합니다.
 
 ## Shared 공개 계약
 
