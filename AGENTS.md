@@ -11,7 +11,7 @@
 - 요청 범위의 조회·DB 정리가 없는 로컬 검사·빌드·필요한 소스 삭제·생성물 정리는 추가 승인 없이 진행합니다. 기본 브랜치에서는 작업용 브랜치를 먼저 생성합니다. 구현 전에 사람이 변경 흐름을 따라갈 작은 커밋 단위를 정하고, 한 변경 이유가 완결되면 집중 검사·diff 검토 후 즉시 커밋합니다. 커밋에 고정 줄 수를 두지 않으며 범위·설명·검증 조건은 [작업 중 커밋 체크포인트](docs/conventions/workflow/checkpoints.md#checkpoints)를 따릅니다. 커밋 금지 등 명시 요청이 우선합니다.
 - 기능 작업은 사람이 검토할 작업 단위의 [stacked PR](docs/conventions/workflow/pull-requests/planning.md#planning)로 작성합니다. 약 500줄 기준은 PR에 적용하며, 각 PR 안에서 더 작은 커밋으로 흐름을 남깁니다. 기능 전체의 완성과 개별 PR의 검토·반영 가능성을 구분합니다.
 - 푸시·브랜치 삭제·DB 데이터/볼륨 삭제·배포·amend·rebase·reset은 사용자가 직접 요청해도 대상과 변경 내용을 요약한 뒤 한 번 더 확인받습니다. 테스트 전용 DB 자원과 로컬 앱의 `create-drop`도 포함하므로 관련 테스트·앱은 생성·삭제 범위를 포함해 실행 전에 확인받습니다. 승인한 범위가 바뀌면 다시 확인하며, 삭제가 없는 독립 작업은 계속합니다.
-- 미커밋·보관한 작업을 잃는 Git 정리·복원, PR 병합·닫기·삭제와 릴리스 게시도 요약 후 추가 확인 대상입니다. 요청에 필요한 소스 삭제·생성물 정리·조회·미리보기는 기존 자동 범위를 유지합니다. 요청한 PR·이슈 생성·수정·댓글은 추가 확인 없이 수행하되, 요청 없이 게시하지 않으며 동반하는 푸시·DB 삭제 등의 승인은 별도로 지킵니다. 구체적인 구분은 [승인 절차](docs/conventions/approvals.md#승인-절차)를 따릅니다.
+- 미커밋·보관한 작업을 잃는 Git 정리·복원, PR 병합·닫기·삭제와 릴리스 게시도 요약 후 추가 확인 대상입니다. 요청에 필요한 소스 삭제·생성물 정리·조회·미리보기는 기존 자동 범위를 유지합니다. 요청한 PR·이슈 생성·수정·댓글은 추가 확인 없이 수행하되, 요청 없이 게시하지 않으며 동반하는 푸시·DB 삭제 등의 승인은 별도로 지킵니다. 구체적인 구분은 [승인 절차](docs/conventions/workflow/approvals/README.md#approvals)를 따릅니다.
 - 위임은 허용된 경우에만 독립 작업·파일 소유권을 정해 사용합니다. 다른 작업자의 변경을 보존하고 주 에이전트가 결과를 검토합니다. 간단한 작업에 위임을 강제하지 않습니다.
 - 같은 문제의 재발이나 여러 해결 접근의 실패로 반복 조사한 경우, 작업 마무리 전에 [트러블슈팅 안내](docs/troubleshooting/README.md)에 따라 재사용 가능한 발견을 별도 요청 없이 기록·갱신합니다.
 
@@ -37,8 +37,8 @@
 | 실행·환경 문제 | [빠른 시작](README.md#빠른-시작); 프로필·DB 설정은 [실행 환경](docs/conventions/runtime/profiles.md#profiles) |
 | 에이전트 협업·실행 정책 점검 | 역할 선택·인계는 [협업](docs/agents/collaboration.md#역할-선택과-인계), 명령 규칙·승인 모드 진단은 [실행 정책](docs/agents/execution-policy.md) |
 | 오류·실패 조사 | [트러블슈팅 색인](docs/troubleshooting/README.md)에서 관련 사례 확인 |
-| 커밋·브랜치 | [커밋](docs/conventions/workflow/commits.md#commits); 확인 대상 행위가 있으면 [승인 절차](docs/conventions/approvals.md#승인-절차) |
-| 이슈·PR 작성·리뷰 | 요청한 작업의 [이슈](docs/conventions/github-publishing.md#이슈-작성)·[PR](docs/conventions/workflow/pull-requests/writing.md#writing)·[리뷰](docs/conventions/reviews.md#pr-크기와-ai-리뷰) 절 |
+| 커밋·브랜치 | [커밋](docs/conventions/workflow/commits.md#commits); 확인 대상 행위가 있으면 [승인 절차](docs/conventions/workflow/approvals/README.md#approvals) |
+| 이슈·PR 작성·리뷰 | 요청한 작업의 [이슈](docs/conventions/workflow/issues/writing.md#writing)·[PR](docs/conventions/workflow/pull-requests/writing.md#writing)·[리뷰](docs/conventions/workflow/review/procedure.md#procedure) 절 |
 | 구조·정책·ADR | [현재 ADR 요약](docs/adr/README.md)에서 해당 결정; 문서 변경 시 [문서 관리](docs/agents/documents/maintenance.md#maintenance) |
 | 제품 유즈케이스·정책 검토 | [기획 초안](docs/planning/use-cases.md)의 관련 유즈케이스·미결정 항목만 확인; 현재 구현은 [도메인 지도](docs/domain/README.md)와 구분 |
 

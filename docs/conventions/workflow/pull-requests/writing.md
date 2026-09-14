@@ -1,7 +1,7 @@
 <a id="writing"></a>
 # PR 작성
 
-PR 초안·작성 요청 시 읽습니다. [유형](../change-types.md#change-types)·[라벨](../../github-publishing.md#라벨-운영)·[게시 확인](../../github-publishing.md#ai-작성-절차)·[크기](../../reviews.md#pr-크기)를 해당 조건에서 적용합니다.
+PR 초안·작성 요청 시 읽습니다. [유형](../change-types.md#change-types)·[라벨](../labels.md#labels)·[게시 확인](../publishing.md#publishing)·[크기](../review/size.md#size)를 해당 조건에서 적용합니다.
 
 - 제목은 `type(scope): 최종 변경 결과`입니다. scope는 실제 모듈·영역이며 생략할 수 있습니다. 호환성 파괴는 `!`·`compatibility:breaking` 라벨·전환 설명을 함께 적습니다.
 - 대표 라벨은 최종 diff의 제목 유형과 일치시킵니다(`fix(user)` → `type:fix`). 조사 이슈에서 시작한 기능 PR은 `feat`일 수 있으며 이슈 유형을 복사하지 않습니다.

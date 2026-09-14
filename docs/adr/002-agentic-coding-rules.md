@@ -29,7 +29,7 @@
 
 ## 승인과 외부 작업
 
-자동 진행은 요청 범위의 로컬 작업에 적용하고 데이터·이력·외부 환경의 변경은 실행 범위를 확인받도록 선택했습니다. 테스트 전용 DB 생성·삭제도 승인 대상이므로 무인 로컬 전체 DB 검증은 기본 동작이 아닙니다. 대상·예외는 [루트 작업 원칙](../../AGENTS.md#작업-원칙), 요약·반복 실행 범위는 [승인 절차](../conventions/approvals.md#승인-절차), CI에 대한 적용은 [테스트 규칙](../conventions/testing/completion.md#completion)이 소유합니다.
+자동 진행은 요청 범위의 로컬 작업에 적용하고 데이터·이력·외부 환경의 변경은 실행 범위를 확인받도록 선택했습니다. 테스트 전용 DB 생성·삭제도 승인 대상이므로 무인 로컬 전체 DB 검증은 기본 동작이 아닙니다. 대상·예외는 [루트 작업 원칙](../../AGENTS.md#작업-원칙), 요약·반복 실행 범위는 [승인 절차](../conventions/workflow/approvals/README.md#approvals), CI에 대한 적용은 [테스트 규칙](../conventions/testing/completion.md#completion)이 소유합니다.
 
 ## 협업과 도구 설정
 

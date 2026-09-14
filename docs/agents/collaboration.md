@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | `.codex/agents/*.toml` | 선택한 하위 에이전트의 역할 설정. 필수 값은 `name`, `description`, `developer_instructions` | 아래 검토 역할 2개. 모델·추론 강도·권한 설정은 부모 상속 |
 | `.codex/config.toml` | 신뢰한 프로젝트의 설정 계층. CLI 옵션이 우선하고, 프로젝트 내부에서는 작업 디렉터리에 가까운 설정이 우선 | 역할 외에 공통으로 덮어쓸 설정이 없어 추가하지 않음. 역할 파일을 별도로 중복 등록하지 않음 |
-| `.codex/rules/*.rules` | 신뢰한 프로젝트 계층에서 시작 시 읽는 실험적 명령 실행 정책. `prefix_rule`로 `allow`·`prompt`·`forbidden` 결정 | [프로젝트 실행 규칙](execution-policy.md) 배치. 승인 경계는 AGENTS, [커밋](../conventions/workflow/commits.md#commits)·[승인 요약](../conventions/approvals.md)이 원본 |
+| `.codex/rules/*.rules` | 신뢰한 프로젝트 계층에서 시작 시 읽는 실험적 명령 실행 정책. `prefix_rule`로 `allow`·`prompt`·`forbidden` 결정 | [프로젝트 실행 규칙](execution-policy.md) 배치. 승인 경계는 AGENTS, [커밋](../conventions/workflow/commits.md#commits)·[승인 요약](../conventions/workflow/approvals/README.md#approvals)이 원본 |
 | `.agents/skills/*/SKILL.md` | 특정 반복 작업의 선택형 절차. 메타데이터로 발견한 뒤 본문 로딩 | 현재 리뷰 절차는 기존 가이드와 역할 설정으로 충분하여 별도 스킬 없음 |
 | `.codex/hooks.json` | 신뢰한 프로젝트의 수명주기 이벤트에 연결하는 자동 동작 | 반복 전체 검사나 자동 외부 작업을 추가할 근거가 없어 사용하지 않음 |
 
@@ -23,7 +23,7 @@
 
 두 역할은 검토 업무를 위한 지시문이며, 파일 쓰기를 막는 별도 sandbox 설정은 아닙니다. 실제 권한은 부모 세션을 상속합니다. 기본 `worker`·`explorer` 역할과 함께 선택적으로 사용하고, 단순 수정에 병렬 실행을 강제하지 않습니다.
 
-주 에이전트는 [기존 리뷰 기준](../conventions/reviews.md#pr-크기와-ai-리뷰)에 따라 같은 변경 기준과 요구사항, 담당 파일·diff 범위, 기대 결과를 전달합니다. 커밋 리뷰는 base/head SHA를, 미커밋 변경은 검토 시작 시 diff 범위를 명시합니다. 검토 중 변경이 생기면 영향받는 범위를 다시 확인합니다. 수정 위임이 필요한 작업은 파일 소유권을 나누고 공유 파일의 동시 수정을 피합니다. 하위 결과를 수집한 뒤 중복 지적·계약 연결·최종 검증은 주 에이전트가 확인합니다.
+주 에이전트는 [기존 리뷰 기준](../conventions/workflow/review/procedure.md#procedure)에 따라 같은 변경 기준과 요구사항, 담당 파일·diff 범위, 기대 결과를 전달합니다. 커밋 리뷰는 base/head SHA를, 미커밋 변경은 검토 시작 시 diff 범위를 명시합니다. 검토 중 변경이 생기면 영향받는 범위를 다시 확인합니다. 수정 위임이 필요한 작업은 파일 소유권을 나누고 공유 파일의 동시 수정을 피합니다. 하위 결과를 수집한 뒤 중복 지적·계약 연결·최종 검증은 주 에이전트가 확인합니다.
 
 [검사 근거의 재사용 기준](../conventions/testing/evidence.md#evidence)에 따라 완료한 검사·대상 상태·미검증 범위를 함께 전달하고, 자동 검사가 이미 판정한 동일 조건의 재확인만을 위해 검토를 위임하지 않습니다.
 

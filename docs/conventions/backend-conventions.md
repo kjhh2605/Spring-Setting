@@ -13,8 +13,8 @@
 | 테스트 작성 | [설계](testing/design.md#design) | 검출할 행동·실패 조건 |
 | 검사 선택·실행·CI | [집중 검사 표](testing/selection.md#selection)·[실행·출력](testing/execution.md#execution)·[전체 실행·CI](testing/completion.md#completion) 중 현재 단계 | 검사 범위·승인·보고 조건 |
 | 검사 결과 재사용·검토 범위 | [자동 검사와 리뷰의 역할](testing/evidence.md#evidence) | 명령으로 판정한 조건과 LLM에 남는 판단 |
-| 커밋·브랜치·승인 | [커밋](workflow/commits.md#commits), 확인 대상 행위의 [승인 절차](approvals.md#승인-절차) | 변경 단위·검증·승인 요약 |
-| 이슈·PR 작성과 리뷰 | 요청한 작업의 [이슈](github-publishing.md#이슈-작성)·[PR](workflow/pull-requests/writing.md#writing)·[리뷰](reviews.md#pr-크기와-ai-리뷰) 절 | 필요한 양식·라벨만 추가 확인; 구현 시작 시 일괄 로딩하지 않음 |
+| 커밋·브랜치·승인 | [커밋](workflow/commits.md#commits), 확인 대상 행위의 [승인 절차](workflow/approvals/README.md#approvals) | 변경 단위·검증·승인 요약 |
+| 이슈·PR 작성과 리뷰 | 요청한 작업의 [이슈](workflow/issues/writing.md#writing)·[PR](workflow/pull-requests/writing.md#writing)·[리뷰](workflow/review/procedure.md#procedure) 절 | 필요한 양식·라벨만 추가 확인; 구현 시작 시 일괄 로딩하지 않음 |
 | 오류·실패 조사와 사례 기록 | [트러블슈팅](../troubleshooting/README.md) | 관련 증상과 재사용 가능한 발견의 기록 조건 |
 | 실행·환경 문제 | [빠른 시작](../../README.md#빠른-시작), 프로필·DB는 [실행 환경](runtime/profiles.md#profiles) | 실행 명령과 활성 프로필·스키마 제약 |
 | 에이전트 지침·스킬 탐색 점검 | [에이전트 문서 탐색](../agents/context.md#에이전트-문서-탐색) | 자동 로딩과 별도 읽기, 공식 동작과 저장소 적용의 구분 |

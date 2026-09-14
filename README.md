@@ -12,7 +12,7 @@ Spring MVC/Validation/Security/Actuator/OpenAPI, Spring Data JPA/QueryDSL/Postgr
 
 JDK 21과 Docker/Compose가 필요합니다. 별도 Gradle 설치 없이 Wrapper를 사용합니다.
 
-에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/approvals.md#승인-절차)를 따릅니다.
+에이전트가 아래 앱을 실행할 때는 `local`의 `create-drop`에 따른 DB 생성·삭제 범위를 먼저 확인받습니다. [승인 절차](docs/conventions/workflow/approvals/README.md#approvals)를 따릅니다.
 
 ```bash
 cp .env.example .env
@@ -75,6 +75,6 @@ docs/
 - API 스키마: [OpenAPI](docs/conventions/web/openapi/controllers.md#controllers)
 - AI 작업 방식: [AGENTS.md](AGENTS.md)
 - Codex 협업 역할·설정: [협업 안내](docs/agents/collaboration.md#codex-협업-설정)
-- 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/github-workflow.md)
+- 커밋·브랜치·승인·이슈·라벨·PR과 AI 리뷰: [GitHub 작업 가이드](docs/conventions/workflow/README.md#workflow)
 - 구조 선택의 이유와 제약: [현재 ADR 요약](docs/adr/README.md)에서 유효한 결정 확인
 - 제품 유즈케이스·미결정 정책: [기획 초안](docs/planning/use-cases.md); 현재 구현·확정 정책과 구분
